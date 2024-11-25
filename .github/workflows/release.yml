@@ -68,6 +68,7 @@ jobs:
             prerelease: false
             files: |
               ${{ github.event.repository.name }}.zip
+            automatic_release_tag: v${{ env.RELEASE_VERSION }}
           env:
             CI: false
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

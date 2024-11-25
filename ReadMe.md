@@ -55,7 +55,7 @@ For assistance, reporting bugs, or sharing suggestions, you can:
 We’re here to help and always welcome contributions! 🚀
 
 ## Credits
-- Script by **Dream Development** ([Tuncion](https://github.com/Tuncion)).  
+- Script by **Dream Services** ([Tuncion](https://github.com/Tuncion)).  
   Give credit where it's due! Toggle `DreamCore.GiveCredits` to `true` to display a small thank-you message in-game. 
 
 Happy Holidays! 🎅
