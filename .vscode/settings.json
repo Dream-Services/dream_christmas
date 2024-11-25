@@ -1,0 +1,59 @@
+{
+
+    // Lua Language Server
+    "Lua.runtime.version": "Lua 5.4",
+    "Lua.runtime.fileEncoding": "utf8",
+    "Lua.workspace.ignoreDir": [
+        ".vscode",
+        ".git",
+        ".github",
+        "node_modules",
+        "bridge/*/**"
+    ],
+    "Lua.diagnostics.ignoredFiles": "Disable",
+    "Lua.diagnostics.globals": [
+        "MySQL",
+        "ESX",
+        "QBCore",
+        "lib",
+        "cache"
+    ],
+    "Lua.format.defaultConfig": { // https://github.com/CppCXY/EmmyLuaCodeStyle/blob/master/lua.template.editorconfig
+        "max_line_length": "1000",
+        "end_statement_with_semicolon": "same_line", // You should only use a semicolon on oneliner statements
+        "align_continuous_inline_comment": "false", // Align comments in one line
+        "align_continuous_assign_statement": "false", // Align assignments in one line
+    },
+    "Lua.diagnostics.disable": [
+        "cast-local-type",
+        // "need-check-nil",
+        "missing-parameter",
+        "param-type-mismatch"
+    ],
+
+    // Todo Tree
+    "todo-tree.regex.regex": "(//|--|<!--|/*)\\s*($TAGS).*(\\n\\s*//\\s{2,}.*)*",  // Add Compatibility for Lua, HTML and CSS
+    "todo-tree.filtering.excludeGlobs":["**/.vscode/settings.json"],
+    "todo-tree.general.tags":["BUG", "HACK", "FIXME", "TODO", "PATCH"],
+
+    // Auto Formating
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features",
+        "editor.formatOnSave": true
+    },
+
+    "[css]": {
+        "editor.defaultFormatter": "vscode.css-language-features",
+        "editor.formatOnSave": true
+    },
+
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features",
+        "editor.formatOnSave": true
+    },
+
+    "[lua]": {
+        "editor.defaultFormatter": "sumneko.lua",
+        "editor.formatOnSave": true
+    },
+}
