@@ -32,23 +32,25 @@ print(('\27[1;46m[%s]\27[0m \27[1;37m🎅 The ^3%s^7\27[1;37m on version ^3%s^7\
 
 -- Check for Updates
 Citizen.CreateThread(function()
-    PerformHttpRequest('https://api.dream-services.eu/version', function(Code, Response, Headers, ErrorResponse)
-        -- Alert when API is unreachable
+    PerformHttpRequest('https://api.github.com/repos/Dream-Services/dream_christmas/releases/latest', function(Code, Response, Headers, ErrorResponse)
+        -- Alert when GitHub API is unreachable
         if Code == 0 then
-            print(('\27[1;46m[%s]\27[0m \27[1;37m The ^3Dream API^7\27[1;37m is unreachable! Tried Endpoint: ^3%s^7'):format(ScriptMetadata.name, 'https://api.dream-services.eu/version'))
-            print(('\27[1;46m[%s]\27[0m \27[1;37m Please check your internet connection/firewall or the status of the API Endpoint^7'):format(ScriptMetadata.name))
+            print(('\27[1;46m[%s]\27[0m \27[1;37m The ^3GitHub API^7\27[1;37m is unreachable! Tried Endpoint: ^3%s^7'):format(ScriptMetadata.name, 'https://api.github.com/repos/Dream-Services/dream_christmas/releases/latest'))
+            print(('\27[1;46m[%s]\27[0m \27[1;37m Please check your internet connection/firewall or the status of the GitHub API^7'):format(ScriptMetadata.name))
             return
         end
 
         if Code >= 200 and Code < 300 then
             ResponseData = json.decode(Response)
 
-            if ResponseData.version ~= ScriptMetadata.version then
-                print(('\27[1;46m[%s]\27[0m \27[1;37m🎄 A new version ^3%s\27[1;37m is available since ^3%s UTC\27[1;37m. Please update it on ^5GitHub:^7\27[1;37m https://github.com/Dream-Services/dream_christmas\27[1;37m. ^7'):format(ScriptMetadata.name, ResponseData.version, os.date('%d.%m.%Y %H:%M:%S', ParseISODateString(ResponseData.last_update))))
+            -- Check if a new version is available
+            if ResponseData.tag_name ~= ScriptMetadata.version then
+                print(('\27[1;46m[%s]\27[0m \27[1;37m🎄 A new version ^3%s\27[1;37m is available since ^3%s UTC\27[1;37m.^7'):format(ScriptMetadata.name, ResponseData.tag_name, os.date('%d.%m.%Y %H:%M:%S', ParseISODateString(ResponseData.published_at))))
+                print(('\27[1;46m[%s]\27[0m \27[1;37mPlease update it on ^5GitHub^7:\27[1;37m %s'):format(ScriptMetadata.name, ResponseData.html_url))
             end
         else
             ResponseData = json.decode(ErrorResponse:gsub('HTTP %d+: (.+)', '%1'))
-            print(('\27[1;46m[%s]\27[0m \27[1;37m An error occurred while checking for updates. Error: ^1%s^7'):format(ScriptMetadata.name, ResponseData.error))
+            print(('\27[1;46m[%s]\27[0m \27[1;37m An error occurred while checking for updates. Error: ^1%s^7'):format(ScriptMetadata.name, ResponseData.message))
         end
     end, 'GET', '', {
         ['Content-Type'] = 'application/json',
