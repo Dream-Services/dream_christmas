@@ -64,11 +64,11 @@ jobs:
           id: auto_release
           with:
             repo_token: ${{ secrets.GITHUB_TOKEN }}
-            title: v${{ env.RELEASE_VERSION }}
+            title: 🎅 v${{ env.RELEASE_VERSION }}
             prerelease: false
             files: |
               ${{ github.event.repository.name }}.zip
-            automatic_release_tag: v${{ env.RELEASE_VERSION }}
+            automatic_release_tag: ${{ env.RELEASE_VERSION }}
           env:
             CI: false
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
