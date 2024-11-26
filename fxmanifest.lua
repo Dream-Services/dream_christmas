@@ -6,9 +6,9 @@ lua54 'yes'
 
 author 'Dream Services | Tuncion'
 description 'https://discord.gg/zppUXj4JRm'
-version '1.0.2'
-patch '#3'
-released '26.11.2024, 00:57 by Tuncion'
+version '1.0.3'
+patch '#6'
+released '26.11.2024, 01:09 by Tuncion'
 
 ui_page 'nui/index.html'
 
