@@ -8,7 +8,7 @@ DreamFramework = {} -- Do not touch this!!!
 DreamCore = {} -- Do not touch this!!!
 
 -- Dream Christmas Settings
-DreamCore.Language = 'at'
+DreamCore.Language = 'en'
 DreamCore.GiveCredits = true -- Set to false if you don't want to give credits
 
 -- Snow System (Snowballs)

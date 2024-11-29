@@ -42,9 +42,9 @@ All settings are customizable in the script. Here are a few examples:
 - **Christmas Tree & Present Rewards:** Configure cooldowns and prizes.
 
 # ToDo
-[ ] Christmas Lootdrop \
-[ ] QBCore Bridge \
-[ ] Webhooks
+[] Christmas Lootdrop \
+[] QBCore Bridge \
+[x] Webhooks
 
 ## Support 
 For assistance, reporting bugs, or sharing suggestions, you can:  

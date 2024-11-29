@@ -120,6 +120,33 @@ lib.callback.register('dream_christmas:server:rewardRandomProp', function(source
 
             TriggerClientEvent('dream_christmas:client:removeRandomProp', -1, PropId)
 
+            if DreamCore.Webhooks.Enabled then
+                local WebhookReward = 'Unknown Reward'
+                if RewardData.type == 'item' then
+                    WebhookReward = ('**📦 Item:** `%s` (`%s`)\n**🔢 Amount:** `%s`'):format(DreamFramework.InventoryManagement(src, { type = 'label', item = RewardData.item }), RewardData.item, RewardData.amount)
+                elseif RewardData.type == 'weapon' then
+                    WebhookReward = ('**🔫 Weapon:** `%s` (`%s`)\n**🔢 Ammo:** `%s`'):format(Locales['Weapons'][RewardData.weapon] or Locales['Weapons']['unknown'], RewardData.weapon, lib.math.groupdigits(RewardData.ammo))
+                elseif RewardData.type == 'money' then
+                    WebhookReward = ('**🪙 Wallet:** `%s` (`%s`)\n**💸 Amount:** `%s$`'):format(Locales['MoneyAccount'][RewardData.account] or Locales['MoneyAccount']['unknown'], RewardData.account, lib.math.groupdigits(RewardData.amount))
+                end
+
+                SendDiscordWebhook({
+                    link = DreamCore.Webhooks.RandomPropReward,
+                    color = DreamCore.Webhooks.Color,
+                    thumbnail = DreamCore.Webhooks.IconURL,
+                    author = {
+                        name = DreamCore.Webhooks.Author,
+                        icon_url = DreamCore.Webhooks.IconURL
+                    },
+                    title = "☃️ Prop Reward",
+                    description = ("%s\n**⚙️ Player:** `%s` (`%s`)\n**🏷️ Name:** `%s`"):format(WebhookReward, GetPlayerName(source), source, DreamFramework.getPlayerName(source)),
+                    footer = {
+                        text     = "Made with ❤️ by Dream Development",
+                        icon_url = DreamCore.Webhooks.IconURL
+                    },
+                })
+            end
+
             return { success = true, message = NotifyMessage }
         else
             return { success = false, message = Locales['RandomProp']['Error']['RandomPropAlreadyClaimed'] }
@@ -154,6 +181,26 @@ lib.callback.register('dream_christmas:server:decorateChristmasTree', function(s
             }
             local MoneyAmount = math.random(DreamCore.ChristmasTreeRewards.decorate.amount.min, DreamCore.ChristmasTreeRewards.decorate.amount.max)
             DreamFramework.addPlayerMoney(src, DreamCore.ChristmasTreeRewards.decorate.account, MoneyAmount)
+
+            if DreamCore.Webhooks.Enabled then
+                local WebhookReward = ('**🆔 Id:** `%s`\n**🪙 Wallet:** `%s` (`%s`)\n**💸 Amount:** `%s$`'):format(TreeId, Locales['MoneyAccount'][DreamCore.ChristmasTreeRewards.decorate.account] or Locales['MoneyAccount']['unknown'], DreamCore.ChristmasTreeRewards.decorate.account, lib.math.groupdigits(MoneyAmount))
+                SendDiscordWebhook({
+                    link = DreamCore.Webhooks.DecorateChristmasTree,
+                    color = DreamCore.Webhooks.Color,
+                    thumbnail = DreamCore.Webhooks.IconURL,
+                    author = {
+                        name = DreamCore.Webhooks.Author,
+                        icon_url = DreamCore.Webhooks.IconURL
+                    },
+                    title = "🎄 Decorate Christmas Tree",
+                    description = ("%s\n**⚙️ Player:** `%s` (`%s`)\n**🏷️ Name:** `%s`"):format(WebhookReward, GetPlayerName(source), source, DreamFramework.getPlayerName(source)),
+                    footer = {
+                        text     = "Made with ❤️ by Dream Development",
+                        icon_url = DreamCore.Webhooks.IconURL
+                    },
+                })
+            end
+
             return { success = true, message = Locales['ChristmasTree']['Success']['ChristmasTreeDecorate']:format(lib.math.groupdigits(MoneyAmount)) }
         else
             return { success = false, message = Locales['ChristmasTree']['Error']['ChristmasTreeAlreadyDecorated'] }
@@ -196,6 +243,33 @@ lib.callback.register('dream_christmas:server:claimChristmasPresent', function(s
                 NotifyMessage = Locales['ChristmasPresent']['Success']['ChristmasPresentMoney']:format(lib.math.groupdigits(RewardData.amount), Locales['MoneyAccount'][RewardData.account] or Locales['MoneyAccount']['unknown'])
             end
 
+            if DreamCore.Webhooks.Enabled then
+                local WebhookReward = 'Unknown Reward'
+                if RewardData.type == 'item' then
+                    WebhookReward = ('**🆔 Id:** `%s`\n**📦 Item:** `%s` (`%s`)\n**🔢 Amount:** `%s`'):format(PresentId, DreamFramework.InventoryManagement(src, { type = 'label', item = RewardData.item }), RewardData.item, RewardData.amount)
+                elseif RewardData.type == 'weapon' then
+                    WebhookReward = ('**🆔 Id:** `%s`\n**🔫 Weapon:** `%s` (`%s`)\n**🔢 Ammo:** `%s`'):format(PresentId, Locales['Weapons'][RewardData.weapon] or Locales['Weapons']['unknown'], RewardData.weapon, lib.math.groupdigits(RewardData.ammo))
+                elseif RewardData.type == 'money' then
+                    WebhookReward = ('**🆔 Id:** `%s`\n**🪙 Wallet:** `%s` (`%s`)\n**💸 Amount:** `%s$`'):format(PresentId, Locales['MoneyAccount'][RewardData.account] or Locales['MoneyAccount']['unknown'], RewardData.account, lib.math.groupdigits(RewardData.amount))
+                end
+
+                SendDiscordWebhook({
+                    link = DreamCore.Webhooks.ChristmasPresent,
+                    color = DreamCore.Webhooks.Color,
+                    thumbnail = DreamCore.Webhooks.IconURL,
+                    author = {
+                        name = DreamCore.Webhooks.Author,
+                        icon_url = DreamCore.Webhooks.IconURL
+                    },
+                    title = "🎁 Christmas Present",
+                    description = ("%s\n**⚙️ Player:** `%s` (`%s`)\n**🏷️ Name:** `%s`"):format(WebhookReward, GetPlayerName(source), source, DreamFramework.getPlayerName(source)),
+                    footer = {
+                        text     = "Made with ❤️ by Dream Development",
+                        icon_url = DreamCore.Webhooks.IconURL
+                    },
+                })
+            end
+
             return { success = true, message = NotifyMessage }
         else
             return { success = false, message = Locales['ChristmasPresent']['Error']['ChristmasPresentAlreadyClaimed'] }
@@ -221,4 +295,38 @@ function GiveRandomRewardToPlayer(src, RewardsPool)
         DreamFramework.addPlayerMoney(src, RandomReward.account, MoneyAmount)
     end
     return RandomReward
+end
+
+function SendDiscordWebhook(WebhookData)
+    local EmbedDataArray = {}
+    local EmbedData = {}
+
+    EmbedData.color = WebhookData.color
+
+    if WebhookData.author then
+        EmbedData.author = {}
+        EmbedData.author.name = WebhookData.author.name
+        EmbedData.author.icon_url = WebhookData.author.icon_url
+    end
+
+    if WebhookData.title then
+        EmbedData.title = WebhookData.title
+    end
+
+    if WebhookData.thumbnail then
+        EmbedData.thumbnail = {}
+        EmbedData.thumbnail.url = WebhookData.thumbnail
+    end
+
+    EmbedData.description = WebhookData.description
+
+    if WebhookData.footer then
+        EmbedData.footer = {}
+        EmbedData.footer.text = WebhookData.footer.text
+        EmbedData.footer.icon_url = WebhookData.footer.icon_url
+    end
+
+    table.insert(EmbedDataArray, EmbedData)
+
+    PerformHttpRequest(WebhookData.link, function(err, text, headers) end, 'POST', json.encode({ embeds = EmbedDataArray }), { ['Content-Type'] = 'application/json' })
 end
