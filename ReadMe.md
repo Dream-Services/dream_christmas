@@ -42,15 +42,15 @@ All settings are customizable in the script. Here are a few examples:
 - **Christmas Tree & Present Rewards:** Configure cooldowns and prizes.
 
 # ToDo
-[] Christmas Lootdrop \
-[] Christmas Adventcalendar \
-[] QBCore Bridge with qb-target compatibility \
-[] Notify Trigger in config \
-[] Snowballs Serverside \
-[] Present Gift cooldown save after restart \
-[] Random Prop fixed option instead of random spawn \
-[] Ox_inventory compatibility \
-[x] Webhooks
+- [ ] Christmas Lootdrop \
+- [ ] Christmas Adventcalendar \
+- [ ] QBCore Bridge with qb-target compatibility \
+- [ ] Notify Trigger in config \
+- [ ] Snowballs Serverside \
+- [ ] Present Gift cooldown save after restart \
+- [ ] Random Prop fixed option instead of random spawn \
+- [ ] Ox_inventory compatibility \
+- [x] Webhooks
 
 ## Support 
 For assistance, reporting bugs, or sharing suggestions, you can:  
