@@ -1,6 +1,13 @@
 name: Release
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
 
 env:
   REPOSITORY_NAME: ${{ github.event.repository.name }}
@@ -9,7 +16,15 @@ jobs:
   create-release:
     name: Create Release
     runs-on: ubuntu-latest
-    if: github.event.head_commit.author.email != '41898282+github-actions[bot]@users.noreply.github.com'
+    if: |
+      github.event.head_commit.author.email != '41898282+github-actions[bot]@users.noreply.github.com' &&
+      (
+        github.event_name == 'workflow_dispatch' ||
+        contains(github.event.head_commit.message, '[release]') ||
+        contains(github.event.head_commit.message, '[hotfix]') ||
+        contains(github.event.head_commit.message, '[Release]') ||
+        contains(github.event.head_commit.message, '[Hotfix]')
+      )
 
     steps:
         - name: Checkout Source Code
@@ -60,7 +75,7 @@ jobs:
           run: node .github/actions/archive-files.js
 
         - name: Create Release
-          uses: "marvinpinto/action-automatic-releases@v1.2.1"
+          uses: "marvinpinto/action-automatic-releases@latest"
           id: auto_release
           with:
             repo_token: ${{ secrets.GITHUB_TOKEN }}
