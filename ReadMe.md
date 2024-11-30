@@ -43,7 +43,13 @@ All settings are customizable in the script. Here are a few examples:
 
 # ToDo
 [] Christmas Lootdrop \
-[] QBCore Bridge \
+[] Christmas Adventcalendar \
+[] QBCore Bridge with qb-target compatibility \
+[] Notify Trigger in config \
+[] Snowballs Serverside \
+[] Present Gift cooldown save after restart \
+[] Random Prop fixed option instead of random spawn \
+[] Ox_inventory compatibility \
 [x] Webhooks
 
 ## Support 
