@@ -117,10 +117,10 @@ DreamCore.PropSystem = {
 
 -- Christmas Tree System
 DreamCore.ChristmasTreeCooldown = {
-    decorate = 30 * 60000, -- Set the cooldown to decorate the Christmas tree
+    decorate = 30 * 60, -- Set the cooldown to decorate the Christmas tree | In seconds
 }
 DreamCore.ChristmasTreeProgressBar = {
-    decorate = 5000, -- Set the progress bar time to decorate the Christmas tree
+    decorate = 5000, -- Set the progress bar time to decorate the Christmas tree | In ms
 }
 DreamCore.ChristmasTreeRewards = {
     decorate = { account = 'money', amount = { min = 100, max = 500 } } -- Set the amount of money to decorate the Christmas tree
@@ -213,8 +213,12 @@ DreamCore.ChristmasTree = {
 }
 
 -- Present System
-DreamCore.ChristmasPresentCooldown = 2 * 60 * 60000 -- Set the cooldown to claim the Christmas present
-DreamCore.ChristmasPresentProgressBar = 5000 -- Set the progress bar time to claim the Christmas present
+DreamCore.ChristmasPresentCooldown = {
+    open = 2 * 60 * 60, -- Set the cooldown to claim the Christmas present | In seconds
+}
+DreamCore.ChristmasPresentProgressBar = {
+    open = 5000 -- Set the progress bar time to claim the Christmas present | In ms
+}
 DreamCore.ChristmasPresentRewards = {
     { type = 'item',   item = 'bread',           amount = { min = 1, max = 5 } },
     { type = 'weapon', weapon = 'weapon_pistol', ammo = { min = 12, max = 24 } },

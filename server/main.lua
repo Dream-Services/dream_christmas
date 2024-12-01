@@ -68,6 +68,35 @@ local Locales = DreamLocales[DreamCore.Language]
 
 -- Global Variables
 
+-- Global Cooldown
+if not LoadResourceFile(GetCurrentResourceName(), 'server/cooldown.json') then
+    SaveResourceFile(GetCurrentResourceName(), 'server/cooldown.json', LoadResourceFile(GetCurrentResourceName(), 'server/cooldown_backup.json'), -1)
+end
+local GlobalCooldownJSON = json.decode(
+    LoadResourceFile(GetCurrentResourceName(), 'server/cooldown.json')
+)
+
+-- Startup
+Citizen.CreateThread(function()
+    -- Remove all old cooldowns which are expired
+
+    -- Christmas Tree Decorate
+    for k, v in pairs(GlobalCooldownJSON.ChristmasTree.decorate) do
+        for k2, v2 in pairs(v) do
+            if v2 < os.time() then GlobalCooldownJSON.ChristmasTree.decorate[k][k2] = nil end
+        end
+    end
+
+    -- Christmas Present Open
+    for k, v in pairs(GlobalCooldownJSON.ChristmasPresent.open) do
+        for k2, v2 in pairs(v) do
+            if v2 < os.time() then GlobalCooldownJSON.ChristmasPresent.open[k][k2] = nil end
+        end
+    end
+
+    SaveResourceFile(GetCurrentResourceName(), 'server/cooldown.json', json.encode(GlobalCooldownJSON), -1)
+end)
+
 local CurrentPropSystem = {}
 Citizen.CreateThread(function()
     Citizen.Wait(2500)
@@ -192,9 +221,7 @@ AddEventHandler("dream_christmas:server:giveSnowballs", function()
     end
 end)
 
-local ChristmasTreeCooldown = {
-    decorate = {}
-}
+
 lib.callback.register('dream_christmas:server:decorateChristmasTree', function(source, TreeId)
     local src = source
     local TreeData = nil
@@ -209,12 +236,13 @@ lib.callback.register('dream_christmas:server:decorateChristmasTree', function(s
         local PlayerIdentifier = DreamFramework.GetIdentifier(source)
 
         if
-            not ChristmasTreeCooldown.decorate?[TreeId]?[PlayerIdentifier]
-            or (ChristmasTreeCooldown.decorate[TreeId][PlayerIdentifier] > (os.time() + DreamCore.ChristmasTreeCooldown.decorate))
+            not GlobalCooldownJSON.ChristmasTree.decorate?[TreeId]?[PlayerIdentifier]
+            or (GlobalCooldownJSON.ChristmasTree.decorate[TreeId][PlayerIdentifier] < os.time())
         then
-            ChristmasTreeCooldown.decorate[TreeId] = {
-                [PlayerIdentifier] = os.time()
+            GlobalCooldownJSON.ChristmasTree.decorate[TreeId] = {
+                [PlayerIdentifier] = os.time() + DreamCore.ChristmasTreeCooldown.decorate
             }
+            SaveResourceFile(GetCurrentResourceName(), 'server/cooldown.json', json.encode(GlobalCooldownJSON), -1)
             local MoneyAmount = math.random(DreamCore.ChristmasTreeRewards.decorate.amount.min, DreamCore.ChristmasTreeRewards.decorate.amount.max)
             DreamFramework.addPlayerMoney(src, DreamCore.ChristmasTreeRewards.decorate.account, MoneyAmount)
 
@@ -246,7 +274,6 @@ lib.callback.register('dream_christmas:server:decorateChristmasTree', function(s
     end
 end)
 
-local ChristmasPresentCooldown = {}
 lib.callback.register('dream_christmas:server:claimChristmasPresent', function(source, PresentId)
     local src = source
     local PresentData = nil
@@ -261,15 +288,15 @@ lib.callback.register('dream_christmas:server:claimChristmasPresent', function(s
         local PlayerIdentifier = DreamFramework.GetIdentifier(source)
 
         if
-            not ChristmasPresentCooldown?[PresentId]?[PlayerIdentifier]
-            or (ChristmasPresentCooldown[PresentId][PlayerIdentifier] > (os.time() + DreamCore.ChristmasPresentCooldown))
+            not GlobalCooldownJSON.ChristmasPresent.open?[PresentId]?[PlayerIdentifier]
+            or (GlobalCooldownJSON.ChristmasPresent.open[PresentId][PlayerIdentifier] < os.time())
         then
-            ChristmasPresentCooldown[PresentId] = {
-                [PlayerIdentifier] = os.time()
+            GlobalCooldownJSON.ChristmasPresent.open[PresentId] = {
+                [PlayerIdentifier] = os.time() + DreamCore.ChristmasPresentCooldown.open
             }
+            SaveResourceFile(GetCurrentResourceName(), 'server/cooldown.json', json.encode(GlobalCooldownJSON), -1)
 
             local RewardData = GiveRandomRewardToPlayer(src, DreamCore.ChristmasPresentRewards)
-
             local NotifyMessage = 'Unknown Reward Type'
             if RewardData.type == 'item' then
                 NotifyMessage = Locales['ChristmasPresent']['Success']['ChristmasPresentItem']:format(RewardData.amount, DreamFramework.InventoryManagement(src, { type = 'label', item = RewardData.item }))

@@ -339,7 +339,7 @@ Citizen.CreateThread(function()
 		TargetSelect = function()
 			SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
 			if lib.progressBar({
-					duration = DreamCore.ChristmasPresentProgressBar,
+					duration = DreamCore.ChristmasPresentProgressBar.open,
 					label = Locales['ChristmasPresent']['Claim']['ProgressBar'],
 					useWhileDead = false,
 					canCancel = false,

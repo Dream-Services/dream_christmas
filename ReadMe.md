@@ -47,7 +47,7 @@ All settings are customizable in the script. Here are a few examples:
 - [x] QBCore Bridge with qb-target compatibility
 - [x] Notify Trigger in config
 - [x] Snowballs Serverside
-- [ ] Present Gift cooldown save after restart
+- [x] Present Gift cooldown save after restart
 - [x] Random Prop fixed option instead of random spawn
 - [x] Ox_inventory compatibility
 - [x] Webhooks
