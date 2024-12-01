@@ -23,17 +23,17 @@ DreamLocales['tr'] = {
         ['weapon_pistol'] = 'Tabanca',
     },
 
-    ['RandomProp'] = {
+    ['PropSystem'] = {
         ['TargetLabel'] = 'Bir hediye arayın',
         ['ProgressBar'] = '🎁 Hediye arıyor',
         ['Success'] = {
-            ['RandomPropClaimedItem'] = '🎁 %sx %s buldunuz',
-            ['RandomPropClaimedWeapon'] = '🎁 Bir %s buldunuz ve içinde %s mermi var',
-            ['RandomPropClaimedMoney'] = '🎁 %s$ (%s) buldunuz'
+            ['PropSystemClaimedItem'] = '🎁 %sx %s buldunuz',
+            ['PropSystemClaimedWeapon'] = '🎁 Bir %s buldunuz ve içinde %s mermi var',
+            ['PropSystemClaimedMoney'] = '🎁 %s$ (%s) buldunuz'
         },
         ['Error'] = {
-            ['RandomPropNotFound'] = '🎁 Hediye bulunamadı',
-            ['RandomPropAlreadyClaimed'] = '🎁 Hediye zaten alındı',
+            ['PropSystemNotFound'] = '🎁 Hediye bulunamadı',
+            ['PropSystemAlreadyClaimed'] = '🎁 Hediye zaten alındı',
         }
     },
 

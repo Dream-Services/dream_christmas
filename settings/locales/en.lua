@@ -23,17 +23,17 @@ DreamLocales['en'] = {
         ['weapon_pistol'] = 'Pistol',
     },
 
-    ['RandomProp'] = {
+    ['PropSystem'] = {
         ['TargetLabel'] = 'Search for a gift',
         ['ProgressBar'] = '🎁 Searching for a gift',
         ['Success'] = {
-            ['RandomPropClaimedItem'] = '🎁 You found %sx %s',
-            ['RandomPropClaimedWeapon'] = '🎁 You found a %s with %s ammo',
-            ['RandomPropClaimedMoney'] = '🎁 You found %s$ (%s)'
+            ['PropSystemClaimedItem'] = '🎁 You found %sx %s',
+            ['PropSystemClaimedWeapon'] = '🎁 You found a %s with %s ammo',
+            ['PropSystemClaimedMoney'] = '🎁 You found %s$ (%s)'
         },
         ['Error'] = {
-            ['RandomPropNotFound'] = '🎁 The gift was not found',
-            ['RandomPropAlreadyClaimed'] = '🎁 The gift has already been claimed',
+            ['PropSystemNotFound'] = '🎁 The gift was not found',
+            ['PropSystemAlreadyClaimed'] = '🎁 The gift has already been claimed',
         }
     },
 

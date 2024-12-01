@@ -23,17 +23,17 @@ DreamLocales['ru'] = {
         ['weapon_pistol'] = 'Пистолет',
     },
 
-    ['RandomProp'] = {
+    ['PropSystem'] = {
         ['TargetLabel'] = 'Ищите подарок',
         ['ProgressBar'] = '🎁 Поиск подарка',
         ['Success'] = {
-            ['RandomPropClaimedItem'] = '🎁 Вы нашли %sx %s',
-            ['RandomPropClaimedWeapon'] = '🎁 Вы нашли %s с %s патронами',
-            ['RandomPropClaimedMoney'] = '🎁 Вы нашли %s$ (%s)'
+            ['PropSystemClaimedItem'] = '🎁 Вы нашли %sx %s',
+            ['PropSystemClaimedWeapon'] = '🎁 Вы нашли %s с %s патронами',
+            ['PropSystemClaimedMoney'] = '🎁 Вы нашли %s$ (%s)'
         },
         ['Error'] = {
-            ['RandomPropNotFound'] = '🎁 Подарок не найден',
-            ['RandomPropAlreadyClaimed'] = '🎁 Подарок уже был получен',
+            ['PropSystemNotFound'] = '🎁 Подарок не найден',
+            ['PropSystemAlreadyClaimed'] = '🎁 Подарок уже был получен',
         }
     },
 

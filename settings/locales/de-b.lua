@@ -24,17 +24,17 @@ DreamLocales['de-b'] = {
         ['weapon_pistol'] = 'Pistole',
     },
 
-    ['RandomProp'] = {
+    ['PropSystem'] = {
         ['TargetLabel'] = 'Such nach an Gschänk',
         ['ProgressBar'] = '🥨 Suchst nach am Gschänk',
         ['Success'] = {
-            ['RandomPropClaimedItem'] = '🥨 Du host %sx %s gfunde',
-            ['RandomPropClaimedWeapon'] = '🥨 Du host a %s mit %s Schuss gfunde',
-            ['RandomPropClaimedMoney'] = '🥨 Du host %s$ (%s) gfunde'
+            ['PropSystemClaimedItem'] = '🥨 Du host %sx %s gfunde',
+            ['PropSystemClaimedWeapon'] = '🥨 Du host a %s mit %s Schuss gfunde',
+            ['PropSystemClaimedMoney'] = '🥨 Du host %s$ (%s) gfunde'
         },
         ['Error'] = {
-            ['RandomPropNotFound'] = '🥨 Des Gschänk is ned gfunde worn',
-            ['RandomPropAlreadyClaimed'] = '🥨 Des Gschänk is scho abgholt worn',
+            ['PropSystemNotFound'] = '🥨 Des Gschänk is ned gfunde worn',
+            ['PropSystemAlreadyClaimed'] = '🥨 Des Gschänk is scho abgholt worn',
         }
     },
 

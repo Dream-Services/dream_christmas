@@ -9,7 +9,7 @@
     ![Picture1](https://i.imgur.com/DhPLtgV.png)
     ![Picture2](https://i.imgur.com/QqoCi59.gif)
 
-- **☃️ Random Props System (e.g. Snowman)**\
+- **☃️ Prop System (e.g. Snowman)**\
     ![Picture3](https://i.imgur.com/eyWSXka.gif)
     ![Picture4](https://i.imgur.com/kjxVuej.gif)
     ![Picture5](https://i.imgur.com/PA6TtBA.png)
@@ -38,7 +38,7 @@
 All settings are customizable in the script. Here are a few examples:
 - **Language:** Change `DreamCore.Language` to `'en'`, `'de'`, etc.
 - **Snow System:** Toggle snow and snowballs, and adjust snowball damage.
-- **Random Props:** Adjust spawn intervals, zones, and rewards.
+- **Prop System:** Adjust spawn intervals, zones, and rewards.
 - **Christmas Tree & Present Rewards:** Configure cooldowns and prizes.
 
 # ToDo
@@ -48,7 +48,7 @@ All settings are customizable in the script. Here are a few examples:
 - [x] Notify Trigger in config
 - [x] Snowballs Serverside
 - [ ] Present Gift cooldown save after restart
-- [ ] Random Prop fixed option instead of random spawn
+- [x] Random Prop fixed option instead of random spawn
 - [x] Ox_inventory compatibility
 - [x] Webhooks
 - [ ] Christmas Music / Soundeffect

@@ -23,17 +23,17 @@ DreamLocales['nl'] = {
         ['weapon_pistol'] = 'Pistool',
     },
 
-    ['RandomProp'] = {
+    ['PropSystem'] = {
         ['TargetLabel'] = 'Zoek naar een cadeau',
         ['ProgressBar'] = '🎁 Zoeken naar een cadeau',
         ['Success'] = {
-            ['RandomPropClaimedItem'] = '🎁 Je hebt %sx %s gevonden',
-            ['RandomPropClaimedWeapon'] = '🎁 Je hebt een %s met %s munitie gevonden',
-            ['RandomPropClaimedMoney'] = '🎁 Je hebt %s$ (%s) gevonden'
+            ['PropSystemClaimedItem'] = '🎁 Je hebt %sx %s gevonden',
+            ['PropSystemClaimedWeapon'] = '🎁 Je hebt een %s met %s munitie gevonden',
+            ['PropSystemClaimedMoney'] = '🎁 Je hebt %s$ (%s) gevonden'
         },
         ['Error'] = {
-            ['RandomPropNotFound'] = '🎁 Het cadeau is niet gevonden',
-            ['RandomPropAlreadyClaimed'] = '🎁 Het cadeau is al opgeëist',
+            ['PropSystemNotFound'] = '🎁 Het cadeau is niet gevonden',
+            ['PropSystemAlreadyClaimed'] = '🎁 Het cadeau is al opgeëist',
         }
     },
 

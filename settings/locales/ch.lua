@@ -24,17 +24,17 @@ DreamLocales['ch'] = {
         ['weapon_pistol'] = 'Pistole',
     },
 
-    ['RandomProp'] = {
+    ['PropSystem'] = {
         ['TargetLabel'] = 'Such es Gschänkli',
         ['ProgressBar'] = '🎁 Suchet das Gschänkli',
         ['Success'] = {
-            ['RandomPropClaimedItem'] = '🎁 Du hesch %sx %s gfunde',
-            ['RandomPropClaimedWeapon'] = '🎁 Du hesch e %s mit %s Munitio gfunde',
-            ['RandomPropClaimedMoney'] = '🎁 Du hesch %s$ (%s) gfunde'
+            ['PropSystemClaimedItem'] = '🎁 Du hesch %sx %s gfunde',
+            ['PropSystemClaimedWeapon'] = '🎁 Du hesch e %s mit %s Munitio gfunde',
+            ['PropSystemClaimedMoney'] = '🎁 Du hesch %s$ (%s) gfunde'
         },
         ['Error'] = {
-            ['RandomPropNotFound'] = '🎁 S Gschänkli isch nöd gfunde worde',
-            ['RandomPropAlreadyClaimed'] = '🎁 S Gschänkli isch scho abgno',
+            ['PropSystemNotFound'] = '🎁 S Gschänkli isch nöd gfunde worde',
+            ['PropSystemAlreadyClaimed'] = '🎁 S Gschänkli isch scho abgno',
         }
     },
 

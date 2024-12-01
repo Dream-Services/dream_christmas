@@ -68,57 +68,80 @@ local Locales = DreamLocales[DreamCore.Language]
 
 -- Global Variables
 
-local CurrentRandomProps = {}
+local CurrentPropSystem = {}
 Citizen.CreateThread(function()
     Citizen.Wait(2500)
     while true do
-        local SpawnAmount = math.random(DreamCore.RandomPropsAmount.min, DreamCore.RandomPropsAmount.max)
-        for i = 1, SpawnAmount do
-            local RandomProp = DreamCore.RandomProps[math.random(1, #DreamCore.RandomProps)]
-            local RandomZone = DreamCore.RandomPropsZones[math.random(1, #DreamCore.RandomPropsZones)]
-            local RandomCoords = vector3(
-                RandomZone.pos.x + math.random(-RandomZone.size.x, RandomZone.size.x),
-                RandomZone.pos.y + math.random(-RandomZone.size.y, RandomZone.size.y),
-                RandomZone.pos.z
-            )
+        local SpawnAmount = math.random(DreamCore.PropSystemAmount.min, DreamCore.PropSystemAmount.max)
+        local AvailableFixedPositions = lib.table.deepclone(DreamCore.PropSystemFixed)
 
-            CurrentRandomProps[i] = {
-                id = i,
-                prop = RandomProp,
-                coords = RandomCoords,
-                claimed = false
-            }
+        for i = 1, SpawnAmount do
+            local PropSystem = DreamCore.PropSystem[math.random(1, #DreamCore.PropSystem)]
+
+            if DreamCore.PropSystemMode == 'random' then
+                local RandomZone = DreamCore.PropSystemZones[math.random(1, #DreamCore.PropSystemZones)]
+                local RandomCoords = vector3(
+                    RandomZone.pos.x + math.random(-RandomZone.size.x, RandomZone.size.x),
+                    RandomZone.pos.y + math.random(-RandomZone.size.y, RandomZone.size.y),
+                    RandomZone.pos.z
+                )
+                CurrentPropSystem[i] = {
+                    id = i,
+                    prop = PropSystem,
+                    coords = RandomCoords,
+                    heading = 0.0,
+                    claimed = false
+                }
+            elseif DreamCore.PropSystemMode == 'fixed' then
+                -- Amount is e.g. on 10 but you only have 3 fixed positions than break the loop after 3 and don't spawn more props
+                -- This is useful when you have less fixed positions than the amount of props
+                if #AvailableFixedPositions <= 0 then break end
+
+                local RandomIndex = math.random(1, #AvailableFixedPositions)
+                local RandomPosition = AvailableFixedPositions[RandomIndex]
+                CurrentPropSystem[i] = {
+                    id = i,
+                    prop = PropSystem,
+                    coords = RandomPosition.coords,
+                    heading = RandomPosition.heading,
+                    claimed = false
+                }
+                lib.table.remove(AvailableFixedPositions, RandomIndex)
+            else
+                error('Invalid Prop System Mode! Please check the DreamCore settings (DreamCore.PropSystemMode)!')
+            end
         end
-        TriggerClientEvent('dream_christmas:client:createRandomProps', -1, CurrentRandomProps)
-        Citizen.Wait(DreamCore.RandomPropsInterval)
+
+        TriggerClientEvent('dream_christmas:client:createPropSystem', -1, CurrentPropSystem)
+        Citizen.Wait(DreamCore.PropSystemInterval)
     end
 end)
 
 function OnPlayerLoaded(player)
     Citizen.Wait(5000)
-    TriggerClientEvent('dream_christmas:client:createRandomProps', player, CurrentRandomProps)
+    TriggerClientEvent('dream_christmas:client:createPropSystem', player, CurrentPropSystem)
 end
 
-lib.callback.register('dream_christmas:server:rewardRandomProp', function(source, PropId)
+lib.callback.register('dream_christmas:server:rewardPropSystem', function(source, PropId)
     local src = source
     local PropId = PropId
-    local RandomPropData = CurrentRandomProps[PropId]
+    local PropSystemData = CurrentPropSystem[PropId]
 
-    if RandomPropData then
-        if not RandomPropData.claimed then
-            CurrentRandomProps[PropId].claimed = true
-            local RewardData = GiveRandomRewardToPlayer(src, DreamCore.RandomPropRewards)
+    if PropSystemData then
+        if not PropSystemData.claimed then
+            CurrentPropSystem[PropId].claimed = true
+            local RewardData = GiveRandomRewardToPlayer(src, DreamCore.PropSystemRewards)
 
             local NotifyMessage = 'Unknown Reward Type'
             if RewardData.type == 'item' then
-                NotifyMessage = Locales['RandomProp']['Success']['RandomPropClaimedItem']:format(RewardData.amount, DreamFramework.InventoryManagement(src, { type = 'label', item = RewardData.item }))
+                NotifyMessage = Locales['PropSystem']['Success']['PropSystemClaimedItem']:format(RewardData.amount, DreamFramework.InventoryManagement(src, { type = 'label', item = RewardData.item }))
             elseif RewardData.type == 'weapon' then
-                NotifyMessage = Locales['RandomProp']['Success']['RandomPropClaimedWeapon']:format(Locales['Weapons'][RewardData.weapon] or Locales['Weapons']['unknown'], lib.math.groupdigits(RewardData.ammo))
+                NotifyMessage = Locales['PropSystem']['Success']['PropSystemClaimedWeapon']:format(Locales['Weapons'][RewardData.weapon] or Locales['Weapons']['unknown'], lib.math.groupdigits(RewardData.ammo))
             elseif RewardData.type == 'money' then
-                NotifyMessage = Locales['RandomProp']['Success']['RandomPropClaimedMoney']:format(lib.math.groupdigits(RewardData.amount), Locales['MoneyAccount'][RewardData.account] or Locales['MoneyAccount']['unknown'])
+                NotifyMessage = Locales['PropSystem']['Success']['PropSystemClaimedMoney']:format(lib.math.groupdigits(RewardData.amount), Locales['MoneyAccount'][RewardData.account] or Locales['MoneyAccount']['unknown'])
             end
 
-            TriggerClientEvent('dream_christmas:client:removeRandomProp', -1, PropId)
+            TriggerClientEvent('dream_christmas:client:removePropSystem', -1, PropId)
 
             if DreamCore.Webhooks.Enabled then
                 local WebhookReward = 'Unknown Reward'
@@ -131,7 +154,7 @@ lib.callback.register('dream_christmas:server:rewardRandomProp', function(source
                 end
 
                 SendDiscordWebhook({
-                    link = DreamCore.Webhooks.RandomPropReward,
+                    link = DreamCore.Webhooks.PropSystemReward,
                     color = DreamCore.Webhooks.Color,
                     thumbnail = DreamCore.Webhooks.IconURL,
                     author = {
@@ -149,10 +172,10 @@ lib.callback.register('dream_christmas:server:rewardRandomProp', function(source
 
             return { success = true, message = NotifyMessage }
         else
-            return { success = false, message = Locales['RandomProp']['Error']['RandomPropAlreadyClaimed'] }
+            return { success = false, message = Locales['PropSystem']['Error']['PropSystemAlreadyClaimed'] }
         end
     else
-        return { success = false, message = Locales['RandomProp']['Error']['RandomPropNotFound'] }
+        return { success = false, message = Locales['PropSystem']['Error']['PropSystemNotFound'] }
     end
 end)
 

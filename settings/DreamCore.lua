@@ -57,13 +57,20 @@ DreamCore.PickupSnowball = 'E' -- Set the control to pickup snowballs
 DreamCore.PickupSnowballCooldown = 1500 -- Set the cooldown to pickup snowballs
 DreamCore.PickupSnowballAmount = 2 -- Set the amount of snowballs to pickup
 
--- Random Props System (Snowman)
-DreamCore.RandomPropsInterval = 30 * 60000 -- Set the interval to spawn random props
-DreamCore.RandomPropsAmount = { min = 5, max = 15 } -- Set the amount of random props to spawning
-DreamCore.RandomPropsZones = {
+-- Prop System (e.g. Snowman)
+DreamCore.PropSystemInterval = 30 * 60000 -- Set the interval to spawn props
+DreamCore.PropSystemAmount = { min = 5, max = 15 } -- Set the amount of props to spawning
+DreamCore.PropSystemMode = 'fixed' -- Set the mode to spawn the props | random (zones) or fixed | ⚠️ I recommend fixed because random can have collisions etc.
+DreamCore.PropSystemFixed = { -- For fixed mode
+    { coords = vector3(194.1701, -1053.7688, 28.3114), heading = 105.4966 },
+    { coords = vector3(250.7730, -826.2747, 28.7891),  heading = 348.0432 },
+    { coords = vector3(2466.7573, 5006.8872, 44.8591), heading = 168.2948 },
+    { coords = vector3(-433.1840, 5955.4243, 30.6656), heading = 70.1822 },
+}
+DreamCore.PropSystemZones = { -- For random mode
     { pos = vector3(222.3756, 2131.8733, 350.000), size = vector2(3300.0, 5500.0) }
 }
-DreamCore.CheckRandomCoords = function(Coords) -- Check if the coords are valid
+DreamCore.CheckPropCoords = function(Coords) -- Check if the coords are valid | This also can prevent to spawn fixed positions!
     -- Clientside
 
     if GetWaterQuadAtCoords(Coords.x, Coords.y) ~= -1 then return false end -- Check if the coords are in the water
@@ -71,14 +78,14 @@ DreamCore.CheckRandomCoords = function(Coords) -- Check if the coords are valid
     -- Add more checks :)
     return true
 end
-DreamCore.RandomPropProgressBar = 5000 -- Set the progress bar time to search for a gift
-DreamCore.RandomPropTeleportToProp = true -- Set to true if you want to teleport to the prop while animation | Deactivate this when you have problems e.g. The Player falling out of the map while the animation
-DreamCore.RandomPropRewards = {
+DreamCore.PropSystemProgressBar = 5000 -- Set the progress bar time to search for a gift
+DreamCore.PropSystemTeleportToProp = true -- Set to true if you want to teleport to the prop while animation | Deactivate this when you have problems e.g. The Player falling out of the map while the animation
+DreamCore.PropSystemRewards = {
     { type = 'item',   item = 'bread',           amount = { min = 1, max = 5 } },
     { type = 'weapon', weapon = 'weapon_pistol', ammo = { min = 12, max = 24 } },
     { type = 'money',  account = 'bank',         amount = { min = 100, max = 2500 } },
 }
-DreamCore.RandomProps = {
+DreamCore.PropSystem = {
     {
         model = 'xm3_prop_xm3_snowman_01a',
         blip = {

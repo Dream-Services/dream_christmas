@@ -15,7 +15,7 @@ DreamCore.Webhooks = {
     IconURL = 'https://i.ibb.co/KNS96CM/dreamservices-round.png', -- Change the IconURL of the Webhook
 
     -- Webhook URLs
-    RandomPropReward = 'https://discord.com/api/webhooks/XXX/XXX',
+    PropSystemReward = 'https://discord.com/api/webhooks/XXX/XXX',
     DecorateChristmasTree = 'https://discord.com/api/webhooks/XXX/XXX',
     ChristmasPresent = 'https://discord.com/api/webhooks/XXX/XXX',
 

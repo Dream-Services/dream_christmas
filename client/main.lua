@@ -108,16 +108,16 @@ end
 
 -- Load Models
 Citizen.CreateThread(function()
-	for k, v in pairs(DreamCore.RandomProps) do
+	for k, v in pairs(DreamCore.PropSystem) do
 		lib.requestModel(GetHashKey(v.model))
 	end
 end)
 
-local RandomPropsData = {}
-RegisterNetEvent("dream_christmas:client:createRandomProps")
-AddEventHandler("dream_christmas:client:createRandomProps", function(AllObjects)
+local PropSystemData = {}
+RegisterNetEvent("dream_christmas:client:createPropSystem")
+AddEventHandler("dream_christmas:client:createPropSystem", function(AllObjects)
 	-- Delete Old Entites
-	for _, v in pairs(RandomPropsData) do
+	for _, v in pairs(PropSystemData) do
 		if DoesEntityExist(v.entity) then DeleteEntity(v.entity) end
 
 		-- Target
@@ -129,18 +129,19 @@ AddEventHandler("dream_christmas:client:createRandomProps", function(AllObjects)
 
 		if v.blip then RemoveBlip(v.blip) end
 	end
-	RandomPropsData = {}
+	PropSystemData = {}
 
 	for k, v in pairs(AllObjects) do
 		-- Check Coords
-		if DreamCore.CheckRandomCoords(v.coords) and not v.claimed then
+		if DreamCore.CheckPropCoords(v.coords) and not v.claimed then
 			local SpawnedProp = CreateObject(GetHashKey(v.prop.model), v.coords, true, true, true)
 			FreezeEntityPosition(SpawnedProp, true)
+			SetEntityHeading(SpawnedProp, v.heading)
 
 			-- Add Target
 			local TargetId = nil
 			TargetSelect = function()
-				if DreamCore.RandomPropTeleportToProp then
+				if DreamCore.PropSystemTeleportToProp then
 					local BeforeProp = GetOffsetFromEntityInWorldCoords(SpawnedProp, 0.0, -1.0, 0.0)
 					SetEntityCoords(cache.ped, BeforeProp.x, BeforeProp.y, GetEntityCoords(cache.ped).z - 1)
 					SetEntityHeading(cache.ped, GetEntityHeading(SpawnedProp))
@@ -149,8 +150,8 @@ AddEventHandler("dream_christmas:client:createRandomProps", function(AllObjects)
 				SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
 
 				if lib.progressBar({
-						duration = DreamCore.RandomPropProgressBar,
-						label = Locales['RandomProp']['ProgressBar'],
+						duration = DreamCore.PropSystemProgressBar,
+						label = Locales['PropSystem']['ProgressBar'],
 						useWhileDead = false,
 						canCancel = false,
 						disable = {
@@ -166,7 +167,7 @@ AddEventHandler("dream_christmas:client:createRandomProps", function(AllObjects)
 					})
 				then
 					FreezeEntityPosition(cache.ped, false)
-					local result = lib.callback.await('dream_christmas:server:rewardRandomProp', false, v.id)
+					local result = lib.callback.await('dream_christmas:server:rewardPropSystem', false, v.id)
 
 					if result.success then
 						TriggerEvent("dream_christmas:client:notify", result.message, "success", 5000)
@@ -179,17 +180,17 @@ AddEventHandler("dream_christmas:client:createRandomProps", function(AllObjects)
 			end
 
 			if DreamCore.Target() == 'ox' then
-				TargetId = ('dream_christmas:%s:%s'):format('randomprop', v.id)
+				TargetId = ('dream_christmas:%s:%s'):format('PropSystem', v.id)
 				exports.ox_target:addLocalEntity(SpawnedProp, {
 					{
-						label = Locales['RandomProp']['TargetLabel'],
+						label = Locales['PropSystem']['TargetLabel'],
 						name = TargetId,
 						icon = 'fa-solid fa-gift',
 						onSelect = TargetSelect
 					}
 				})
 			elseif DreamCore.Target() == 'qb' then
-				TargetId = Locales['RandomProp']['TargetLabel']
+				TargetId = Locales['PropSystem']['TargetLabel']
 				exports['qb-target']:AddTargetEntity(SpawnedProp, {
 					options = {
 						{
@@ -203,7 +204,7 @@ AddEventHandler("dream_christmas:client:createRandomProps", function(AllObjects)
 
 			local SpawnedPropBlip = createBlip(v.prop.blip.name, v.coords, v.prop.blip.scale, v.prop.blip.sprite, v.prop.blip.color)
 
-			RandomPropsData[v.id] = {
+			PropSystemData[v.id] = {
 				id = v.id,
 				entity = SpawnedProp,
 				blip = SpawnedPropBlip,
@@ -215,36 +216,40 @@ AddEventHandler("dream_christmas:client:createRandomProps", function(AllObjects)
 	end
 end)
 
-Citizen.CreateThread(function()
-	while true do
-		local PlayerCoords = GetEntityCoords(cache.ped)
-		for _, v in pairs(RandomPropsData) do
-			if not v.forcedToGround then
-				if #(v.coords - PlayerCoords) < 424 then -- OneSync-Range
-					Citizen.Wait(0)
-					SetEntityCoords(v.entity, v.coords.x, v.coords.y, v.coords.z - GetEntityHeightAboveGround(v.entity))
-					RandomPropsData[v.id].forcedToGround = true
+-- Force to ground only in random mode
+-- Fixed position is fixed and shouldnt be changed
+if DreamCore.PropSystemMode == 'random' then
+	Citizen.CreateThread(function()
+		while true do
+			local PlayerCoords = GetEntityCoords(cache.ped)
+			for _, v in pairs(PropSystemData) do
+				if not v.forcedToGround then
+					if #(v.coords - PlayerCoords) < 424 then -- OneSync-Range
+						Citizen.Wait(0)
+						SetEntityCoords(v.entity, v.coords.x, v.coords.y, v.coords.z - GetEntityHeightAboveGround(v.entity))
+						PropSystemData[v.id].forcedToGround = true
+					end
 				end
 			end
+			Citizen.Wait(1000)
 		end
-		Citizen.Wait(1000)
-	end
-end)
+	end)
+end
 
-RegisterNetEvent("dream_christmas:client:removeRandomProp")
-AddEventHandler("dream_christmas:client:removeRandomProp", function(PropId)
-	local RandomPropData = RandomPropsData[PropId]
-	if RandomPropData then
+RegisterNetEvent("dream_christmas:client:removePropSystem")
+AddEventHandler("dream_christmas:client:removePropSystem", function(PropId)
+	local PropData = PropSystemData[PropId]
+	if PropData then
 		-- Target
 		if DreamCore.Target() == 'ox' then
-			exports.ox_target:removeLocalEntity(RandomPropData.entity, RandomPropData.target)
+			exports.ox_target:removeLocalEntity(PropData.entity, PropData.target)
 		elseif DreamCore.Target() == 'qb' then
-			exports['qb-target']:RemoveTargetEntity(RandomPropData.entity, RandomPropData.target)
+			exports['qb-target']:RemoveTargetEntity(PropData.entity, PropData.target)
 		end
 
-		if RandomPropData.blip then
-			RemoveBlip(RandomPropData.blip)
-			RandomPropsData[PropId].blip = nil
+		if PropData.blip then
+			RemoveBlip(PropData.blip)
+			PropSystemData[PropId].blip = nil
 		end
 	end
 end)
@@ -400,7 +405,7 @@ AddEventHandler('onResourceStop', function(resourceName)
 	if (GetCurrentResourceName() ~= resourceName) then return end
 
 	-- Delete Entites
-	for _, v in pairs(RandomPropsData) do
+	for _, v in pairs(PropSystemData) do
 		if DoesEntityExist(v.entity) then DeleteEntity(v.entity) end
 
 		-- Target
