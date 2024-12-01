@@ -98,7 +98,14 @@ AddEventHandler("dream_christmas:client:createRandomProps", function(AllObjects)
 	-- Delete Old Entites
 	for _, v in pairs(RandomPropsData) do
 		if DoesEntityExist(v.entity) then DeleteEntity(v.entity) end
-		exports.ox_target:removeLocalEntity(v.entity, 'dream_christmas:' .. v.id)
+
+		-- Target
+		if DreamCore.Target() == 'ox' then
+			exports.ox_target:removeLocalEntity(v.entity, v.target)
+		elseif DreamCore.Target() == 'qb' then
+			exports['qb-target']:RemoveTargetEntity(v.entity, v.target)
+		end
+
 		if v.blip then RemoveBlip(v.blip) end
 	end
 	RandomPropsData = {}
@@ -108,50 +115,70 @@ AddEventHandler("dream_christmas:client:createRandomProps", function(AllObjects)
 		if DreamCore.CheckRandomCoords(v.coords) and not v.claimed then
 			local SpawnedProp = CreateObject(GetHashKey(v.prop.model), v.coords, true, true, true)
 			FreezeEntityPosition(SpawnedProp, true)
-			exports.ox_target:addLocalEntity(SpawnedProp, {
-				{
-					label = Locales['RandomProp']['TargetLabel'],
-					name = 'dream_christmas:' .. v.id,
-					icon = 'fa-solid fa-gift',
-					onSelect = function()
-						if DreamCore.RandomPropTeleportToProp then
-							local BeforeProp = GetOffsetFromEntityInWorldCoords(SpawnedProp, 0.0, -1.0, 0.0)
-							SetEntityCoords(cache.ped, BeforeProp.x, BeforeProp.y, GetEntityCoords(cache.ped).z - 1)
-							SetEntityHeading(cache.ped, GetEntityHeading(SpawnedProp))
-						end
-						FreezeEntityPosition(cache.ped, true)
 
-						if lib.progressBar({
-								duration = DreamCore.RandomPropProgressBar,
-								label = Locales['RandomProp']['ProgressBar'],
-								useWhileDead = false,
-								canCancel = false,
-								disable = {
-									move = true,
-									sprint = true,
-									combat = true,
-									car = true,
-								},
-								anim = {
-									dict = 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
-									clip = 'machinic_loop_mechandplayer'
-								}
-							})
-						then
-							FreezeEntityPosition(cache.ped, false)
-							local result = lib.callback.await('dream_christmas:server:rewardRandomProp', false, v.id)
+			-- Add Target
+			local TargetId = nil
+			TargetSelect = function()
+				if DreamCore.RandomPropTeleportToProp then
+					local BeforeProp = GetOffsetFromEntityInWorldCoords(SpawnedProp, 0.0, -1.0, 0.0)
+					SetEntityCoords(cache.ped, BeforeProp.x, BeforeProp.y, GetEntityCoords(cache.ped).z - 1)
+					SetEntityHeading(cache.ped, GetEntityHeading(SpawnedProp))
+				end
+				FreezeEntityPosition(cache.ped, true)
 
-							if result.success then
-								TriggerEvent("dream_christmas:client:notify", result.message, "success", 5000)
-							else
-								TriggerEvent("dream_christmas:client:notify", result.message, "error", 5000)
-							end
-						else
-							FreezeEntityPosition(cache.ped, false)
-						end
+				if lib.progressBar({
+						duration = DreamCore.RandomPropProgressBar,
+						label = Locales['RandomProp']['ProgressBar'],
+						useWhileDead = false,
+						canCancel = false,
+						disable = {
+							move = true,
+							sprint = true,
+							combat = true,
+							car = true,
+						},
+						anim = {
+							dict = 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
+							clip = 'machinic_loop_mechandplayer'
+						}
+					})
+				then
+					FreezeEntityPosition(cache.ped, false)
+					local result = lib.callback.await('dream_christmas:server:rewardRandomProp', false, v.id)
+
+					if result.success then
+						TriggerEvent("dream_christmas:client:notify", result.message, "success", 5000)
+					else
+						TriggerEvent("dream_christmas:client:notify", result.message, "error", 5000)
 					end
-				}
-			})
+				else
+					FreezeEntityPosition(cache.ped, false)
+				end
+			end
+
+			if DreamCore.Target() == 'ox' then
+				TargetId = ('dream_christmas:%s:%s'):format('randomprop', v.id)
+				exports.ox_target:addLocalEntity(SpawnedProp, {
+					{
+						label = Locales['RandomProp']['TargetLabel'],
+						name = TargetId,
+						icon = 'fa-solid fa-gift',
+						onSelect = TargetSelect
+					}
+				})
+			elseif DreamCore.Target() == 'qb' then
+				TargetId = Locales['RandomProp']['TargetLabel']
+				exports['qb-target']:AddTargetEntity(SpawnedProp, {
+					options = {
+						{
+							label = TargetId,
+							icon = 'fa-solid fa-gift',
+							action = TargetSelect
+						}
+					}
+				})
+			end
+
 			local SpawnedPropBlip = createBlip(v.prop.blip.name, v.coords, v.prop.blip.scale, v.prop.blip.sprite, v.prop.blip.color)
 
 			RandomPropsData[v.id] = {
@@ -159,7 +186,8 @@ AddEventHandler("dream_christmas:client:createRandomProps", function(AllObjects)
 				entity = SpawnedProp,
 				blip = SpawnedPropBlip,
 				coords = v.coords,
-				prop = v.prop
+				prop = v.prop,
+				target = TargetId
 			}
 		end
 	end
@@ -185,7 +213,13 @@ RegisterNetEvent("dream_christmas:client:removeRandomProp")
 AddEventHandler("dream_christmas:client:removeRandomProp", function(PropId)
 	local RandomPropData = RandomPropsData[PropId]
 	if RandomPropData then
-		exports.ox_target:removeLocalEntity(RandomPropData.entity, 'dream_christmas:' .. RandomPropData.id)
+		-- Target
+		if DreamCore.Target() == 'ox' then
+			exports.ox_target:removeLocalEntity(RandomPropData.entity, RandomPropData.target)
+		elseif DreamCore.Target() == 'qb' then
+			exports['qb-target']:RemoveTargetEntity(RandomPropData.entity, RandomPropData.target)
+		end
+
 		if RandomPropData.blip then
 			RemoveBlip(RandomPropData.blip)
 			RandomPropsData[PropId].blip = nil
@@ -202,44 +236,63 @@ Citizen.CreateThread(function()
 		SetEntityHeading(SpawnedProp, v.heading)
 		FreezeEntityPosition(SpawnedProp, true)
 
-		exports.ox_target:addLocalEntity(SpawnedProp, {
-			{
-				label = Locales['ChristmasTree']['Decorate']['TargetLabel'],
-				name = 'dream_christmas:' .. v.id,
-				icon = 'fa-solid fa-tree',
-				onSelect = function()
-					if lib.progressBar({
-							duration = DreamCore.ChristmasTreeProgressBar.decorate,
-							label = Locales['ChristmasTree']['Decorate']['ProgressBar'],
-							useWhileDead = false,
-							canCancel = false,
-							disable = {
-								move = true,
-								sprint = true,
-								combat = true,
-								car = true,
-							},
-							anim = {
-								dict = 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
-								clip = 'machinic_loop_mechandplayer'
-							}
-						})
-					then
-						local result = lib.callback.await('dream_christmas:server:decorateChristmasTree', false, v.id)
-						if result.success then
-							TriggerEvent("dream_christmas:client:notify", result.message, "success", 5000)
-						else
-							TriggerEvent("dream_christmas:client:notify", result.message, "error", 5000)
-						end
-					end
+		-- Add Target
+		local TargetId = nil
+		TargetSelect = function()
+			if lib.progressBar({
+					duration = DreamCore.ChristmasTreeProgressBar.decorate,
+					label = Locales['ChristmasTree']['Decorate']['ProgressBar'],
+					useWhileDead = false,
+					canCancel = false,
+					disable = {
+						move = true,
+						sprint = true,
+						combat = true,
+						car = true,
+					},
+					anim = {
+						dict = 'anim@amb@clubhouse@tutorial@bkr_tut_ig3@',
+						clip = 'machinic_loop_mechandplayer'
+					}
+				})
+			then
+				local result = lib.callback.await('dream_christmas:server:decorateChristmasTree', false, v.id)
+				if result.success then
+					TriggerEvent("dream_christmas:client:notify", result.message, "success", 5000)
+				else
+					TriggerEvent("dream_christmas:client:notify", result.message, "error", 5000)
 				end
-			}
-		})
+			end
+		end
+
+		if DreamCore.Target() == 'ox' then
+			TargetId = ('dream_christmas:%s:%s'):format('christmastree', v.id)
+			exports.ox_target:addLocalEntity(SpawnedProp, {
+				{
+					label = Locales['ChristmasTree']['Decorate']['TargetLabel'],
+					name = TargetId,
+					icon = 'fa-solid fa-tree',
+					onSelect = TargetSelect
+				}
+			})
+		elseif DreamCore.Target() == 'qb' then
+			TargetId = Locales['ChristmasTree']['Decorate']['TargetLabel']
+			exports['qb-target']:AddTargetEntity(SpawnedProp, {
+				options = {
+					{
+						label = TargetId,
+						icon = 'fa-solid fa-tree',
+						action = TargetSelect
+					}
+				}
+			})
+		end
 		local SpawnedPropBlip = createBlip(v.blip.name, v.coords, v.blip.scale, v.blip.sprite, v.blip.color)
 
 		ChristmasTreeData[k] = {
 			entity = SpawnedProp,
-			blip = SpawnedPropBlip
+			blip = SpawnedPropBlip,
+			target = TargetId
 		}
 	end
 end)
@@ -253,50 +306,66 @@ Citizen.CreateThread(function()
 		SetEntityHeading(SpawnedProp, v.heading)
 		FreezeEntityPosition(SpawnedProp, true)
 
-		exports.ox_target:addLocalEntity(SpawnedProp, {
-			{
-				label = Locales['ChristmasPresent']['Claim']['TargetLabel'],
-				name = 'dream_christmas:' .. v.id,
-				icon = 'fa-solid fa-gift',
-				onSelect = function()
-					if lib.progressBar({
-							duration = DreamCore.ChristmasPresentProgressBar,
-							label = Locales['ChristmasPresent']['Claim']['ProgressBar'],
-							useWhileDead = false,
-							canCancel = false,
-							disable = {
-								move = true,
-								sprint = true,
-								combat = true,
-								car = true,
-							},
-							anim = {
-								dict = 'anim@gangops@facility@servers@bodysearch@',
-								clip = 'player_search'
-							}
-						})
-					then
-						local result = lib.callback.await('dream_christmas:server:claimChristmasPresent', false, v.id)
-						if result.success then
-							TriggerEvent("dream_christmas:client:notify", result.message, "success", 5000)
-						else
-							TriggerEvent("dream_christmas:client:notify", result.message, "error", 5000)
-						end
-					end
+		-- Add Target
+		local TargetId = nil
+		TargetSelect = function()
+			if lib.progressBar({
+					duration = DreamCore.ChristmasPresentProgressBar,
+					label = Locales['ChristmasPresent']['Claim']['ProgressBar'],
+					useWhileDead = false,
+					canCancel = false,
+					disable = {
+						move = true,
+						sprint = true,
+						combat = true,
+						car = true,
+					},
+					anim = {
+						dict = 'anim@gangops@facility@servers@bodysearch@',
+						clip = 'player_search'
+					}
+				})
+			then
+				local result = lib.callback.await('dream_christmas:server:claimChristmasPresent', false, v.id)
+				if result.success then
+					TriggerEvent("dream_christmas:client:notify", result.message, "success", 5000)
+				else
+					TriggerEvent("dream_christmas:client:notify", result.message, "error", 5000)
 				end
-			}
-		})
+			end
+		end
+
+		if DreamCore.Target() == 'ox' then
+			TargetId = ('dream_christmas:%s:%s'):format('christmaspresent', v.id)
+			exports.ox_target:addLocalEntity(SpawnedProp, {
+				{
+					label = Locales['ChristmasPresent']['Claim']['TargetLabel'],
+					name = TargetId,
+					icon = 'fa-solid fa-gift',
+					onSelect = TargetSelect
+				}
+			})
+		elseif DreamCore.Target() == 'qb' then
+			TargetId = Locales['ChristmasPresent']['Claim']['TargetLabel']
+			exports['qb-target']:AddTargetEntity(SpawnedProp, {
+				options = {
+					{
+						label = TargetId,
+						icon = 'fa-solid fa-gift',
+						action = TargetSelect
+					}
+				}
+			})
+		end
 		local SpawnedPropBlip = createBlip(v.blip.name, v.coords, v.blip.scale, v.blip.sprite, v.blip.color)
 
 		ChristmasPresentData[k] = {
 			entity = SpawnedProp,
-			blip = SpawnedPropBlip
+			blip = SpawnedPropBlip,
+			target = TargetId
 		}
 	end
 end)
-
-
-
 
 RegisterNetEvent("dream_christmas:client:notify")
 AddEventHandler("dream_christmas:client:notify", function(text, type, duration)
@@ -317,17 +386,40 @@ AddEventHandler('onResourceStop', function(resourceName)
 	-- Delete Entites
 	for _, v in pairs(RandomPropsData) do
 		if DoesEntityExist(v.entity) then DeleteEntity(v.entity) end
-		exports.ox_target:removeLocalEntity(v.entity, 'dream_christmas:' .. v.id)
+
+		-- Target
+		if DreamCore.Target() == 'ox' then
+			exports.ox_target:removeLocalEntity(v.entity, v.target)
+		elseif DreamCore.Target() == 'qb' then
+			exports['qb-target']:RemoveTargetEntity(v.entity, v.target)
+		end
+
 		if v.blip then RemoveBlip(v.blip) end
 	end
 
 	for _, v in pairs(ChristmasTreeData) do
 		if DoesEntityExist(v.entity) then DeleteEntity(v.entity) end
+
+		-- Target
+		if DreamCore.Target() == 'ox' then
+			exports.ox_target:removeLocalEntity(v.entity, v.target)
+		elseif DreamCore.Target() == 'qb' then
+			exports['qb-target']:RemoveTargetEntity(v.entity, v.target)
+		end
+
 		if v.blip then RemoveBlip(v.blip) end
 	end
 
 	for _, v in pairs(ChristmasPresentData) do
 		if DoesEntityExist(v.entity) then DeleteEntity(v.entity) end
+
+		-- Target
+		if DreamCore.Target() == 'ox' then
+			exports.ox_target:removeLocalEntity(v.entity, v.target)
+		elseif DreamCore.Target() == 'qb' then
+			exports['qb-target']:RemoveTargetEntity(v.entity, v.target)
+		end
+
 		if v.blip then RemoveBlip(v.blip) end
 	end
 

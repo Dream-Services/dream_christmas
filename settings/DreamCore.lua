@@ -10,7 +10,22 @@ DreamCore = {} -- Do not touch this!!!
 -- Dream Christmas Settings
 DreamCore.Language = 'en'
 DreamCore.GiveCredits = true -- Set to false if you don't want to give credits
-DreamCore.OxInventory = GetResourceState('ox_inventory') == 'started' -- Set manually when you renamed ox_inventory to another name
+DreamCore.Inventory = function()
+    if GetResourceState('ox_inventory') == 'started' then
+        return 'ox'
+    else
+        return 'default' -- For all other inventory systems which not have special systems
+    end
+end
+DreamCore.Target = function()
+    if GetResourceState('ox_target') == 'started' then
+        return 'ox'
+    elseif GetResourceState('qb-target') == 'started' then
+        return 'qb'
+    else
+        return error('No target system found! Please adjust DreamCore.Target!!!')
+    end
+end
 
 -- Snow System (Snowballs)
 DreamCore.XmasSnow = true -- Set to false if you don't want snow
@@ -172,9 +187,9 @@ DreamCore.ChristmasTree = {
 DreamCore.ChristmasPresentCooldown = 2 * 60 * 60000 -- Set the cooldown to claim the Christmas present
 DreamCore.ChristmasPresentProgressBar = 5000 -- Set the progress bar time to claim the Christmas present
 DreamCore.ChristmasPresentRewards = {
-    -- { type = 'item', item = 'bread', amount = { min = 1, max = 5 } },
+    { type = 'item',   item = 'bread',           amount = { min = 1, max = 5 } },
     { type = 'weapon', weapon = 'weapon_pistol', ammo = { min = 12, max = 24 } },
-    -- { type = 'money', account = 'bank', amount = { min = 10, max = 250 } },
+    { type = 'money',  account = 'bank',         amount = { min = 10, max = 250 } },
 }
 DreamCore.ChristmasPresents = {
     {

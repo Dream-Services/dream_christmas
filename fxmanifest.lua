@@ -37,6 +37,5 @@ escrow_ignore {
 }
 
 dependencies {
-    'ox_lib',
-    'ox_target'
+    'ox_lib'
 }

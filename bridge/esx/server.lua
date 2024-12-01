@@ -130,8 +130,14 @@ end
 
 -- Dream Christmas
 function DreamFramework.addPlayerWeapon(source, weaponName, ammo)
-    local xPlayer = DreamFramework.getPlayerFromId(source)
-    xPlayer.addWeapon(weaponName, ammo)
+    if DreamCore.Inventory() == 'qb' then
+        exports['ox_inventory']:AddItem(source, weaponName, 1, {
+            ammo = ammo
+        })
+    else
+        local xPlayer = DreamFramework.getPlayerFromId(source)
+        xPlayer.addWeapon(weaponName, ammo)
+    end
 end
 
 RegisterNetEvent('esx:playerLoaded', function(player, xPlayer, isNew)
