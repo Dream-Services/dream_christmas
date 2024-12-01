@@ -58,6 +58,7 @@ All settings are customizable in the script. Here are a few examples:
 - [ ] Christmas Quests
 - [ ] PropSystem add more props
 - [ ] Christmas Present remove when cooldown (open)
+- [ ] Smoother Teleport to the prop
 
 ## Support 
 For assistance, reporting bugs, or sharing suggestions, you can:  

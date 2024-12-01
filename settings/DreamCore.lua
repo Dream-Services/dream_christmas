@@ -125,12 +125,13 @@ DreamCore.ChristmasTreeProgressBar = {
 DreamCore.ChristmasTreeRewards = {
     decorate = { account = 'money', amount = { min = 100, max = 500 } } -- Set the amount of money to decorate the Christmas tree
 }
+DreamCore.ChristmasTreeTeleportToProp = true -- Set to true if you want to teleport to the prop while animation
 DreamCore.ChristmasTree = {
     {
         id = 'meeting_point',
         model = 'xm_prop_x17_xmas_tree_int',
         coords = vector3(131.3546, -1031.0220, 28.4320),
-        heading = 0.0,
+        heading = 159.9564,
         blip = {
             sprite = 855,
             color = 69,
@@ -219,6 +220,7 @@ DreamCore.ChristmasPresentCooldown = {
 DreamCore.ChristmasPresentProgressBar = {
     open = 5000 -- Set the progress bar time to claim the Christmas present | In ms
 }
+DreamCore.ChristmasPresentTeleportToProp = true -- Set to true if you want to teleport to the prop while animation
 DreamCore.ChristmasPresentRewards = {
     { type = 'item',   item = 'bread',           amount = { min = 1, max = 5 } },
     { type = 'weapon', weapon = 'weapon_pistol', ammo = { min = 12, max = 24 } },

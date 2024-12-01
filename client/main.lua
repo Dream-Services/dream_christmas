@@ -266,6 +266,12 @@ Citizen.CreateThread(function()
 		-- Add Target
 		local TargetId = nil
 		TargetSelect = function()
+			if DreamCore.ChristmasTreeTeleportToProp then
+				local BeforeProp = GetOffsetFromEntityInWorldCoords(SpawnedProp, 0.0, -1.0, 0.0)
+				SetEntityCoords(cache.ped, BeforeProp.x, BeforeProp.y, GetEntityCoords(cache.ped).z - 1)
+				SetEntityHeading(cache.ped, GetEntityHeading(SpawnedProp))
+			end
+
 			SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
 			if lib.progressBar({
 					duration = DreamCore.ChristmasTreeProgressBar.decorate,
@@ -337,6 +343,12 @@ Citizen.CreateThread(function()
 		-- Add Target
 		local TargetId = nil
 		TargetSelect = function()
+			if DreamCore.ChristmasPresentTeleportToProp then
+				local BeforeProp = GetOffsetFromEntityInWorldCoords(SpawnedProp, 0.0, -1.0, 0.0)
+				SetEntityCoords(cache.ped, BeforeProp.x, BeforeProp.y, GetEntityCoords(cache.ped).z - 1)
+				SetEntityHeading(cache.ped, GetEntityHeading(SpawnedProp))
+			end
+
 			SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
 			if lib.progressBar({
 					duration = DreamCore.ChristmasPresentProgressBar.open,
