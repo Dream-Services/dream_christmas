@@ -57,6 +57,7 @@ All settings are customizable in the script. Here are a few examples:
 - [ ] Setuper/Placer for PropSystem and Christmas Trees and Presents (To place them easily on the map)
 - [ ] Christmas Quests
 - [ ] PropSystem add more props
+- [ ] Christmas Present remove when cooldown (open)
 
 ## Support 
 For assistance, reporting bugs, or sharing suggestions, you can:  
