@@ -45,7 +45,7 @@ All settings are customizable in the script. Here are a few examples:
 - [ ] Christmas Lootdrop \
 - [ ] Christmas Adventcalendar \
 - [x] QBCore Bridge with qb-target compatibility \
-- [ ] Notify Trigger in config \
+- [x] Notify Trigger in config \
 - [ ] Snowballs Serverside \
 - [ ] Present Gift cooldown save after restart \
 - [ ] Random Prop fixed option instead of random spawn \

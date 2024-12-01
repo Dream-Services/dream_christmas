@@ -369,15 +369,7 @@ end)
 
 RegisterNetEvent("dream_christmas:client:notify")
 AddEventHandler("dream_christmas:client:notify", function(text, type, duration)
-	local type = type or 'info'
-	local duration = duration or 5000
-	lib.notify({
-		type        = type,
-		position    = 'center-right',
-		title       = Locales['NotifyHeader'],
-		description = text,
-		duration    = duration
-	})
+	DreamCore.Notify(text, type, duration)
 end)
 
 AddEventHandler('onResourceStop', function(resourceName)

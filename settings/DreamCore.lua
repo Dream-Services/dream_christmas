@@ -26,6 +26,27 @@ DreamCore.Target = function()
         return error('No target system found! Please adjust DreamCore.Target!!!')
     end
 end
+DreamCore.Notify = function(text, type, duration)
+    -- Always clientside
+
+    -- Params:
+    -- text: message: string
+    -- type: info, success, warning, error
+    -- duration: time in ms
+
+    -- Default Values
+    local type = type or 'info'
+    local duration = duration or 5000
+
+    -- Ox Notification (ox_lib)
+    lib.notify({
+        type        = type,
+        position    = 'center-right',
+        title       = DreamLocales[DreamCore.Language]['NotifyHeader'],
+        description = text,
+        duration    = duration
+    })
+end
 
 -- Snow System (Snowballs)
 DreamCore.XmasSnow = true -- Set to false if you don't want snow
