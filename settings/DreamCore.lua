@@ -10,6 +10,7 @@ DreamCore = {} -- Do not touch this!!!
 -- Dream Christmas Settings
 DreamCore.Language = 'en'
 DreamCore.GiveCredits = true -- Set to false if you don't want to give credits
+DreamCore.OxInventory = GetResourceState('ox_inventory') == 'started' -- Set manually when you renamed ox_inventory to another name
 
 -- Snow System (Snowballs)
 DreamCore.XmasSnow = true -- Set to false if you don't want snow
@@ -171,9 +172,9 @@ DreamCore.ChristmasTree = {
 DreamCore.ChristmasPresentCooldown = 2 * 60 * 60000 -- Set the cooldown to claim the Christmas present
 DreamCore.ChristmasPresentProgressBar = 5000 -- Set the progress bar time to claim the Christmas present
 DreamCore.ChristmasPresentRewards = {
-    -- { type = 'item',   item = 'bread',           amount = { min = 1, max = 5 } },
-    -- { type = 'weapon', weapon = 'weapon_pistol', ammo = { min = 12, max = 24 } },
-    { type = 'money', account = 'bank', amount = { min = 10, max = 250 } },
+    -- { type = 'item', item = 'bread', amount = { min = 1, max = 5 } },
+    { type = 'weapon', weapon = 'weapon_pistol', ammo = { min = 12, max = 24 } },
+    -- { type = 'money', account = 'bank', amount = { min = 10, max = 250 } },
 }
 DreamCore.ChristmasPresents = {
     {

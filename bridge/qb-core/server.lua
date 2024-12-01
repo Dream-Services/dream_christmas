@@ -143,7 +143,15 @@ end
 
 -- Dream Christmas
 function DreamFramework.addPlayerWeapon(source, weaponName, ammo)
-    -- TODO: Implement
+    if not DreamCore.OxInventory then
+        local Player = DreamFramework.getPlayerFromId(source)
+        Player.Functions.AddItem(weaponName, 1)
+        -- TODO: QBCore Weapon Ammo
+    else
+        exports['ox_inventory']:AddItem(source, weaponName, 1, {
+            ammo = ammo
+        })
+    end
 end
 
 -- Events
