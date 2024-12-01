@@ -46,13 +46,17 @@ if DreamCore.XmasSnow then
 			while not HasAnimDictLoaded('anim@mp_snowball') do Citizen.Wait(100) end
 
 			local IsPickingUp = false
+			local PickingUpCooldownNotifyCooldown = 0 -- Dont know why but it is the name I gave it
 			lib.addKeybind({
 				name = 'pickupsnowball',
 				description = 'Pickup Snowball',
 				defaultKey = DreamCore.PickupSnowball,
 				onReleased = function(self)
 					if IsPickingUp then
-						TriggerEvent("dream_christmas:client:notify", Locales['PickupSnowballCooldown'], "error", 5000)
+						if PickingUpCooldownNotifyCooldown < GetGameTimer() then
+							TriggerEvent("dream_christmas:client:notify", Locales['PickupSnowballCooldown'], "error", 5000)
+							PickingUpCooldownNotifyCooldown = GetGameTimer() + 1000 -- 1s
+						end
 						return
 					end
 
