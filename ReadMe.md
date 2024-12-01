@@ -55,6 +55,8 @@ All settings are customizable in the script. Here are a few examples:
 - [x] Unarm Player when decorating tree, open gift etc.
 - [ ] Small HUD Overlay UI for Gifts etc.
 - [ ] Setuper/Placer for PropSystem and Christmas Trees and Presents (To place them easily on the map)
+- [ ] Christmas Quests
+- [ ] PropSystem add more props
 
 ## Support 
 For assistance, reporting bugs, or sharing suggestions, you can:  
