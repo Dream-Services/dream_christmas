@@ -46,16 +46,16 @@ if DreamCore.XmasSnow then
 			while not HasAnimDictLoaded('anim@mp_snowball') do Citizen.Wait(100) end
 
 			local IsPickingUp = false
-			local PickingUpCooldownNotifyCooldown = 0 -- Dont know why but it is the name I gave it
+			local PickingUpNotifyCooldown = 0 -- Dont know why but it is the name I gave it
 			lib.addKeybind({
 				name = 'pickupsnowball',
 				description = 'Pickup Snowball',
 				defaultKey = DreamCore.PickupSnowball,
 				onReleased = function(self)
 					if IsPickingUp then
-						if PickingUpCooldownNotifyCooldown < GetGameTimer() then
+						if PickingUpNotifyCooldown < GetGameTimer() then
 							TriggerEvent("dream_christmas:client:notify", Locales['PickupSnowballCooldown'], "error", 5000)
-							PickingUpCooldownNotifyCooldown = GetGameTimer() + 1000 -- 1s
+							PickingUpNotifyCooldown = GetGameTimer() + 1000 -- 1s
 						end
 						return
 					end
@@ -72,11 +72,28 @@ if DreamCore.XmasSnow then
 						return
 					end
 
+					-- Check Limit
+					local SnowballAmmo = 0
+					if DreamCore.Inventory() == 'ox' then
+						SnowballAmmo = exports.ox_inventory:GetItemCount('WEAPON_SNOWBALL')
+					elseif DreamCore.Inventory() == 'qb' then
+						SnowballAmmo = exports['qb-inventory']:GetItemAmount('WEAPON_SNOWBALL')
+					else
+						SnowballAmmo = GetAmmoInPedWeapon(cache.ped, GetHashKey('WEAPON_SNOWBALL'))
+					end
+
+					if SnowballAmmo >= (DreamCore.SnowballLimit / DreamCore.PickupSnowballAmount) then
+						if PickingUpNotifyCooldown < GetGameTimer() then
+							TriggerEvent("dream_christmas:client:notify", Locales['PickupSnowballLimit'], "error", 5000)
+							PickingUpNotifyCooldown = GetGameTimer() + 1000 -- 1s
+						end
+						return
+					end
+
 					IsPickingUp = true
 					TaskPlayAnim(cache.ped, 'anim@mp_snowball', 'pickup_snowball', 8.0, -1, -1, 0, 1, 0, 0, 0)
 					Citizen.Wait(DreamCore.PickupSnowballCooldown)
-					TriggerEvent("dream_christmas:client:notify", Locales['PickupSnowball']:format(DreamCore.PickupSnowballAmount), "success", 5000)
-					GiveWeaponToPed(GetPlayerPed(-1), GetHashKey('WEAPON_SNOWBALL'), DreamCore.PickupSnowballAmount, false, true)
+					TriggerServerEvent('dream_christmas:server:giveSnowballs')
 					IsPickingUp = false
 				end
 			})

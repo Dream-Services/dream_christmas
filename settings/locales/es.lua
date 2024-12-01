@@ -8,6 +8,7 @@ DreamLocales['es'] = {
 
     ['PickupSnowball'] = '❄️ Recoges %s bolas de nieve!',
     ['PickupSnowballCooldown'] = '❄️ Podrás recoger bolas de nieve en unos segundos!',
+    ['PickupSnowballLimit'] = '❄️ ¡Has alcanzado el límite de bolas de nieve!',
     ['PickupSnowballHelpNotify'] = 'Presiona ~g~E~s~ para recoger %s bolas de nieve!',
 
     ['MoneyAccount'] = {

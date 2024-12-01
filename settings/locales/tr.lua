@@ -8,6 +8,7 @@ DreamLocales['tr'] = {
 
     ['PickupSnowball'] = '❄️ %s kar topu aldınız!',
     ['PickupSnowballCooldown'] = '❄️ Birkaç saniye içinde tekrar kar topu alabilirsiniz!',
+    ['PickupSnowballLimit'] = '❄️ Kartopu sınırına ulaştınız!',
     ['PickupSnowballHelpNotify'] = 'Kar topu almak için ~g~E~s~ tuşuna basın!',
 
     ['MoneyAccount'] = {

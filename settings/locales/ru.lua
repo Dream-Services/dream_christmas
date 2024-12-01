@@ -8,6 +8,7 @@ DreamLocales['ru'] = {
 
     ['PickupSnowball'] = '❄️ Вы подобрали %s снежков!',
     ['PickupSnowballCooldown'] = '❄️ Вы сможете снова собрать снежки через несколько секунд!',
+    ['PickupSnowballLimit'] = '❄️ Вы достигли предела снежков!',
     ['PickupSnowballHelpNotify'] = 'Нажмите ~g~E~s~, чтобы собрать %s снежков!',
 
     ['MoneyAccount'] = {

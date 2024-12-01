@@ -156,6 +156,19 @@ lib.callback.register('dream_christmas:server:rewardRandomProp', function(source
     end
 end)
 
+
+RegisterNetEvent("dream_christmas:server:giveSnowballs")
+AddEventHandler("dream_christmas:server:giveSnowballs", function()
+    local src = source
+
+    if DreamCore.Snowballs then
+        if DreamFramework.getPlayerFromId(src) then
+            DreamFramework.addPlayerWeapon(src, 'WEAPON_SNOWBALL', DreamCore.PickupSnowballAmount)
+            TriggerClientEvent("dream_christmas:client:notify", src, Locales['PickupSnowball']:format(DreamCore.PickupSnowballAmount), "success", 5000)
+        end
+    end
+end)
+
 local ChristmasTreeCooldown = {
     decorate = {}
 }

@@ -144,9 +144,22 @@ end
 -- Dream Christmas
 function DreamFramework.addPlayerWeapon(source, weaponName, ammo)
     if DreamCore.Inventory() == 'ox' then
-        exports['ox_inventory']:AddItem(source, weaponName, 1, {
-            ammo = ammo
-        })
+        if weaponName == 'WEAPON_SNOWBALL' then
+            local SnowballSlot = exports['ox_inventory']:GetSlotWithItem(source, 'WEAPON_SNOWBALL')
+
+            if SnowballSlot then
+                SnowballSlot.metadata.ammo = SnowballSlot.metadata.ammo + ammo
+                exports['ox_inventory']:SetMetadata(source, SnowballSlot.slot, SnowballSlot.metadata)
+            else
+                exports['ox_inventory']:AddItem(source, weaponName, 1, {
+                    ammo = ammo
+                })
+            end
+        else
+            exports['ox_inventory']:AddItem(source, weaponName, 1, {
+                ammo = ammo
+            })
+        end
     else
         local Player = DreamFramework.getPlayerFromId(source)
         Player.Functions.AddItem(weaponName, 1)

@@ -9,6 +9,7 @@ DreamLocales['at'] = {
 
     ['PickupSnowball'] = '❄️ Du host %s Schneebälle aufghob\'n!',
     ['PickupSnowballCooldown'] = '❄️ In a paar Sekundn kannst wieder Schneebälle aufghob\'n!',
+    ['PickupSnowballLimit'] = '❄️ Du host scho genug Schneeballn!',
     ['PickupSnowballHelpNotify'] = 'Drück ~g~E~s~, um %s Schneebälle aufzuheben!',
 
     ['MoneyAccount'] = {
