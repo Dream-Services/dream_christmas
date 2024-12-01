@@ -82,7 +82,7 @@ if DreamCore.XmasSnow then
 						SnowballAmmo = GetAmmoInPedWeapon(cache.ped, GetHashKey('WEAPON_SNOWBALL'))
 					end
 
-					if SnowballAmmo >= (DreamCore.SnowballLimit / DreamCore.PickupSnowballAmount) then
+					if (SnowballAmmo / DreamCore.PickupSnowballAmount) >= (DreamCore.SnowballLimit / DreamCore.PickupSnowballAmount) then
 						if PickingUpNotifyCooldown < GetGameTimer() then
 							TriggerEvent("dream_christmas:client:notify", Locales['PickupSnowballLimit'], "error", 5000)
 							PickingUpNotifyCooldown = GetGameTimer() + 1000 -- 1s
