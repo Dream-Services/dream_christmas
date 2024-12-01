@@ -6,7 +6,7 @@
 DreamLocales['en'] = {
     ['NotifyHeader'] = '🎅 Christmas',
 
-    ['PickupSnowball'] = '❄️ You pick up %s snowballs!',
+    ['PickupSnowball'] = '❄️ You picked up %s snowballs!',
     ['PickupSnowballCooldown'] = '❄️ You can pick up snowballs again in a few seconds!',
     ['PickupSnowballLimit'] = '❄️ You have reached the snowball limit!',
     ['PickupSnowballHelpNotify'] = 'Press ~g~E~s~ to pickup %s snowballs!',
@@ -33,7 +33,7 @@ DreamLocales['en'] = {
         },
         ['Error'] = {
             ['PropSystemNotFound'] = '🎁 The gift was not found',
-            ['PropSystemAlreadyClaimed'] = '🎁 The gift has already been claimed',
+            ['PropSystemAlreadyClaimed'] = '🎁 This gift has already been claimed',
         }
     },
 
@@ -63,7 +63,7 @@ DreamLocales['en'] = {
         },
         ['Error'] = {
             ['ChristmasPresentInvalid'] = '🎁 The Christmas present is invalid',
-            ['ChristmasPresentAlreadyClaimed'] = '🎁 The Christmas present has already been claimed'
+            ['ChristmasPresentAlreadyClaimed'] = '🎁 This Christmas present has already been claimed'
         }
     },
 }
