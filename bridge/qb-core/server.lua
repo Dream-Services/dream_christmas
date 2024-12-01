@@ -143,7 +143,7 @@ end
 
 -- Dream Christmas
 function DreamFramework.addPlayerWeapon(source, weaponName, ammo)
-    if DreamCore.Inventory() == 'qb' then
+    if DreamCore.Inventory() == 'ox' then
         exports['ox_inventory']:AddItem(source, weaponName, 1, {
             ammo = ammo
         })
