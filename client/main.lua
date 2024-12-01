@@ -129,6 +129,7 @@ AddEventHandler("dream_christmas:client:createRandomProps", function(AllObjects)
 					SetEntityHeading(cache.ped, GetEntityHeading(SpawnedProp))
 				end
 				FreezeEntityPosition(cache.ped, true)
+				SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
 
 				if lib.progressBar({
 						duration = DreamCore.RandomPropProgressBar,
@@ -243,6 +244,7 @@ Citizen.CreateThread(function()
 		-- Add Target
 		local TargetId = nil
 		TargetSelect = function()
+			SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
 			if lib.progressBar({
 					duration = DreamCore.ChristmasTreeProgressBar.decorate,
 					label = Locales['ChristmasTree']['Decorate']['ProgressBar'],
@@ -313,6 +315,7 @@ Citizen.CreateThread(function()
 		-- Add Target
 		local TargetId = nil
 		TargetSelect = function()
+			SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
 			if lib.progressBar({
 					duration = DreamCore.ChristmasPresentProgressBar,
 					label = Locales['ChristmasPresent']['Claim']['ProgressBar'],

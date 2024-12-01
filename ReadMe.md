@@ -52,7 +52,7 @@ All settings are customizable in the script. Here are a few examples:
 - [ ] Ox_inventory compatibility \
 - [x] Webhooks
 - [ ] Christmas Music / Soundeffect
-- [ ] Unarm Player when decorating tree, open gift etc.
+- [x] Unarm Player when decorating tree, open gift etc.
 
 ## Support 
 For assistance, reporting bugs, or sharing suggestions, you can:  
