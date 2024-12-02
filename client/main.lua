@@ -68,6 +68,7 @@ if DreamCore.XmasSnow then
 						or IsPedSprinting(cache.ped)
 						or IsPedRunning(cache.ped)
 						or IsPedRagdoll(cache.ped)
+						or GetInteriorFromEntity(cache.ped) ~= 0 -- Check if player is in interior
 					then
 						return
 					end

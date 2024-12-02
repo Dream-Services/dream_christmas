@@ -52,6 +52,7 @@ All settings are customizable in the script. Here are a few examples:
 - [x] Ox_inventory compatibility
 - [x] Webhooks
 - [ ] Christmas Music / Soundeffect
+- [x] Prevent Snowballs pickup indoors
 - [x] Unarm Player when decorating tree, open gift etc.
 - [ ] Small HUD Overlay UI for Gifts etc.
 - [ ] Setuper/Placer for PropSystem and Christmas Trees and Presents (To place them easily on the map)
