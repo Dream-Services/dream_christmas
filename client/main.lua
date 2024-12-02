@@ -46,7 +46,7 @@ if DreamCore.XmasSnow then
 			while not HasAnimDictLoaded('anim@mp_snowball') do Citizen.Wait(100) end
 
 			local IsPickingUp = false
-			local PickingUpNotifyCooldown = 0 -- Dont know why but it is the name I gave it
+			local PickingUpNotifyCooldown = 0
 			lib.addKeybind({
 				name = 'pickupsnowball',
 				description = 'Pickup Snowball',
@@ -105,6 +105,23 @@ if DreamCore.XmasSnow then
 			end
 		end)
 	end
+end
+
+-- Snow Overlay
+if DreamCore.SnowOverlay then
+	Citizen.CreateThread(function()
+		while true do
+			if
+				GetInteriorFromEntity(cache.ped) ~= 0 -- Check if player is in interior
+				or IsPedInAnyVehicle(cache.ped) -- Check if player is in vehicle
+			then
+				SendNUIMessage({ type = 'snow_overlay:hide' })
+			else
+				SendNUIMessage({ type = 'snow_overlay:show' })
+			end
+			Citizen.Wait(1000)
+		end
+	end)
 end
 
 -- Load Models

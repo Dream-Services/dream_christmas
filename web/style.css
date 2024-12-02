@@ -1,0 +1,11 @@
+/* 
+    Open-Source Conditions
+    Please read the license conditions in the LICENSE file. By using this script, you agree to these conditions. 
+*/
+
+/* Snow Overlay */
+#snowfall-element {
+    background: rgba(0, 0, 0, 0);
+    height: 100%;
+    width: 100%;
+}

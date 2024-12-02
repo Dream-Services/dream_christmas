@@ -10,7 +10,7 @@ version '1.0.5'
 patch '#28'
 released '01.12.2024, 16:36 by Tuncion'
 
-ui_page 'nui/index.html'
+ui_page 'web/index.html'
 
 client_scripts {
     'bridge/**/client.lua',
@@ -31,9 +31,9 @@ server_scripts {
     'server/main.lua'
 }
 
-escrow_ignore {
-    'settings/',
-    'bridge/',
+files {
+    'web/*.**',
+    'web/**/*.**'
 }
 
 dependencies {

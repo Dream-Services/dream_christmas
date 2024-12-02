@@ -60,6 +60,7 @@ All settings are customizable in the script. Here are a few examples:
 - [ ] PropSystem add more props
 - [ ] Christmas Present remove when cooldown (open)
 - [ ] Smoother Teleport to the prop
+- [x] Snow Overlay when outside 
 
 ## Support 
 For assistance, reporting bugs, or sharing suggestions, you can:  

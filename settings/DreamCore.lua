@@ -48,8 +48,9 @@ DreamCore.Notify = function(text, type, duration)
     })
 end
 
--- Snow System (Snowballs)
+-- Snow System (Snowballs &  Overlay)
 DreamCore.XmasSnow = true -- Set to false if you don't want snow
+DreamCore.SnowOverlay = true -- Set to false if you don't want the snow overlay
 DreamCore.Snowballs = true -- Set to false if you don't want snowballs | Requires DreamCore.XmasSnow = true
 DreamCore.SnowballDamageModifier = 0.0 -- Set the damage of the snowball | Requires DreamCore.Snowballs = true
 DreamCore.SnowballLimit = 10 -- Set the limit of snowballs | Requires DreamCore.Snowballs = true
