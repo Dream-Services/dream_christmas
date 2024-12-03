@@ -52,7 +52,7 @@ end
 DreamCore.XmasSnow = true -- Set to false if you don't want snow
 DreamCore.SnowOverlay = true -- Set to false if you don't want the snow overlay
 DreamCore.Snowballs = true -- Set to false if you don't want snowballs | Requires DreamCore.XmasSnow = true
-DreamCore.SnowballDamageModifier = 0.0 -- Set the damage of the snowball | Requires DreamCore.Snowballs = true
+DreamCore.SnowballDamageModifier = 0.0 -- Set the damage of the snowball | 0.0 - 0.1 for realism | Requires DreamCore.Snowballs = true
 DreamCore.SnowballLimit = 10 -- Set the limit of snowballs | Requires DreamCore.Snowballs = true
 DreamCore.PickupSnowball = 'E' -- Set the control to pickup snowballs
 DreamCore.PickupSnowballCooldown = 1500 -- Set the cooldown to pickup snowballs

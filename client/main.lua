@@ -98,9 +98,15 @@ if DreamCore.XmasSnow then
 					IsPickingUp = false
 				end
 			})
+		end)
 
+		-- Snowball Damage Modifier
+		Citizen.CreateThread(function()
+			local SnowballHash = GetHashKey('WEAPON_SNOWBALL')
 			while true do
-				N_0x4757f00bc6323cfe('WEAPON_SNOWBALL', DreamCore.SnowballDamageModifier)
+				if GetSelectedPedWeapon(cache.ped) == SnowballHash then
+					SetPlayerWeaponDamageModifier(PlayerId(), DreamCore.SnowballDamageModifier)
+				end
 				Citizen.Wait(0)
 			end
 		end)
