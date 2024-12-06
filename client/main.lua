@@ -159,8 +159,10 @@ AddEventHandler("dream_christmas:client:createPropSystem", function(AllObjects)
 		-- Check Coords
 		if DreamCore.CheckPropCoords(v.coords) and not v.claimed then
 			local SpawnedProp = CreateObject(GetHashKey(v.prop.model), v.coords, true, true, true)
-			FreezeEntityPosition(SpawnedProp, true)
 			SetEntityHeading(SpawnedProp, v.heading)
+			FreezeEntityPosition(SpawnedProp, true)
+			SetEntityInvincible(SpawnedProp, true)
+			SetBlockingOfNonTemporaryEvents(SpawnedProp, true)
 
 			-- Add Target
 			local TargetId = nil
@@ -286,6 +288,8 @@ Citizen.CreateThread(function()
 		local SpawnedProp = CreateObject(GetHashKey(v.model), v.coords, true, true, true)
 		SetEntityHeading(SpawnedProp, v.heading)
 		FreezeEntityPosition(SpawnedProp, true)
+		SetEntityInvincible(SpawnedProp, true)
+		SetBlockingOfNonTemporaryEvents(SpawnedProp, true)
 
 		-- Add Target
 		local TargetId = nil
@@ -363,6 +367,9 @@ Citizen.CreateThread(function()
 		local SpawnedProp = CreateObject(GetHashKey(v.model), v.coords, true, true, true)
 		SetEntityHeading(SpawnedProp, v.heading)
 		FreezeEntityPosition(SpawnedProp, true)
+		FreezeEntityPosition(SpawnedProp, true)
+		SetEntityInvincible(SpawnedProp, true)
+		SetBlockingOfNonTemporaryEvents(SpawnedProp, true)
 
 		-- Add Target
 		local TargetId = nil
