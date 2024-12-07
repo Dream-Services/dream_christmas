@@ -10,6 +10,11 @@ DreamCore = {} -- Do not touch this!!!
 -- Dream Christmas Settings
 DreamCore.Language = 'en'
 DreamCore.GiveCredits = true -- Set to false if you don't want to give credits
+
+local snowman_Blip = "☃️ Snowman"
+local christTree_Blip = "🎄 Christmas Tree"
+local christPresent_Blip = "🎁 Christmas Present"
+
 DreamCore.Inventory = function()
     if GetResourceState('ox_inventory') == 'started' then
         return 'ox'
@@ -88,6 +93,7 @@ DreamCore.PropSystemRewards = {
     { type = 'weapon', weapon = 'weapon_pistol', ammo = { min = 12, max = 24 } },
     { type = 'money',  account = 'bank',         amount = { min = 100, max = 2500 } },
 }
+
 DreamCore.PropSystem = {
     {
         model = 'xm3_prop_xm3_snowman_01a',
@@ -95,7 +101,7 @@ DreamCore.PropSystem = {
             sprite = 161,
             color = 0,
             scale = 0.6,
-            name = '☃️ Snowman'
+            name = snowman_Blip
         }
     },
     {
@@ -104,7 +110,7 @@ DreamCore.PropSystem = {
             sprite = 161,
             color = 0,
             scale = 0.6,
-            name = '☃️ Snowman'
+            name = snowman_Blip
         }
     },
     {
@@ -113,7 +119,7 @@ DreamCore.PropSystem = {
             sprite = 161,
             color = 0,
             scale = 0.6,
-            name = '☃️ Snowman'
+            name = snowman_Blip
         }
     }
 }
@@ -139,7 +145,7 @@ DreamCore.ChristmasTree = {
             sprite = 855,
             color = 69,
             scale = 0.9,
-            name = '🎄 Christmas Tree'
+            name = christTree_Blip
         }
     },
     {
@@ -151,7 +157,7 @@ DreamCore.ChristmasTree = {
             sprite = 855,
             color = 69,
             scale = 0.9,
-            name = '🎄 Christmas Tree'
+            name = christTree_Blip
         }
     },
     {
@@ -163,7 +169,7 @@ DreamCore.ChristmasTree = {
             sprite = 855,
             color = 69,
             scale = 0.9,
-            name = '🎄 Christmas Tree'
+            name = christTree_Blip
         }
     },
     {
@@ -175,7 +181,7 @@ DreamCore.ChristmasTree = {
             sprite = 855,
             color = 69,
             scale = 0.9,
-            name = '🎄 Christmas Tree'
+            name = christTree_Blip
         }
     },
     {
@@ -187,7 +193,7 @@ DreamCore.ChristmasTree = {
             sprite = 855,
             color = 69,
             scale = 0.9,
-            name = '🎄 Christmas Tree'
+            name = christTree_Blip
         }
     },
     {
@@ -199,7 +205,7 @@ DreamCore.ChristmasTree = {
             sprite = 855,
             color = 69,
             scale = 0.9,
-            name = '🎄 Christmas Tree'
+            name = christTree_Blip
         }
     },
     {
@@ -211,7 +217,7 @@ DreamCore.ChristmasTree = {
             sprite = 855,
             color = 69,
             scale = 0.9,
-            name = '🎄 Christmas Tree'
+            name = christTree_Blip
         }
     }
 }
@@ -239,7 +245,7 @@ DreamCore.ChristmasPresents = {
             sprite = 781,
             color = 59,
             scale = 0.6,
-            name = '🎁 Christmas Present'
+            name = christPresent_Blip
         }
     },
     {
@@ -251,7 +257,7 @@ DreamCore.ChristmasPresents = {
             sprite = 781,
             color = 59,
             scale = 0.6,
-            name = '🎁 Christmas Present'
+            name = christPresent_Blip
         }
     },
     {
@@ -263,7 +269,7 @@ DreamCore.ChristmasPresents = {
             sprite = 781,
             color = 59,
             scale = 0.6,
-            name = '🎁 Christmas Present'
+            name = christPresent_Blip
         }
     },
     {
@@ -275,7 +281,7 @@ DreamCore.ChristmasPresents = {
             sprite = 781,
             color = 59,
             scale = 0.6,
-            name = '🎁 Christmas Present'
+            name = christPresent_Blip
         }
     }
 }
