@@ -3,6 +3,64 @@
     Please read the license conditions in the LICENSE file. By using this script, you agree to these conditions. 
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
+/* Deactivate Scrollbar */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Activity Popup */
+@keyframes ActivityPopupAnim {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-1vh);
+    }
+}
+
+.activity-popup {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.activity-popup-circle {
+    position: absolute;
+    background: #BE3636;
+    width: 30vw;
+    height: 30vw;
+    border-radius: 50%;
+    margin-top: -45vh;
+    filter: blur(5vw);
+}
+
+.activity-popup-img {
+    position: absolute;
+    width: 8vw;
+    margin-top: 1.5vh;
+    animation: ActivityPopupAnim 4s ease-in-out infinite;
+}
+
+.activity-popup-text {
+    position: absolute;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.2vw;
+    color: white;
+    text-align: center;
+    margin-top: 13.5vh;
+    text-shadow: 0.1vw 0.1vw 0.5vw rgb(0, 0, 0, 0.8);
+    animation: ActivityPopupAnim 4s ease-in-out infinite;
+}
+
 /* Snow Overlay */
 #snowfall-element {
     background: rgba(0, 0, 0, 0);

@@ -26,6 +26,9 @@ DreamLocales['tr'] = {
     ['PropSystem'] = {
         ['TargetLabel'] = 'Bir hediye arayın',
         ['ProgressBar'] = '🎁 Hediye arıyor',
+        ['ActivityPopup'] = {
+            ['snowman'] = 'Bir hediye arıyorum...'
+        },
         ['Success'] = {
             ['PropSystemClaimedItem'] = '🎁 %sx %s buldunuz',
             ['PropSystemClaimedWeapon'] = '🎁 Bir %s buldunuz ve içinde %s mermi var',
@@ -40,7 +43,8 @@ DreamLocales['tr'] = {
     ['ChristmasTree'] = {
         ['Decorate'] = {
             ['TargetLabel'] = 'Noel ağacını süsleyin',
-            ['ProgressBar'] = '🎄 Noel ağacını süslüyorsunuz'
+            ['ProgressBar'] = '🎄 Noel ağacını süslüyorsunuz',
+            ['ActivityPopup'] = 'Ağacı süslüyorum...',
         },
         ['Success'] = {
             ['ChristmasTreeDecorate'] = '🎄 Noel ağacını başarıyla süslediniz ve %s$ kazandınız'
@@ -54,7 +58,8 @@ DreamLocales['tr'] = {
     ['ChristmasPresent'] = {
         ['Claim'] = {
             ['TargetLabel'] = 'Hediyenizi alın',
-            ['ProgressBar'] = '🎁 Hediyenizi alıyorsunuz'
+            ['ProgressBar'] = '🎁 Hediyenizi alıyorsunuz',
+            ['ActivityPopup'] = 'Hediye açılıyor...',
         },
         ['Success'] = {
             ['ChristmasPresentItem'] = '🎁 %sx %s aldınız',

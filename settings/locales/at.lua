@@ -27,6 +27,9 @@ DreamLocales['at'] = {
     ['PropSystem'] = {
         ['TargetLabel'] = 'Such an Gschänk',
         ['ProgressBar'] = '🎁 Auf der Such nachm Gschänk',
+        ['ActivityPopup'] = {
+            ['snowman'] = 'I sig um a Gschenk um...'
+        },
         ['Success'] = {
             ['PropSystemClaimedItem'] = '🎁 Du host %sx %s gfunde',
             ['PropSystemClaimedWeapon'] = '🎁 Du host a %s mit %s Schuss gfunde',
@@ -41,7 +44,8 @@ DreamLocales['at'] = {
     ['ChristmasTree'] = {
         ['Decorate'] = {
             ['TargetLabel'] = 'Dekoriere den Christbaum',
-            ['ProgressBar'] = '🎄 Dekoriere den Christbaum'
+            ['ProgressBar'] = '🎄 Dekoriere den Christbaum',
+            ['ActivityPopup'] = 'Baum schmückn...',
         },
         ['Success'] = {
             ['ChristmasTreeDecorate'] = '🎄 Du host den Christbaum fertig dekoriert und %s$ kriagt'
@@ -55,7 +59,8 @@ DreamLocales['at'] = {
     ['ChristmasPresent'] = {
         ['Claim'] = {
             ['TargetLabel'] = 'Hol dir dein Gschänk',
-            ['ProgressBar'] = '🎁 Holst dein Gschänk'
+            ['ProgressBar'] = '🎁 Holst dein Gschänk',
+            ['ActivityPopup'] = 'Gschenk aufmachn...',
         },
         ['Success'] = {
             ['ChristmasPresentItem'] = '🎁 Du host %sx %s kriagt',

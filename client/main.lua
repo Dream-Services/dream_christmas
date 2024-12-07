@@ -13,6 +13,14 @@ if string.find(GetCurrentResourceName(), 'dream') then
 end
 
 -- Global Variables
+
+-- Ready UI
+RegisterNUICallback("readyUI", function(data, cb)
+	SendNUIMessage({ type = 'startup', locales = Locales })
+	cb()
+end)
+
+-- Snow System
 if DreamCore.XmasSnow then
 	print("^6[Dream-Services]^7 Snow is enabled!")
 	Citizen.CreateThread(function()
@@ -111,24 +119,24 @@ if DreamCore.XmasSnow then
 			end
 		end)
 	end
+
+	if DreamCore.SnowOverlay then
+		Citizen.CreateThread(function()
+			while true do
+				if
+					GetInteriorFromEntity(cache.ped) ~= 0 -- Check if player is in interior
+					or IsPedInAnyVehicle(cache.ped) -- Check if player is in vehicle
+				then
+					SendNUIMessage({ type = 'snow_overlay:hide' })
+				else
+					SendNUIMessage({ type = 'snow_overlay:show' })
+				end
+				Citizen.Wait(1000)
+			end
+		end)
+	end
 end
 
--- Snow Overlay
-if DreamCore.SnowOverlay then
-	Citizen.CreateThread(function()
-		while true do
-			if
-				GetInteriorFromEntity(cache.ped) ~= 0 -- Check if player is in interior
-				or IsPedInAnyVehicle(cache.ped) -- Check if player is in vehicle
-			then
-				SendNUIMessage({ type = 'snow_overlay:hide' })
-			else
-				SendNUIMessage({ type = 'snow_overlay:show' })
-			end
-			Citizen.Wait(1000)
-		end
-	end)
-end
 
 -- Load Models
 Citizen.CreateThread(function()
@@ -174,7 +182,7 @@ AddEventHandler("dream_christmas:client:createPropSystem", function(AllObjects)
 				end
 				FreezeEntityPosition(cache.ped, true)
 				SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
-
+				SendNUIMessage({ type = 'activity_popup:start', variant = 'randomprop_snowman' })
 				if lib.progressBar({
 						duration = DreamCore.PropSystemProgressBar,
 						label = Locales['PropSystem']['ProgressBar'],
@@ -193,6 +201,7 @@ AddEventHandler("dream_christmas:client:createPropSystem", function(AllObjects)
 					})
 				then
 					FreezeEntityPosition(cache.ped, false)
+					SendNUIMessage({ type = 'activity_popup:stop' })
 					local result = lib.callback.await('dream_christmas:server:rewardPropSystem', false, v.id)
 
 					if result.success then
@@ -301,6 +310,7 @@ Citizen.CreateThread(function()
 			end
 
 			SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
+			SendNUIMessage({ type = 'activity_popup:start', variant = 'tree' })
 			if lib.progressBar({
 					duration = DreamCore.ChristmasTreeProgressBar.decorate,
 					label = Locales['ChristmasTree']['Decorate']['ProgressBar'],
@@ -318,6 +328,7 @@ Citizen.CreateThread(function()
 					}
 				})
 			then
+				SendNUIMessage({ type = 'activity_popup:stop' })
 				local result = lib.callback.await('dream_christmas:server:decorateChristmasTree', false, v.id)
 				if result.success then
 					TriggerEvent("dream_christmas:client:notify", result.message, "success", 5000)
@@ -381,6 +392,7 @@ Citizen.CreateThread(function()
 			end
 
 			SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
+			SendNUIMessage({ type = 'activity_popup:start', variant = 'present' })
 			if lib.progressBar({
 					duration = DreamCore.ChristmasPresentProgressBar.open,
 					label = Locales['ChristmasPresent']['Claim']['ProgressBar'],
@@ -398,6 +410,7 @@ Citizen.CreateThread(function()
 					}
 				})
 			then
+				SendNUIMessage({ type = 'activity_popup:stop' })
 				local result = lib.callback.await('dream_christmas:server:claimChristmasPresent', false, v.id)
 				if result.success then
 					TriggerEvent("dream_christmas:client:notify", result.message, "success", 5000)

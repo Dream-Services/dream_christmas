@@ -26,6 +26,9 @@ DreamLocales['pl'] = {
     ['PropSystem'] = {
         ['TargetLabel'] = 'Szukaj prezentu',
         ['ProgressBar'] = '🎁 Szukam prezentu',
+        ['ActivityPopup'] = {
+            ['snowman'] = 'Szukam prezentu...'
+        },
         ['Success'] = {
             ['PropSystemClaimedItem'] = '🎁 Znalazłeś %sx %s',
             ['PropSystemClaimedWeapon'] = '🎁 Znalazłeś %s z %s nabojami',
@@ -40,7 +43,8 @@ DreamLocales['pl'] = {
     ['ChristmasTree'] = {
         ['Decorate'] = {
             ['TargetLabel'] = 'Ozdób choinkę',
-            ['ProgressBar'] = '🎄 Ozdabianie choinki'
+            ['ProgressBar'] = '🎄 Ozdabianie choinki',
+            ['ActivityPopup'] = 'Dekorowanie choinki...',
         },
         ['Success'] = {
             ['ChristmasTreeDecorate'] = '🎄 Udało ci się ozdobić choinkę i zdobyć %s$'
@@ -54,7 +58,8 @@ DreamLocales['pl'] = {
     ['ChristmasPresent'] = {
         ['Claim'] = {
             ['TargetLabel'] = 'Odbierz swój prezent',
-            ['ProgressBar'] = '🎁 Odbieranie prezentu'
+            ['ProgressBar'] = '🎁 Odbieranie prezentu',
+            ['ActivityPopup'] = 'Otwieranie prezentu...',
         },
         ['Success'] = {
             ['ChristmasPresentItem'] = '🎁 Otrzymałeś %sx %s',
