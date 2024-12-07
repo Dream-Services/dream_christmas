@@ -67,6 +67,20 @@ end
 local Locales = DreamLocales[DreamCore.Language]
 
 -- Global Variables
+local PossibleOtherWeatherResources = {
+    "vSync", -- https://github.com/DevTestingPizza/vSync
+    "qb-weathersync", -- https://github.com/qbcore-framework/qb-weathersync
+    "cd_easytime", -- https://github.com/dsheedes/cd_easytime
+    "nns_weather", -- https://github.com/nnsdev/nns_weather
+    "weathersync", -- https://github.com/kibook/weathersync
+    "es_wsync", -- https://github.com/Sadler2/es_wsync
+    "Renewed-Weathersync", -- https://github.com/Renewed-Scripts/Renewed-Weathersync
+    "FiveM-DinoWeather", -- https://github.com/itsJarrett/FiveM-DinoWeather
+    "B2_WeatherEssentials", -- https://github.com/B2DevUK/B2_WeatherEssentials
+    "FiveM-Real-Weather", -- https://github.com/jijamik/FiveM-Real-Weather
+
+    -- Feel free to add more weather resources here and share with the community!
+}
 
 -- Global Cooldown
 if not LoadResourceFile(GetCurrentResourceName(), 'server/cooldown.json') then
@@ -78,6 +92,8 @@ local GlobalCooldownJSON = json.decode(
 
 -- Startup
 Citizen.CreateThread(function()
+    if DreamCore.XmasSnow then CheckOtherWeatherResources() end
+
     -- Remove all old cooldowns which are expired
 
     -- Christmas Tree Decorate
@@ -360,6 +376,20 @@ function GiveRandomRewardToPlayer(src, RewardsPool)
     return RandomReward
 end
 
+-- Check for other weather resources which can be a conflict
+function CheckOtherWeatherResources()
+    for i, v in ipairs(PossibleOtherWeatherResources) do
+        if GetResourceState(v) == 'started' then
+            if DreamCore.PreventOtherWeatherResources then
+                print(('\27[1;46m[%s]\27[0m \27[1;37m The resource ^3%s^7\27[1;37m is running. We stopped it to prevent conflicts with the weather system!^7'):format(ScriptMetadata.name, v))
+                StopResource(v)
+            else
+                print(('\27[1;46m[%s]\27[0m \27[1;37m The resource ^3%s^7\27[1;37m is running. Please make sure that there are no conflicts with the weather system! Running this resource in parallel can cause flashes...^7'):format(ScriptMetadata.name, v))
+            end
+        end
+    end
+end
+
 function SendDiscordWebhook(WebhookData)
     local EmbedDataArray = {}
     local EmbedData = {}
@@ -393,3 +423,8 @@ function SendDiscordWebhook(WebhookData)
 
     PerformHttpRequest(WebhookData.link, function(err, text, headers) end, 'POST', json.encode({ embeds = EmbedDataArray }), { ['Content-Type'] = 'application/json' })
 end
+
+AddEventHandler('onResourceStart', function(resourceName)
+    Citizen.Wait(500)
+    CheckOtherWeatherResources()
+end)
