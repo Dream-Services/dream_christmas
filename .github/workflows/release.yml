@@ -60,6 +60,8 @@ jobs:
           run: |
             git tag -a v${{ env.RELEASE_VERSION }} -m "Release v${{ env.RELEASE_VERSION }}"
             git push origin v${{ env.RELEASE_VERSION }}
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
         - name: Push Manifest Change
           uses: EndBug/add-and-commit@v8
