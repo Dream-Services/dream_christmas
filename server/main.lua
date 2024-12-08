@@ -44,7 +44,7 @@ Citizen.CreateThread(function()
             ResponseData = json.decode(Response)
 
             -- Check if a new version is available
-            if ResponseData.tag_name ~= ScriptMetadata.version then
+            if ResponseData.tag_name:gsub('v', '') ~= ScriptMetadata.version then
                 print(('\27[1;46m[%s]\27[0m \27[1;37m🎄 A new version ^3%s\27[1;37m is available since ^3%s UTC\27[1;37m.^7'):format(ScriptMetadata.name, ResponseData.tag_name, os.date('%d.%m.%Y %H:%M:%S', ParseISODateString(ResponseData.published_at))))
                 print(('\27[1;46m[%s]\27[0m \27[1;37mPlease update it on ^5GitHub^7:\27[1;37m %s'):format(ScriptMetadata.name, ResponseData.html_url))
             else
