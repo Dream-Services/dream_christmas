@@ -56,11 +56,6 @@ jobs:
             RELEASE_USER: ${{ github.actor }}
             RELEASE_PATCH: ${{ env.COMMIT_COUNT }}
 
-        - name: Create Tag
-          uses: rickstaa/action-create-tag@latest
-          with:
-            tag: v${{ env.RELEASE_VERSION }}
-
         - name: Push Manifest Change
           uses: EndBug/add-and-commit@v8
           with:
@@ -84,6 +79,7 @@ jobs:
           id: auto_release
           with:
             repo_token: ${{ secrets.GITHUB_TOKEN }}
+            automatic_release_tag: v${{ env.RELEASE_VERSION }}
             title: 🎅 v${{ env.RELEASE_VERSION }}
             prerelease: false
             files: |
