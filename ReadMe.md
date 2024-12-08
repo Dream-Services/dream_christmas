@@ -63,6 +63,7 @@ All settings are customizable in the script. Here are a few examples:
 - [x] Snow Overlay when outside 
 - [ ] Build Snowman
 - [ ] Own timesync or something to fix the problem with multiple weather scripts
+- [ ] Exports for other scripts
 
 ## Support 
 For assistance, reporting bugs, or sharing suggestions, you can:  
