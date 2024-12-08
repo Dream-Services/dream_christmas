@@ -255,9 +255,11 @@ lib.callback.register('dream_christmas:server:decorateChristmasTree', function(s
             not GlobalCooldownJSON.ChristmasTree.decorate?[TreeId]?[PlayerIdentifier]
             or (GlobalCooldownJSON.ChristmasTree.decorate[TreeId][PlayerIdentifier] < os.time())
         then
-            GlobalCooldownJSON.ChristmasTree.decorate[TreeId] = {
-                [PlayerIdentifier] = os.time() + DreamCore.ChristmasTreeCooldown.decorate
-            }
+            if not GlobalCooldownJSON.ChristmasTree.decorate[TreeId] then
+                GlobalCooldownJSON.ChristmasTree.decorate[TreeId] = {}
+            end
+            GlobalCooldownJSON.ChristmasTree.decorate[TreeId][PlayerIdentifier] = os.time() + DreamCore.ChristmasTreeCooldown.decorate
+
             SaveResourceFile(GetCurrentResourceName(), 'server/cooldown.json', json.encode(GlobalCooldownJSON), -1)
             local MoneyAmount = math.random(DreamCore.ChristmasTreeRewards.decorate.amount.min, DreamCore.ChristmasTreeRewards.decorate.amount.max)
             DreamFramework.addPlayerMoney(src, DreamCore.ChristmasTreeRewards.decorate.account, MoneyAmount)
@@ -307,9 +309,11 @@ lib.callback.register('dream_christmas:server:claimChristmasPresent', function(s
             not GlobalCooldownJSON.ChristmasPresent.open?[PresentId]?[PlayerIdentifier]
             or (GlobalCooldownJSON.ChristmasPresent.open[PresentId][PlayerIdentifier] < os.time())
         then
-            GlobalCooldownJSON.ChristmasPresent.open[PresentId] = {
-                [PlayerIdentifier] = os.time() + DreamCore.ChristmasPresentCooldown.open
-            }
+            if not GlobalCooldownJSON.ChristmasPresent.open[PresentId] then
+                GlobalCooldownJSON.ChristmasPresent.open[PresentId] = {}
+            end
+            GlobalCooldownJSON.ChristmasPresent.open[PresentId][PlayerIdentifier] = os.time() + DreamCore.ChristmasPresentCooldown.open
+
             SaveResourceFile(GetCurrentResourceName(), 'server/cooldown.json', json.encode(GlobalCooldownJSON), -1)
 
             local RewardData = GiveRandomRewardToPlayer(src, DreamCore.ChristmasPresentRewards)
