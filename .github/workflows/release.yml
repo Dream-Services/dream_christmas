@@ -57,12 +57,10 @@ jobs:
             RELEASE_PATCH: ${{ env.COMMIT_COUNT }}
 
         - name: Create Tag
-          run: |
-            git tag -a v${{ env.RELEASE_VERSION }} -m "Release v${{ env.RELEASE_VERSION }}"
-            git push origin v${{ env.RELEASE_VERSION }}
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+          uses: rickstaa/action-create-tag@latest
+          with:
+            tag: v${{ env.RELEASE_VERSION }}
+
         - name: Push Manifest Change
           uses: EndBug/add-and-commit@v8
           with:
