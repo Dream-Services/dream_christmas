@@ -166,7 +166,7 @@ AddEventHandler("dream_christmas:client:createPropSystem", function(AllObjects)
 	for k, v in pairs(AllObjects) do
 		-- Check Coords
 		if DreamCore.CheckPropCoords(v.coords) and not v.claimed then
-			local SpawnedProp = CreateObject(GetHashKey(v.prop.model), v.coords, true, true, true)
+			local SpawnedProp = CreateObject(GetHashKey(v.prop.model), v.coords, false, true, true)
 			SetEntityHeading(SpawnedProp, v.heading)
 			FreezeEntityPosition(SpawnedProp, true)
 			SetEntityInvincible(SpawnedProp, true)
@@ -294,7 +294,7 @@ local ChristmasTreeData = {}
 Citizen.CreateThread(function()
 	for k, v in pairs(DreamCore.ChristmasTree) do
 		lib.requestModel(GetHashKey(v.model))
-		local SpawnedProp = CreateObject(GetHashKey(v.model), v.coords, true, true, true)
+		local SpawnedProp = CreateObject(GetHashKey(v.model), v.coords, false, true, true)
 		SetEntityHeading(SpawnedProp, v.heading)
 		FreezeEntityPosition(SpawnedProp, true)
 		SetEntityInvincible(SpawnedProp, true)
@@ -375,7 +375,7 @@ local ChristmasPresentData = {}
 Citizen.CreateThread(function()
 	for k, v in pairs(DreamCore.ChristmasPresents) do
 		lib.requestModel(GetHashKey(v.model))
-		local SpawnedProp = CreateObject(GetHashKey(v.model), v.coords, true, true, true)
+		local SpawnedProp = CreateObject(GetHashKey(v.model), v.coords, false, true, true)
 		SetEntityHeading(SpawnedProp, v.heading)
 		FreezeEntityPosition(SpawnedProp, true)
 		FreezeEntityPosition(SpawnedProp, true)
