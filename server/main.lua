@@ -44,9 +44,12 @@ Citizen.CreateThread(function()
             ResponseData = json.decode(Response)
 
             -- Check if a new version is available
-            if ResponseData.tag_name ~= ScriptMetadata.version then
+            if ResponseData.tag_name:gsub('v', '') ~= ScriptMetadata.version then
                 print(('\27[1;46m[%s]\27[0m \27[1;37m🎄 A new version ^3%s\27[1;37m is available since ^3%s UTC\27[1;37m.^7'):format(ScriptMetadata.name, ResponseData.tag_name, os.date('%d.%m.%Y %H:%M:%S', ParseISODateString(ResponseData.published_at))))
                 print(('\27[1;46m[%s]\27[0m \27[1;37mPlease update it on ^5GitHub^7:\27[1;37m %s'):format(ScriptMetadata.name, ResponseData.html_url))
+            else
+                local DownloadCount = ResponseData?.assets?[1]?.download_count or 'few'
+                print(('\27[1;46m[%s]\27[0m \27[1;37m🎄 You are running the latest version like ^3%s^7\27[1;37m other people 🎅^7'):format(ScriptMetadata.name, DownloadCount))
             end
         else
             ResponseData = json.decode(ErrorResponse:gsub('HTTP %d+: (.+)', '%1'))
@@ -67,6 +70,20 @@ end
 local Locales = DreamLocales[DreamCore.Language]
 
 -- Global Variables
+local PossibleOtherWeatherResources = {
+    "vSync", -- https://github.com/DevTestingPizza/vSync
+    "qb-weathersync", -- https://github.com/qbcore-framework/qb-weathersync
+    "cd_easytime", -- https://github.com/dsheedes/cd_easytime
+    "nns_weather", -- https://github.com/nnsdev/nns_weather
+    "weathersync", -- https://github.com/kibook/weathersync
+    "es_wsync", -- https://github.com/Sadler2/es_wsync
+    "Renewed-Weathersync", -- https://github.com/Renewed-Scripts/Renewed-Weathersync
+    "FiveM-DinoWeather", -- https://github.com/itsJarrett/FiveM-DinoWeather
+    "B2_WeatherEssentials", -- https://github.com/B2DevUK/B2_WeatherEssentials
+    "FiveM-Real-Weather", -- https://github.com/jijamik/FiveM-Real-Weather
+
+    -- Feel free to add more weather resources here and share with the community!
+}
 
 -- Global Cooldown
 if not LoadResourceFile(GetCurrentResourceName(), 'server/cooldown.json') then
@@ -78,6 +95,8 @@ local GlobalCooldownJSON = json.decode(
 
 -- Startup
 Citizen.CreateThread(function()
+    if DreamCore.XmasSnow then CheckOtherWeatherResources() end
+
     -- Remove all old cooldowns which are expired
 
     -- Christmas Tree Decorate
@@ -239,9 +258,11 @@ lib.callback.register('dream_christmas:server:decorateChristmasTree', function(s
             not GlobalCooldownJSON.ChristmasTree.decorate?[TreeId]?[PlayerIdentifier]
             or (GlobalCooldownJSON.ChristmasTree.decorate[TreeId][PlayerIdentifier] < os.time())
         then
-            GlobalCooldownJSON.ChristmasTree.decorate[TreeId] = {
-                [PlayerIdentifier] = os.time() + DreamCore.ChristmasTreeCooldown.decorate
-            }
+            if not GlobalCooldownJSON.ChristmasTree.decorate[TreeId] then
+                GlobalCooldownJSON.ChristmasTree.decorate[TreeId] = {}
+            end
+            GlobalCooldownJSON.ChristmasTree.decorate[TreeId][PlayerIdentifier] = os.time() + DreamCore.ChristmasTreeCooldown.decorate
+
             SaveResourceFile(GetCurrentResourceName(), 'server/cooldown.json', json.encode(GlobalCooldownJSON), -1)
             local MoneyAmount = math.random(DreamCore.ChristmasTreeRewards.decorate.amount.min, DreamCore.ChristmasTreeRewards.decorate.amount.max)
             DreamFramework.addPlayerMoney(src, DreamCore.ChristmasTreeRewards.decorate.account, MoneyAmount)
@@ -291,9 +312,11 @@ lib.callback.register('dream_christmas:server:claimChristmasPresent', function(s
             not GlobalCooldownJSON.ChristmasPresent.open?[PresentId]?[PlayerIdentifier]
             or (GlobalCooldownJSON.ChristmasPresent.open[PresentId][PlayerIdentifier] < os.time())
         then
-            GlobalCooldownJSON.ChristmasPresent.open[PresentId] = {
-                [PlayerIdentifier] = os.time() + DreamCore.ChristmasPresentCooldown.open
-            }
+            if not GlobalCooldownJSON.ChristmasPresent.open[PresentId] then
+                GlobalCooldownJSON.ChristmasPresent.open[PresentId] = {}
+            end
+            GlobalCooldownJSON.ChristmasPresent.open[PresentId][PlayerIdentifier] = os.time() + DreamCore.ChristmasPresentCooldown.open
+
             SaveResourceFile(GetCurrentResourceName(), 'server/cooldown.json', json.encode(GlobalCooldownJSON), -1)
 
             local RewardData = GiveRandomRewardToPlayer(src, DreamCore.ChristmasPresentRewards)
@@ -360,6 +383,20 @@ function GiveRandomRewardToPlayer(src, RewardsPool)
     return RandomReward
 end
 
+-- Check for other weather resources which can be a conflict
+function CheckOtherWeatherResources()
+    for i, v in ipairs(PossibleOtherWeatherResources) do
+        if GetResourceState(v) == 'started' then
+            if DreamCore.PreventOtherWeatherResources then
+                print(('\27[1;46m[%s]\27[0m \27[1;37m The resource ^3%s^7\27[1;37m is running. We stopped it to prevent conflicts with the weather system!^7'):format(ScriptMetadata.name, v))
+                StopResource(v)
+            else
+                print(('\27[1;46m[%s]\27[0m \27[1;37m The resource ^3%s^7\27[1;37m is running. Please make sure that there are no conflicts with the weather system! Running this resource in parallel can cause flashes...^7'):format(ScriptMetadata.name, v))
+            end
+        end
+    end
+end
+
 function SendDiscordWebhook(WebhookData)
     local EmbedDataArray = {}
     local EmbedData = {}
@@ -393,3 +430,8 @@ function SendDiscordWebhook(WebhookData)
 
     PerformHttpRequest(WebhookData.link, function(err, text, headers) end, 'POST', json.encode({ embeds = EmbedDataArray }), { ['Content-Type'] = 'application/json' })
 end
+
+AddEventHandler('onResourceStart', function(resourceName)
+    Citizen.Wait(500)
+    CheckOtherWeatherResources()
+end)

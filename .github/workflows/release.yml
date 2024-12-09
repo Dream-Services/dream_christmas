@@ -8,7 +8,14 @@ on:
     branches:
       - main
   workflow_dispatch:
-
+    inputs:
+      update_type:
+        description: "Select the type of update"
+        required: true
+        type: choice
+        options:
+          - Hotfix
+          - Release
 env:
   REPOSITORY_NAME: ${{ github.event.repository.name }}
 
@@ -52,15 +59,10 @@ jobs:
         - name: Update Manifest Data
           run: node .github/actions/update-manifest-data.js
           env:
-            RELEASE_TYPE: release
+            RELEASE_TYPE: ${{ github.event.inputs.update_type }}
             RELEASE_USER: ${{ github.actor }}
             RELEASE_PATCH: ${{ env.COMMIT_COUNT }}
 
-        - name: Create Tag
-          run: |
-            git tag -a v${{ env.RELEASE_VERSION }} -m "Release v${{ env.RELEASE_VERSION }}"
-            git push origin v${{ env.RELEASE_VERSION }}
-      
         - name: Push Manifest Change
           uses: EndBug/add-and-commit@v8
           with:
@@ -84,6 +86,7 @@ jobs:
           id: auto_release
           with:
             repo_token: ${{ secrets.GITHUB_TOKEN }}
+            automatic_release_tag: v${{ env.RELEASE_VERSION }}
             title: 🎅 v${{ env.RELEASE_VERSION }}
             prerelease: false
             files: |
