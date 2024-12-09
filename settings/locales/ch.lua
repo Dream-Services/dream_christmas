@@ -27,6 +27,9 @@ DreamLocales['ch'] = {
     ['PropSystem'] = {
         ['TargetLabel'] = 'Such es Gschänkli',
         ['ProgressBar'] = '🎁 Suchet das Gschänkli',
+        ['ActivityPopup'] = {
+            ['snowman'] = 'Ich sueche es Gschänk...'
+        },
         ['Success'] = {
             ['PropSystemClaimedItem'] = '🎁 Du hesch %sx %s gfunde',
             ['PropSystemClaimedWeapon'] = '🎁 Du hesch e %s mit %s Munitio gfunde',
@@ -41,7 +44,8 @@ DreamLocales['ch'] = {
     ['ChristmasTree'] = {
         ['Decorate'] = {
             ['TargetLabel'] = 'Dekoriere d Wiehnachtschun',
-            ['ProgressBar'] = '🎄 Dekoriere d Wiehnachtschun'
+            ['ProgressBar'] = '🎄 Dekoriere d Wiehnachtschun',
+            ['ActivityPopup'] = 'Boum schmücke...',
         },
         ['Success'] = {
             ['ChristmasTreeDecorate'] = '🎄 Du hesch d Wiehnachtschun dekoriert und %s$ erhalde'
@@ -55,7 +59,8 @@ DreamLocales['ch'] = {
     ['ChristmasPresent'] = {
         ['Claim'] = {
             ['TargetLabel'] = 'Hol dir dini Gschänk',
-            ['ProgressBar'] = '🎁 Holst dini Gschänk'
+            ['ProgressBar'] = '🎁 Holst dini Gschänk',
+            ['ActivityPopup'] = 'Gschänk ufmache...',
         },
         ['Success'] = {
             ['ChristmasPresentItem'] = '🎁 Du hesch %sx %s gha',
