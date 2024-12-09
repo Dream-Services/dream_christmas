@@ -8,12 +8,33 @@ DreamFramework = {} -- Do not touch this!!!
 DreamCore = {} -- Do not touch this!!!
 
 -- Dream Christmas Settings
+-- Blip names (Feel free to change these to your liking)
+local SnowmanBlip1 = "☃️ Snowman" --(Blip 1)
+local SnowmanBlip2 = "☃️ Snowman"
+local SnowmanBlip3 = "☃️ Snowman" --(Blip 3)
+local ChristmasTreeBlip1 = "🎄 Christmas Tree" --(Blip 1)
+local ChristmasTreeBlip2 = "🎄 Christmas Tree"
+local ChristmasTreeBlip3 = "🎄 Christmas Tree"
+local ChristmasTreeBlip4 = "🎄 Christmas Tree"
+local ChristmasTreeBlip5 = "🎄 Christmas Tree"
+local ChristmasTreeBlip6 = "🎄 Christmas Tree"
+local ChristmasTreeBlip7 = "🎄 Christmas Tree" -- (Blip 7)
+local ChristmasPresentBlip1 = "🎁 Christmas Present" -- (Blip 1)
+local ChristmasPresentBlip2 = "🎁 Christmas Present"
+local ChristmasPresentBlip3 = "🎁 Christmas Present"
+local ChristmasPresentBlip4 = "🎁 Christmas Present" -- (Blip 4)
+--[[If you want to add more blips in the future you can do so like this
+
+local SnowmanBlip4 = "☃️ Snowman" --for snowman
+local ChristmasTreeBlip8 = "🎄 Christmas Tree" --for christmas tree
+local ChristmasPresentBlip5 = "🎁 Christmas Present" for christmas present
+
+After this head to the end of ** DreamCore.PropSystem / DreamCore.ChristmasTree / DreamCore.ChristmasPresents **,
+copy the last created prop, add a new one and use one of the names set above (SnowmanBlip4/ChristmasTreeBlip8/ChristmasPresentBlip5)
+]]
+
 DreamCore.Language = 'en'
 DreamCore.GiveCredits = true -- Set to false if you don't want to give credits
-
-local snowman_Blip = "☃️ Snowman"
-local christTree_Blip = "🎄 Christmas Tree"
-local christPresent_Blip = "🎁 Christmas Present"
 
 DreamCore.Inventory = function()
     if GetResourceState('ox_inventory') == 'started' then
@@ -99,7 +120,7 @@ DreamCore.PropSystem = {
             sprite = 161,
             color = 0,
             scale = 0.6,
-            name = snowman_Blip
+            name = SnowmanBlip1 
         }
     },
     {
@@ -108,7 +129,7 @@ DreamCore.PropSystem = {
             sprite = 161,
             color = 0,
             scale = 0.6,
-            name = snowman_Blip
+            name = SnowmanBlip2
         }
     },
     {
@@ -117,7 +138,7 @@ DreamCore.PropSystem = {
             sprite = 161,
             color = 0,
             scale = 0.6,
-            name = snowman_Blip
+            name = SnowmanBlip3
         }
     }
 }
@@ -143,7 +164,7 @@ DreamCore.ChristmasTree = {
             sprite = 855,
             color = 69,
             scale = 0.9,
-            name = christTree_Blip
+            name = ChristmasTreeBlip1
         }
     },
     {
@@ -155,7 +176,7 @@ DreamCore.ChristmasTree = {
             sprite = 855,
             color = 69,
             scale = 0.9,
-            name = christTree_Blip
+            name = ChristmasTreeBlip2
         }
     },
     {
@@ -167,7 +188,7 @@ DreamCore.ChristmasTree = {
             sprite = 855,
             color = 69,
             scale = 0.9,
-            name = christTree_Blip
+            name = ChristmasTreeBlip3
         }
     },
     {
@@ -179,7 +200,7 @@ DreamCore.ChristmasTree = {
             sprite = 855,
             color = 69,
             scale = 0.9,
-            name = christTree_Blip
+            name = ChristmasTreeBlip4
         }
     },
     {
@@ -191,7 +212,7 @@ DreamCore.ChristmasTree = {
             sprite = 855,
             color = 69,
             scale = 0.9,
-            name = christTree_Blip
+            name = ChristmasTreeBlip5
         }
     },
     {
@@ -203,7 +224,7 @@ DreamCore.ChristmasTree = {
             sprite = 855,
             color = 69,
             scale = 0.9,
-            name = christTree_Blip
+            name = ChristmasTreeBlip6
         }
     },
     {
@@ -215,7 +236,7 @@ DreamCore.ChristmasTree = {
             sprite = 855,
             color = 69,
             scale = 0.9,
-            name = christTree_Blip
+            name = ChristmasTreeBlip7
         }
     }
 }
@@ -243,7 +264,7 @@ DreamCore.ChristmasPresents = {
             sprite = 781,
             color = 59,
             scale = 0.6,
-            name = christPresent_Blip
+            name = ChristmasPresentBlip1
         }
     },
     {
@@ -255,7 +276,7 @@ DreamCore.ChristmasPresents = {
             sprite = 781,
             color = 59,
             scale = 0.6,
-            name = christPresent_Blip
+            name = ChristmasPresentBlip2
         }
     },
     {
@@ -267,7 +288,7 @@ DreamCore.ChristmasPresents = {
             sprite = 781,
             color = 59,
             scale = 0.6,
-            name = christPresent_Blip
+            name = ChristmasPresentBlip3
         }
     },
     {
@@ -279,7 +300,7 @@ DreamCore.ChristmasPresents = {
             sprite = 781,
             color = 59,
             scale = 0.6,
-            name = christPresent_Blip
+            name = ChristmasPresentBlip4
         }
     }
 }
