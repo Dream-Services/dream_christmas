@@ -25,7 +25,7 @@ shared_scripts {
 }
 
 server_scripts {
-    '@mysql-async/lib/MySQL.lua',
+    '@oxmysql/lib/MySQL.lua',
     'settings/DreamCoreExt.lua',
     'bridge/**/server.lua',
     'server/main.lua'
