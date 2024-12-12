@@ -4,6 +4,8 @@
 
 **💸 Price:** We believe Christmas should be free for everyone! No server owner should feel pressured to spend money to bring the holiday cheer to their players. Let’s celebrate this wonderful season together—no excuses, just joy and community spirit! 🎅🎄  
 
+It's offical next year, Christmas 2025, this script will be expanded once again. It was so well received that we want to continue it. Have a wonderful holiday season! 🎁
+
 ## Features
 - **❄️ Snow System (with Snowballs)**\
     ![Picture1](https://i.imgur.com/DhPLtgV.png)
