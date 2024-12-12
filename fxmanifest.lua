@@ -6,9 +6,9 @@ lua54 'yes'
 
 author 'Dream Services | Tuncion'
 description 'https://discord.gg/zppUXj4JRm'
-version '1.0.6.2'
-patch '#53'
-released '08.12.2024, 17:10 by Tuncion'
+version '1.0.6.3'
+patch '#61'
+released '11.12.2024, 19:58 by Tuncion'
 
 ui_page 'web/index.html'
 
@@ -25,7 +25,7 @@ shared_scripts {
 }
 
 server_scripts {
-    '@mysql-async/lib/MySQL.lua',
+    '@oxmysql/lib/MySQL.lua',
     'settings/DreamCoreExt.lua',
     'bridge/**/server.lua',
     'server/main.lua'
