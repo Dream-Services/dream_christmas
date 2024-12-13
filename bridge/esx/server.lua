@@ -150,8 +150,8 @@ function DreamFramework.addPlayerWeapon(source, weaponName, ammo)
     else
         local xPlayer = DreamFramework.getPlayerFromId(source)
 
-        if xPlayer.hasWeapon('WEAPON_SNOWBALL') then
-            xPlayer.addWeaponAmmo('WEAPON_SNOWBALL', ammo)
+        if xPlayer.hasWeapon(weaponName) then
+            xPlayer.addWeaponAmmo(weaponName, ammo)
         else
             xPlayer.addWeapon(weaponName, ammo)
         end
