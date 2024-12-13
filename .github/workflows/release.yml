@@ -81,16 +81,15 @@ jobs:
         - name: Archive Files
           run: node .github/actions/archive-files.js
 
-        - name: Create Release
-          uses: "marvinpinto/action-automatic-releases@latest"
-          id: auto_release
-          with:
-            repo_token: ${{ secrets.GITHUB_TOKEN }}
-            automatic_release_tag: v${{ env.RELEASE_VERSION }}
-            title: 🎅 v${{ env.RELEASE_VERSION }}
-            prerelease: false
-            files: |
-              ${{ github.event.repository.name }}.zip
+        - name: Generate Changelog
+          run: node .github/actions/generate-changelog.js
           env:
-            CI: false
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            RELEASE_TYPE: ${{ github.event.inputs.update_type }}
+
+        - name: Create release
+          uses: softprops/action-gh-release@v1
+          with:
+            name: "🎅 v${{ env.RELEASE_VERSION }}"
+            tag_name: v${{ env.RELEASE_VERSION }}
+            body_path: changelog.md
+            files: ${{ github.event.repository.name }}.zip
