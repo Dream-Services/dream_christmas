@@ -77,6 +77,7 @@ end
 -- Snow System (Snowballs &  Overlay)
 DreamCore.XmasSnow = true -- Set to false if you don't want snow
 DreamCore.PreventOtherWeatherResources = true -- Set to true if you want to prevent other weather resources | ⚠️ We will stop all other weather resources!!!!!!
+DreamCore.DisableOtherWeatherResourcesCheck = false -- Set to true if you want to disable the check for other weather resources | ⚠️ We will not check if other weather resources are running!!!!!!
 
 DreamCore.SnowOverlay = true -- Set to false if you don't want the snow overlay | Requires DreamCore.XmasSnow = true
 DreamCore.Snowballs = true -- Set to false if you don't want snowballs | Requires DreamCore.XmasSnow = true
@@ -122,7 +123,7 @@ DreamCore.PropSystem = {
             sprite = 161,
             color = 0,
             scale = 0.6,
-            name = SnowmanBlip1 
+            name = SnowmanBlip1
         }
     },
     {

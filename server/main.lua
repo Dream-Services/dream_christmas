@@ -385,6 +385,8 @@ end
 
 -- Check for other weather resources which can be a conflict
 function CheckOtherWeatherResources()
+    if DreamCore.DisableOtherWeatherResourcesCheck then return end
+
     for i, v in ipairs(PossibleOtherWeatherResources) do
         if GetResourceState(v) == 'started' then
             if DreamCore.PreventOtherWeatherResources then
