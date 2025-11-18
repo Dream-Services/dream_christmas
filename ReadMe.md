@@ -95,7 +95,7 @@ This makes the festive season even more rewarding and fun for your community. ðŸ
 - [ ] Christmas Quests
 - [ ] PropSystem add more props
 - [ ] Christmas Present remove when cooldown (open)
-- [ ] Smoother Teleport to the prop
+- [x] Smoother Teleport to the prop
 - [x] Snow Overlay when outside 
 - [ ] Build Snowman
 - [ ] Own timesync or something to fix the problem with multiple weather scripts

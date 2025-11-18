@@ -131,7 +131,7 @@ DreamCore.CheckPropCoords = function(Coords) -- Check if the coords are valid | 
     return true
 end
 DreamCore.PropSystemProgressBar = 5000 -- Set the progress bar time to search for a gift
-DreamCore.PropSystemTeleportToProp = true -- Set to true if you want to teleport to the prop while animation | Deactivate this when you have problems e.g. The Player falling out of the map while the animation
+DreamCore.PropSystemGoToProp = true -- Set to true if you want to go to the prop while animation | Deactivate this when you have problems e.g. The Player falling out of the map while the animation
 DreamCore.PropSystemRewards = {
     { type = 'item',   item = 'bread',           amount = { min = 1, max = 5 } },
     { type = 'weapon', weapon = 'weapon_pistol', ammo = { min = 12, max = 24 } },
@@ -178,7 +178,7 @@ DreamCore.ChristmasTreeProgressBar = {
 DreamCore.ChristmasTreeRewards = {
     decorate = { account = 'money', amount = { min = 100, max = 500 } } -- Set the amount of money to decorate the Christmas tree
 }
-DreamCore.ChristmasTreeTeleportToProp = true -- Set to true if you want to teleport to the prop while animation
+DreamCore.ChristmasTreeGoToProp = true -- Set to true if you want to go to the prop while animation
 DreamCore.ChristmasTree = {
     {
         id = 'meeting_point',
@@ -273,7 +273,7 @@ DreamCore.ChristmasPresentCooldown = {
 DreamCore.ChristmasPresentProgressBar = {
     open = 5000 -- Set the progress bar time to claim the Christmas present | In ms
 }
-DreamCore.ChristmasPresentTeleportToProp = true -- Set to true if you want to teleport to the prop while animation
+DreamCore.ChristmasPresentGoToProp = true -- Set to true if you want to go to the prop while animation
 DreamCore.ChristmasPresentRewards = {
     { type = 'item',   item = 'bread',           amount = { min = 1, max = 5 } },
     { type = 'weapon', weapon = 'weapon_pistol', ammo = { min = 12, max = 24 } },

@@ -175,11 +175,22 @@ AddEventHandler("dream_christmas:client:createPropSystem", function(AllObjects)
 			-- Add Target
 			local TargetId = nil
 			TargetSelect = function()
-				if DreamCore.PropSystemTeleportToProp then
+				if DreamCore.PropSystemGoToProp then
 					local BeforeProp = GetOffsetFromEntityInWorldCoords(SpawnedProp, 0.0, -1.0, 0.0)
-					SetEntityCoords(cache.ped, BeforeProp.x, BeforeProp.y, GetEntityCoords(cache.ped).z - 1)
-					SetEntityHeading(cache.ped, GetEntityHeading(SpawnedProp))
+					local TargetX, TargetY, TargetZ = BeforeProp.x, BeforeProp.y, GetEntityCoords(cache.ped).z
+					TaskGoStraightToCoord(cache.ped, TargetX, TargetY, TargetZ, 1.0, -1, GetEntityHeading(SpawnedProp), 0.0)
+
+					while true do
+						local PedCoords = GetEntityCoords(cache.ped)
+						if #(PedCoords - vector3(TargetX, TargetY, TargetZ)) < 0.2 then
+							ClearPedTasks(cache.ped)
+							SetEntityHeading(cache.ped, GetEntityHeading(SpawnedProp))
+							break
+						end
+						Citizen.Wait(50)
+					end
 				end
+
 				FreezeEntityPosition(cache.ped, true)
 				SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
 				SendNUIMessage({ type = 'activity_popup:start', variant = 'randomprop_snowman' })
@@ -303,10 +314,20 @@ Citizen.CreateThread(function()
 		-- Add Target
 		local TargetId = nil
 		TargetSelect = function()
-			if DreamCore.ChristmasTreeTeleportToProp then
+			if DreamCore.ChristmasTreeGoToProp then
 				local BeforeProp = GetOffsetFromEntityInWorldCoords(SpawnedProp, 0.0, -1.0, 0.0)
-				SetEntityCoords(cache.ped, BeforeProp.x, BeforeProp.y, GetEntityCoords(cache.ped).z - 1)
-				SetEntityHeading(cache.ped, GetEntityHeading(SpawnedProp))
+				local TargetX, TargetY, TargetZ = BeforeProp.x, BeforeProp.y, GetEntityCoords(cache.ped).z
+				TaskGoStraightToCoord(cache.ped, TargetX, TargetY, TargetZ, 1.0, -1, GetEntityHeading(SpawnedProp), 0.0)
+
+				while true do
+					local PedCoords = GetEntityCoords(cache.ped)
+					if #(PedCoords - vector3(TargetX, TargetY, TargetZ)) < 0.2 then
+						ClearPedTasks(cache.ped)
+						SetEntityHeading(cache.ped, GetEntityHeading(SpawnedProp))
+						break
+					end
+					Citizen.Wait(50)
+				end
 			end
 
 			SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
@@ -385,10 +406,20 @@ Citizen.CreateThread(function()
 		-- Add Target
 		local TargetId = nil
 		TargetSelect = function()
-			if DreamCore.ChristmasPresentTeleportToProp then
+			if DreamCore.ChristmasPresentGoToProp then
 				local BeforeProp = GetOffsetFromEntityInWorldCoords(SpawnedProp, 0.0, -1.0, 0.0)
-				SetEntityCoords(cache.ped, BeforeProp.x, BeforeProp.y, GetEntityCoords(cache.ped).z - 1)
-				SetEntityHeading(cache.ped, GetEntityHeading(SpawnedProp))
+				local TargetX, TargetY, TargetZ = BeforeProp.x, BeforeProp.y, GetEntityCoords(cache.ped).z
+				TaskGoStraightToCoord(cache.ped, TargetX, TargetY, TargetZ, 1.0, -1, GetEntityHeading(SpawnedProp), 0.0)
+
+				while true do
+					local PedCoords = GetEntityCoords(cache.ped)
+					if #(PedCoords - vector3(TargetX, TargetY, TargetZ)) < 0.2 then
+						ClearPedTasks(cache.ped)
+						SetEntityHeading(cache.ped, GetEntityHeading(SpawnedProp))
+						break
+					end
+					Citizen.Wait(50)
+				end
 			end
 
 			SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
