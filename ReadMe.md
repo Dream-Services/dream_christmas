@@ -76,7 +76,7 @@ This makes the festive season even more rewarding and fun for your community. ðŸ
 ---
 
 # ToDo
-- [ ] Tuncion XP Integration
+- [x] Tuncion XP Integration
 - [ ] Own Christmas Progressbar
 - [ ] Christmas Lootdrop
 - [ ] Christmas Adventcalendar
