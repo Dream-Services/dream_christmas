@@ -218,6 +218,11 @@ lib.callback.register('dream_christmas:server:rewardPropSystem', function(source
                 })
             end
 
+            -- Tuncion XP
+            if DreamCore.TuncionXP.activate then
+                exports[DreamCore.TuncionXP.resourceName]:addXP(src, DreamCore.TuncionXP.propReward, '☃️ Prop Reward')
+            end
+
             return { success = true, message = NotifyMessage }
         else
             return { success = false, message = Locales['PropSystem']['Error']['PropSystemAlreadyClaimed'] }
@@ -284,6 +289,11 @@ lib.callback.register('dream_christmas:server:decorateChristmasTree', function(s
                         icon_url = DreamCore.Webhooks.IconURL
                     },
                 })
+            end
+
+            -- Tuncion XP
+            if DreamCore.TuncionXP.activate then
+                exports[DreamCore.TuncionXP.resourceName]:addXP(src, DreamCore.TuncionXP.decorateChristmasTree, '🎄 Decorate Christmas Tree')
             end
 
             return { success = true, message = Locales['ChristmasTree']['Success']['ChristmasTreeDecorate']:format(lib.math.groupdigits(MoneyAmount)) }
@@ -354,6 +364,11 @@ lib.callback.register('dream_christmas:server:claimChristmasPresent', function(s
                         icon_url = DreamCore.Webhooks.IconURL
                     },
                 })
+            end
+
+            -- Tuncion XP
+            if DreamCore.TuncionXP.activate then
+                exports[DreamCore.TuncionXP.resourceName]:addXP(src, DreamCore.TuncionXP.christmasPresent, '🎁 Christmas Present')
             end
 
             return { success = true, message = NotifyMessage }

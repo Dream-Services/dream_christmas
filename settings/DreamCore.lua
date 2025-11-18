@@ -74,6 +74,22 @@ DreamCore.Notify = function(text, type, duration)
     })
 end
 
+-- Tuncion XP Integration
+DreamCore.TuncionXP = {
+    -- 🔗 Tuncion XP integration → https://github.com/Tuncion/tuncion_xp
+    -- ⚡ activate = true = use XP/Level system from Tuncion
+    -- ❌ activate = false = ignore / no XP integration
+    -- 🎯 adjust XP values below for specific actions
+
+    activate = true,
+    resourceName = 'tuncion_xp',
+
+    -- 📝 Actions (XP)
+    propReward = 5,
+    christmasPresent = 2,
+    decorateChristmasTree = 5
+}
+
 -- Snow System (Snowballs &  Overlay)
 DreamCore.XmasSnow = true -- Set to false if you don't want snow
 DreamCore.PreventOtherWeatherResources = true -- Set to true if you want to prevent other weather resources | ⚠️ We will stop all other weather resources!!!!!!
