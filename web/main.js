@@ -2,6 +2,7 @@
 // Please read the license conditions in the LICENSE file. By using this script, you agree to these conditions.
 
 let Locales = null;
+let DotInterval = null;
 
 // UI Ready
 window.addEventListener('load', async (event) => {
@@ -46,6 +47,41 @@ window.addEventListener('message', async (event) => {
 
     if (item.type === 'activity_popup:stop') {
         $('.activity-popup').fadeOut(350);
+    };
+
+    // Progress Bar
+    if (item.type === 'progress_bar:start') {
+        $('.progress-bar-text').text(item.label);
+        $('.progress-bar-bar-fill').css({ transition: 'width 0s linear' });
+        $('.progress-bar-bar-fill').css({ width: '0%' });
+        $('.progress-bar-bar-fill').css({ transition: `width ${item.duration}ms linear` });
+        $('.progress-bar').fadeIn(350);
+        $('.progress-bar-bar-fill').css({ width: '100%' });
+
+        if (item.enableDotsAnimation) {
+            const DotsAnimation = ['.', '..', '...'];
+            let DotIndex = 0;
+            DotInterval = setInterval(() => {
+                $('.progress-bar-text').text(item.label + DotsAnimation[DotIndex]);
+                DotIndex = (DotIndex + 1) % DotsAnimation.length;
+            }, 500);
+        };
+
+        setTimeout(() => {
+            $('.progress-bar').fadeOut(300);
+            if (DotInterval) {
+                clearInterval(DotInterval);
+                DotInterval = null;
+            };
+        }, item.duration + 300);
+    };
+
+    if (item.type === 'progress_bar:stop') {
+        $('.progress-bar').fadeOut(300);
+        if (DotInterval) {
+            clearInterval(DotInterval);
+            DotInterval = null;
+        };
     };
 
     // Snow Overlay

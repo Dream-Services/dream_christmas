@@ -52,6 +52,12 @@ DreamCore.Target = function()
         return error('No target system found! Please adjust DreamCore.Target!!!')
     end
 end
+DreamCore.ProgressBar = function(Data)
+    -- Always clientside
+
+    -- Use the own Progressbar
+    return exports[GetCurrentResourceName()]:ProgressBar(Data)
+end
 DreamCore.Notify = function(text, type, duration)
     -- Always clientside
 
@@ -322,4 +328,10 @@ DreamCore.ChristmasPresents = {
             name = ChristmasPresentBlip4
         }
     }
+}
+
+-- Christmas Progress Bar
+DreamCore.ChristmasProgressBar = {
+    enableDotsAnimation = true, -- Set to false if you don't want the dots animation
+    cancelKey = 113 -- Set the control to cancel the progress bar (G by default) | See https://docs.fivem.net/docs/game-references/controls/
 }

@@ -36,6 +36,10 @@ files {
     'web/**/*.**'
 }
 
+exports {
+    'ProgressBar'
+}
+
 dependencies {
     'ox_lib'
 }

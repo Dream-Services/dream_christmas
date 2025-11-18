@@ -5,6 +5,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: none;
+}
 
 /* Deactivate Scrollbar */
 body::-webkit-scrollbar {
@@ -60,6 +66,74 @@ body::-webkit-scrollbar {
     text-shadow: 0.1vw 0.1vw 0.5vw rgb(0, 0, 0, 0.8);
     animation: ActivityPopupAnim 4s ease-in-out infinite;
 }
+
+/* Progress bar */
+.progress-bar {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.progress-bar-bar {
+    width: 20vw;
+    height: 1.5vh;
+    background-color: #2C2E33;
+    border-radius: 1vh;
+    margin-top: 87.5vh;
+}
+
+.progress-bar-bar-fill {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 20%;
+    height: 100%;
+    background-color: #DC4955;
+    /* background: repeating-linear-gradient(45deg,
+            #DC4955,
+            #DC4955 0.5vw,
+            #ffffff 0.5vw,
+            #ffffff 1vw); */
+    border-top-left-radius: 1vh;
+    border-bottom-left-radius: 1vh;
+    border-bottom-right-radius: 1vh;
+    /* transition: width 0.5s linear; SET IN JS! */
+    box-shadow: #DC4955 0vh 0vh 1vh 0vh;
+}
+
+.progress-bar-bar-fill-img {
+    height: 5vh;
+    margin-right: -1.5vh;
+    animation: CandyCaneAnim 2s linear infinite;
+}
+
+@keyframes CandyCaneAnim {
+    0% {
+        transform: scale(1.0);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1.0);
+    }
+}
+
+.progress-bar-text {
+    position: absolute;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.2vw;
+    color: white;
+    text-align: center;
+    margin-top: 91.5vh;
+    text-shadow: 0.1vw 0.1vw 0.5vw rgb(0, 0, 0, 0.5);
+}
+
 
 /* Snow Overlay */
 #snowfall-element {

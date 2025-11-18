@@ -183,11 +183,10 @@ AddEventHandler("dream_christmas:client:createPropSystem", function(AllObjects)
 				FreezeEntityPosition(cache.ped, true)
 				SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
 				SendNUIMessage({ type = 'activity_popup:start', variant = 'randomprop_snowman' })
-				if lib.progressBar({
+				if
+					DreamCore.ProgressBar({
 						duration = DreamCore.PropSystemProgressBar,
 						label = Locales['PropSystem']['ProgressBar'],
-						useWhileDead = false,
-						canCancel = false,
 						disable = {
 							move = true,
 							sprint = true,
@@ -200,8 +199,8 @@ AddEventHandler("dream_christmas:client:createPropSystem", function(AllObjects)
 						}
 					})
 				then
-					FreezeEntityPosition(cache.ped, false)
 					SendNUIMessage({ type = 'activity_popup:stop' })
+					FreezeEntityPosition(cache.ped, false)
 					local result = lib.callback.await('dream_christmas:server:rewardPropSystem', false, v.id)
 
 					if result.success then
@@ -210,6 +209,7 @@ AddEventHandler("dream_christmas:client:createPropSystem", function(AllObjects)
 						TriggerEvent("dream_christmas:client:notify", result.message, "error", 5000)
 					end
 				else
+					SendNUIMessage({ type = 'activity_popup:stop' })
 					FreezeEntityPosition(cache.ped, false)
 				end
 			end
@@ -311,11 +311,9 @@ Citizen.CreateThread(function()
 
 			SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
 			SendNUIMessage({ type = 'activity_popup:start', variant = 'tree' })
-			if lib.progressBar({
+			if DreamCore.ProgressBar({
 					duration = DreamCore.ChristmasTreeProgressBar.decorate,
 					label = Locales['ChristmasTree']['Decorate']['ProgressBar'],
-					useWhileDead = false,
-					canCancel = false,
 					disable = {
 						move = true,
 						sprint = true,
@@ -335,6 +333,8 @@ Citizen.CreateThread(function()
 				else
 					TriggerEvent("dream_christmas:client:notify", result.message, "error", 5000)
 				end
+			else
+				SendNUIMessage({ type = 'activity_popup:stop' })
 			end
 		end
 
@@ -393,11 +393,9 @@ Citizen.CreateThread(function()
 
 			SetCurrentPedWeapon(cache.ped, GetHashKey('WEAPON_UNARMED'), true) -- Unarm Player
 			SendNUIMessage({ type = 'activity_popup:start', variant = 'present' })
-			if lib.progressBar({
+			if DreamCore.ProgressBar({
 					duration = DreamCore.ChristmasPresentProgressBar.open,
 					label = Locales['ChristmasPresent']['Claim']['ProgressBar'],
-					useWhileDead = false,
-					canCancel = false,
 					disable = {
 						move = true,
 						sprint = true,
@@ -417,6 +415,8 @@ Citizen.CreateThread(function()
 				else
 					TriggerEvent("dream_christmas:client:notify", result.message, "error", 5000)
 				end
+			else
+				SendNUIMessage({ type = 'activity_popup:stop' })
 			end
 		end
 
@@ -451,6 +451,82 @@ Citizen.CreateThread(function()
 		}
 	end
 end)
+
+function ProgressBar(Data)
+	local Finished = false
+	local Canceled = false
+
+	-- Disable controls
+	local Disable = Data.disable or {}
+	local DisableMove = Disable.move or false
+	local DisableSprint = Disable.sprint or false
+	local DisableCombat = Disable.combat or false
+	local DisableCar = Disable.car or false
+
+	-- Start NUI Progressbar
+	SendNUIMessage({
+		type = 'progress_bar:start',
+		duration = Data.duration or 5000,
+		label = Data.label or "Working",
+		enableDotsAnimation = DreamCore.ChristmasProgressBar.enableDotsAnimation
+	})
+
+	-- Start Animation
+	if Data.anim then
+		RequestAnimDict(Data.anim.dict)
+		while not HasAnimDictLoaded(Data.anim.dict) do Wait(10) end
+		TaskPlayAnim(cache.ped, Data.anim.dict, Data.anim.clip, 8.0, -8.0, (Data.duration or 5000) / 1000, 0, 0, false, false, false)
+	end
+
+	-- Progress Loop
+	local StartTime = GetGameTimer()
+	while GetGameTimer() - StartTime < (Data.duration or 5000) do
+		Citizen.Wait(0)
+
+		-- Check for cancel
+		if IsControlJustPressed(0, DreamCore.ChristmasProgressBar.cancelKey) then
+			Canceled = true
+			break
+		end
+
+		-- Disable controls
+		if DisableMove then
+			DisableControlAction(0, 30, true) -- Move
+			DisableControlAction(0, 31, true)
+			DisableControlAction(0, 32, true)
+			DisableControlAction(0, 33, true)
+			DisableControlAction(0, 34, true)
+			DisableControlAction(0, 35, true)
+		end
+
+		if DisableSprint then
+			DisableControlAction(0, 21, true) -- Sprint
+		end
+
+		if DisableCombat then
+			DisablePlayerFiring(cache.ped, true)
+			DisableControlAction(0, 24, true) -- Attack
+			DisableControlAction(0, 25, true) -- Aim
+		end
+
+		if DisableCar and IsPedInAnyVehicle(cache.ped, false) then
+			DisableControlAction(0, 59, true) -- Vehicle steering
+			DisableControlAction(0, 60, true) -- Vehicle accelerator
+			DisableControlAction(0, 61, true) -- Vehicle brake
+		end
+	end
+
+	-- Stop NUI
+	SendNUIMessage({ type = 'progress_bar:stop' })
+
+	-- Stop Animation
+	if Data.anim then
+		ClearPedTasks(cache.ped)
+	end
+
+	Finished = not Canceled
+	return Finished
+end
 
 RegisterNetEvent("dream_christmas:client:notify")
 AddEventHandler("dream_christmas:client:notify", function(text, type, duration)
