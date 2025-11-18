@@ -98,7 +98,7 @@ This makes the festive season even more rewarding and fun for your community. ðŸ
 - [x] Smoother Teleport to the prop
 - [x] Snow Overlay when outside 
 - [ ] Build Snowman
-- [ ] Own timesync or something to fix the problem with multiple weather scripts
+- [x] Own timesync or something to fix the problem with multiple weather scripts
 - [ ] Update Readme and add new photos with the new features like popup ui, own progressbar etc.
 - [ ] Exports for other scripts
 

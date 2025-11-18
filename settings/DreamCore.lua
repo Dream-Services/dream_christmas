@@ -101,6 +101,13 @@ DreamCore.XmasSnow = true -- Set to false if you don't want snow
 DreamCore.PreventOtherWeatherResources = true -- Set to true if you want to prevent other weather resources | ⚠️ We will stop all other weather resources!!!!!!
 DreamCore.DisableOtherWeatherResourcesCheck = false -- Set to true if you want to disable the check for other weather resources | ⚠️ We will not check if other weather resources are running!!!!!!
 
+--[[
+    ⏱️ Real-time time sync (server time = real world).
+    🔧 Enable if your old weather resource (with time sync) is disabled.
+    ❄️ Requires DreamCore.XmasSnow = true.
+]]
+DreamCore.RealtimeTimeSync = false -- Set to false if you don’t want real-time syncing (server time won’t match real-world time).
+
 DreamCore.SnowOverlay = true -- Set to false if you don't want the snow overlay | Requires DreamCore.XmasSnow = true
 DreamCore.Snowballs = true -- Set to false if you don't want snowballs | Requires DreamCore.XmasSnow = true
 DreamCore.SnowballDamageModifier = 0.0 -- Set the damage of the snowball | 0.0 - 0.1 for realism | Requires DreamCore.Snowballs = true

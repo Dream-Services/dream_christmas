@@ -48,6 +48,15 @@ if DreamCore.XmasSnow then
 		end
 	end)
 
+	if DreamCore.RealtimeTimeSync then
+		RegisterNetEvent("dream_christmas:client:realtime")
+		AddEventHandler("dream_christmas:client:realtime", function(hours, minutes, seconds)
+			SetMillisecondsPerGameMinute(60000)
+			NetworkOverrideClockTime(hours, minutes, seconds)
+		end)
+		TriggerServerEvent("dream_christmas:server:realtime")
+	end
+
 	if DreamCore.Snowballs then
 		Citizen.CreateThread(function()
 			RequestAnimDict('anim@mp_snowball')

@@ -170,6 +170,12 @@ function OnPlayerLoaded(player)
     TriggerClientEvent('dream_christmas:client:createPropSystem', player, CurrentPropSystem)
 end
 
+RegisterNetEvent("dream_christmas:server:realtime")
+AddEventHandler("dream_christmas:server:realtime", function()
+    local src = source
+    TriggerClientEvent("dream_christmas:client:realtime", src, tonumber(os.date("%H")), tonumber(os.date("%M")), tonumber(os.date("%S")))
+end)
+
 lib.callback.register('dream_christmas:server:rewardPropSystem', function(source, PropId)
     local src = source
     local PropId = PropId
