@@ -1,49 +1,83 @@
 # 🎄 Dream Christmas - FiveM Script
 
+![Dream Christmas](https://i.imgur.com/g0bvsoU.jpeg)
+
 **Dream Christmas** is a festive multiplayer script designed for FiveM servers, bringing the holiday spirit with Snow, Snowballs, Snowman, Christmas trees, presents, and more!
 
 **💸 Price:** We believe Christmas should be free for everyone! No server owner should feel pressured to spend money to bring the holiday cheer to their players. Let’s celebrate this wonderful season together—no excuses, just joy and community spirit! 🎅🎄  
 
-It's official next year, Christmas 2025, this script will be expanded once again. It was so well received that we want to continue it. Have a wonderful holiday season! 🎁
+---
 
-## Features
-- **❄️ Snow System (with Snowballs)**\
-    ![Picture1](https://i.imgur.com/DhPLtgV.png)
-    ![Picture2](https://i.imgur.com/QqoCi59.gif)
+## ✨ Features
 
-- **☃️ Prop System (e.g. Snowman)**\
-    ![Picture3](https://i.imgur.com/eyWSXka.gif)
-    ![Picture4](https://i.imgur.com/kjxVuej.gif)
-    ![Picture5](https://i.imgur.com/PA6TtBA.png)
-    ![Picture6](https://i.imgur.com/io4wLq1.png)
+### `❄️` **Dynamic Snow System**  
+Full snow weather, snowballs, outdoor snow overlay, and safety checks preventing indoor snowball pickups.
 
-- **🎄 Christmas Tree System**\
-    ![Picture7](https://i.imgur.com/TVEFAlQ.gif)
-    ![Picture8](https://i.imgur.com/JO3KYrz.png)
-    ![Picture9](https://i.imgur.com/QvV8h6y.gif)
+### `☃️` **Prop System (Snowman & more)**  
+Spawn holiday props around the map, collect rewards, and interact with them seamlessly.
 
-- **🎁Present System**\
-    ![Picture10](https://i.imgur.com/ttkKvup.gif)
-    ![Picture11](https://i.imgur.com/DyD6075.gif)
-    ![Picture12](https://i.imgur.com/MZxq7ub.gif)
+### `🎄` **Christmas Tree System**  
+Decorate trees, get rewards, and enjoy smooth animations (player unarmed automatically).
+
+### `🎁` **Present System**  
+Open gifts, receive rewards, track cooldowns (saved even after restart).
+
+---
+
+## 🌟 Exclusive Integration: [tuncion_xp](https://github.com/Tuncion/tuncion_xp)  
+
+Dream Christmas includes **native support** for the popular **tuncion_xp** system.  
+👉 This means your players can **earn XP while celebrating Christmas** — decorating trees, opening presents, building props, and enjoying holiday activities.  
+
+This makes the festive season even more rewarding and fun for your community. 🎄✨🎖️  
+
+---
+
+## 📺 Showcase  
+
+### ❄️ Snow System (with Snowballs)
+![Picture1](https://i.imgur.com/DhPLtgV.png)
+![Picture2](https://i.imgur.com/QqoCi59.gif)
+
+### **☃️ Prop System (e.g. Snowman)**
+![Picture3](https://i.imgur.com/eyWSXka.gif)
+![Picture4](https://i.imgur.com/kjxVuej.gif)
+![Picture5](https://i.imgur.com/PA6TtBA.png)
+![Picture6](https://i.imgur.com/io4wLq1.png)
+
+### **🎄 Christmas Tree System**
+![Picture7](https://i.imgur.com/TVEFAlQ.gif)
+![Picture8](https://i.imgur.com/JO3KYrz.png)
+![Picture9](https://i.imgur.com/QvV8h6y.gif)
+
+### **🎁Present System**
+![Picture10](https://i.imgur.com/ttkKvup.gif)
+![Picture11](https://i.imgur.com/DyD6075.gif)
+![Picture12](https://i.imgur.com/MZxq7ub.gif)
 
 🗨️ Just some insights... test it for yourself 🎅
 
-## Installation
-1. **Download and extract** the script into your `resources` folder.
-2. Add `ensure dream_christmas` to your `server.cfg`.
-3. Configure settings in `/settings` to match your server's preferences.
-4. Adjust the bridge system `/bridge/<framework>/*.lua`, if necessary.
-5. Make sure to start `ox_lib` and `ox_target` before!
+---
 
-## Configuration
-All settings are customizable in the script. Here are a few examples:
-- **Language:** Change `DreamCore.Language` to `'en'`, `'de'`, etc.
-- **Snow System:** Toggle snow and snowballs, and adjust snowball damage.
-- **Prop System:** Adjust spawn intervals, zones, and rewards.
-- **Christmas Tree & Present Rewards:** Configure cooldowns and prizes.
+## ⚡ Installation  
+1. **Download & extract** the script into your `resources` folder.  
+2. Add `ensure dream_christmas` to your `server.cfg`.  
+3. Configure settings in `/settings` to fit your server.  
+4. Adjust the framework bridge in `/bridge/<framework>/*.lua` if needed.  
+5. Make sure dependencies like `ox_lib` are installed.  
+
+---
+
+## 🛠️ Support  
+- **Discord:** [Dream Services Support](https://discord.gg/zppUXj4JRm)  
+- **GitHub Issues:** Report bugs or request features.  
+- **Contribute:** Open a Pull Request to help improve the script.  
+
+---
 
 # ToDo
+- [ ] Tuncion XP Integration
+- [ ] Own Christmas Progressbar
 - [ ] Christmas Lootdrop
 - [ ] Christmas Adventcalendar
 - [x] QBCore Bridge with qb-target compatibility
@@ -67,16 +101,20 @@ All settings are customizable in the script. Here are a few examples:
 - [ ] Own timesync or something to fix the problem with multiple weather scripts
 - [ ] Exports for other scripts
 
-## Support 
-For assistance, reporting bugs, or sharing suggestions, you can:  
-- **Join our Discord:** [Dream Services Support](https://discord.gg/zppUXj4JRm)  
-- **Create an Issue:** Submit your feedback or bug report directly on GitHub.  
-- **Collaborate with us:** Open a Pull Request to contribute and improve the script.  
+---
 
-We’re here to help and always welcome contributions! 🚀
+## 💡 Credits  
+- Script by **Dream Services**  
+- XP System Integration: [tuncion_xp](https://github.com/Tuncion)  
+- Enable `DreamCore.GiveCredits` to display a small thank-you message in-game. 🙏  
 
-## Credits
-- Script by **Dream Services** ([Tuncion](https://github.com/Tuncion)).  
-  Give credit where it's due! Toggle `DreamCore.GiveCredits` to `true` to display a small thank-you message in-game. 
+---
+
+## 🔗 More from Us  
+Looking for more advanced scripts and premium work?  
+👉 Visit our website: [dream-services.eu](https://dream-services.eu)  
+👉 Visit our shop: [shop.dream-services.eu](https://shop.dream-services.eu)  
 
 Happy Holidays! 🎅
+
+❄️ **Stay tuned!** ❄️
