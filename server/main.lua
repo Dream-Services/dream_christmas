@@ -412,32 +412,32 @@ lib.callback.register('dream_christmas:server:getAdventCalendarData', function(s
             end
         end
 
-        -- if
-        --     (TodayDay >= k)
-        --     and (TodayMonth == 12)
-        -- then
-        AdventCalendarData[k] = {
-            id = k,
-            label = v.label,
-            image = v.image,
-            rewards = v.rewards,
-            isToday = IsToday,
-            isClaimed = IsClaimed
-        }
-        -- else
-        --     -- This are the rewards in the future means not today and not in the past.
-        --     -- Because of some people will try to see the rewards before the day comes (e.g. look in the html code).
-        --     -- We don't give the real reward, we just give placeholders. It should be a surprise for the players, right?
-        --     -- The players just see https://i.imgur.com/fQj73Lv.png for the future days.
-        --     AdventCalendarData[k] = {
-        --         id = k,
-        --         label = 'Secret',
-        --         image = './assets/img/gift.png',
-        --         rewards = {},
-        --         isToday = IsToday,
-        --         isClaimed = IsClaimed
-        --     }
-        -- end
+        if
+            (TodayDay >= k)
+            and (TodayMonth == 12)
+        then
+            AdventCalendarData[k] = {
+                id = k,
+                label = v.label,
+                image = v.image,
+                rewards = v.rewards,
+                isToday = IsToday,
+                isClaimed = IsClaimed
+            }
+        else
+            -- This are the rewards in the future means not today and not in the past.
+            -- Because of some people will try to see the rewards before the day comes (e.g. look in the html code).
+            -- We don't give the real reward, we just give placeholders. It should be a surprise for the players, right?
+            -- The players just see https://i.imgur.com/fQj73Lv.png for the future days.
+            AdventCalendarData[k] = {
+                id = k,
+                label = 'Secret',
+                image = './assets/img/gift.png',
+                rewards = {},
+                isToday = IsToday,
+                isClaimed = IsClaimed
+            }
+        end
     end
 
     return AdventCalendarData

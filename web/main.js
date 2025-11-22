@@ -8,18 +8,18 @@ function OpenDoor(doorElement) {
     if (!doorElement.classList.contains('doorOpen')) {
         const TodayDay = new Date().getDate();
         const TodayMonth = new Date().getMonth() + 1;
-        // if (
-        //     TodayDay == Number(doorElement.getAttribute('data-day-id'))
-        //     && TodayMonth == 12
-        // ) {
-        doorElement.classList.add('doorOpen');
-        doorElement.parentNode.querySelector('.advent-calendar-status-ribbon').classList.remove('not-claimed');
-        doorElement.parentNode.querySelector('.advent-calendar-status-ribbon').classList.add('claimed');
-        doorElement.parentNode.querySelector('.advent-calendar-status-ribbon span').innerText = Locales['AdventCalendar']['Status']['Claimed'];
-        $.post(`https://${GetParentResourceName()}/claimAdventDoor`, JSON.stringify({
-            dayId: Number(doorElement.getAttribute('data-day-id'))
-        }));
-        // }
+        if (
+            TodayDay == Number(doorElement.getAttribute('data-day-id'))
+            && TodayMonth == 12
+        ) {
+            doorElement.classList.add('doorOpen');
+            doorElement.parentNode.querySelector('.advent-calendar-status-ribbon').classList.remove('not-claimed');
+            doorElement.parentNode.querySelector('.advent-calendar-status-ribbon').classList.add('claimed');
+            doorElement.parentNode.querySelector('.advent-calendar-status-ribbon span').innerText = Locales['AdventCalendar']['Status']['Claimed'];
+            $.post(`https://${GetParentResourceName()}/claimAdventDoor`, JSON.stringify({
+                dayId: Number(doorElement.getAttribute('data-day-id'))
+            }));
+        }
     }
 }
 
