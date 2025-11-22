@@ -101,7 +101,7 @@ DreamCore.AdventCalendar.days = {
     [13] = {
         label = 'Phone',
         image = 'https://cdn-icons-png.flaticon.com/512/2482/2482945.png',
-        reward = { type = 'item', item = 'phone', amount = 1 },
+        reward = { type = 'item', item = 'phone', amount = { min = 1, max = 2 } },
     },
 
     [14] = {
@@ -137,7 +137,7 @@ DreamCore.AdventCalendar.days = {
     [19] = {
         label = 'Repairkit',
         image = 'https://cdn-icons-png.flaticon.com/512/479/479404.png',
-        reward = { type = 'item', item = 'repairkit', amount = 1 },
+        reward = { type = 'item', item = 'repairkit', amount = { min = 1, max = 2 } },
     },
 
     [20] = {
@@ -161,7 +161,7 @@ DreamCore.AdventCalendar.days = {
     [23] = {
         label = 'First Aid Kit',
         image = 'https://cdn-icons-png.flaticon.com/512/5043/5043367.png',
-        reward = { type = 'item', item = 'firstaid', amount = 1 },
+        reward = { type = 'item', item = 'firstaid', amount = { min = 1, max = 2 } },
     },
 
     [24] = {
