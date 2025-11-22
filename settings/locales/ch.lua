@@ -72,4 +72,27 @@ DreamLocales['ch'] = {
             ['ChristmasPresentAlreadyClaimed'] = '🎁 S Wiehnachtsgeschenk isch scho abgno'
         }
     },
+
+    ['AdventCalendar'] = {
+        ['Open'] = {
+            ['TargetLabel'] = 'Mach dä Adventskaländer uf',
+            ['ProgressBar'] = '🎅 Adventskaländer wird ufgmacht',
+            ['ActivityPopup'] = 'Kaländer ufmache...',
+        },
+        ['Status'] = {
+            ['Claimed'] = 'Abgholt',
+            ['NotClaimed'] = 'No nöd abgholt',
+        },
+        ['Success'] = {
+            ['AdventCalendarItem'] = '🎅 Du hesch %sx %s becho',
+            ['AdventCalendarWeapon'] = '🎅 Du hesch es %s mit %s Munition becho',
+            ['AdventCalendarMoney'] = '🎅 Du hesch %s$ (%s) becho'
+        },
+        ['Error'] = {
+            ['AdventCalendarNotToday'] = '🎅 Du chasch nur s’Gschänk vo hüt abhole',
+            ['AdventCalendarNotDecember'] = '🎅 Dr Adventskaländer git’s nur im Dezämber',
+            ['AdventCalendarAlreadyClaimed'] = '🎅 Du hesch s’Gschänk vo hüt scho abgholt',
+            ['AdventCalendarNoReward'] = '🎅 Hüt git’s kei Belohnig',
+        }
+    }
 }

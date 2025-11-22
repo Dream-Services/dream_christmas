@@ -71,4 +71,27 @@ DreamLocales['fr'] = {
             ['ChristmasPresentAlreadyClaimed'] = '🎁 Le cadeau de Noël a déjà été récupéré'
         }
     },
+
+    ['AdventCalendar'] = {
+        ['Open'] = {
+            ['TargetLabel'] = 'Ouvrir le calendrier de l’avent',
+            ['ProgressBar'] = '🎅 Ouverture du calendrier de l’avent',
+            ['ActivityPopup'] = 'Ouverture du calendrier...',
+        },
+        ['Status'] = {
+            ['Claimed'] = 'Réclamé',
+            ['NotClaimed'] = 'Non réclamé',
+        },
+        ['Success'] = {
+            ['AdventCalendarItem'] = '🎅 Vous avez reçu %sx %s',
+            ['AdventCalendarWeapon'] = '🎅 Vous avez reçu un %s avec %s munitions',
+            ['AdventCalendarMoney'] = '🎅 Vous avez reçu %s€ (%s)'
+        },
+        ['Error'] = {
+            ['AdventCalendarNotToday'] = '🎅 Vous ne pouvez récupérer que le cadeau d’aujourd’hui',
+            ['AdventCalendarNotDecember'] = '🎅 Le calendrier de l’avent est disponible seulement en décembre',
+            ['AdventCalendarAlreadyClaimed'] = '🎅 Vous avez déjà pris le cadeau d’aujourd’hui',
+            ['AdventCalendarNoReward'] = '🎅 Il n’y a pas de récompense pour aujourd’hui',
+        }
+    }
 }

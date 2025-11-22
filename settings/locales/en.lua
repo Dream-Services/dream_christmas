@@ -72,4 +72,26 @@ DreamLocales['en'] = {
         }
     },
 
+    ['AdventCalendar'] = {
+        ['Open'] = {
+            ['TargetLabel'] = 'Open the advent calendar',
+            ['ProgressBar'] = '🎅 Opening the Advent Calendar',
+            ['ActivityPopup'] = 'Opening Calendar...',
+        },
+        ['Status'] = {
+            ['Claimed'] = 'Claimed',
+            ['NotClaimed'] = 'Not Claimed',
+        },
+        ['Success'] = {
+            ['AdventCalendarItem'] = '🎅 You got %sx %s',
+            ['AdventCalendarWeapon'] = '🎅 You got a %s with %s ammo',
+            ['AdventCalendarMoney'] = '🎅 You got %s$ (%s)'
+        },
+        ['Error'] = {
+            ['AdventCalendarNotToday'] = '🎅 You can only claim today\'s gift',
+            ['AdventCalendarNotDecember'] = '🎅 The advent calendar is only available in December',
+            ['AdventCalendarAlreadyClaimed'] = '🎅 You have already claimed today\'s gift',
+            ['AdventCalendarNoReward'] = '🎅 There is no reward for today',
+        }
+    }
 }

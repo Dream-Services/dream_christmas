@@ -71,4 +71,27 @@ DreamLocales['nl'] = {
             ['ChristmasPresentAlreadyClaimed'] = '🎁 Het kerstcadeau is al opgeëist'
         }
     },
+
+    ['AdventCalendar'] = {
+        ['Open'] = {
+            ['TargetLabel'] = 'Adventskalender openen',
+            ['ProgressBar'] = '🎅 Adventskalender wordt geopend',
+            ['ActivityPopup'] = 'Kalender openen...',
+        },
+        ['Status'] = {
+            ['Claimed'] = 'Geclaimd',
+            ['NotClaimed'] = 'Niet geclaimd',
+        },
+        ['Success'] = {
+            ['AdventCalendarItem'] = '🎅 Je hebt %sx %s ontvangen',
+            ['AdventCalendarWeapon'] = '🎅 Je hebt een %s met %s munitie ontvangen',
+            ['AdventCalendarMoney'] = '🎅 Je hebt %s€ (%s) ontvangen'
+        },
+        ['Error'] = {
+            ['AdventCalendarNotToday'] = '🎅 Je kunt alleen de cadeau van vandaag ophalen',
+            ['AdventCalendarNotDecember'] = '🎅 De adventskalender is alleen in december beschikbaar',
+            ['AdventCalendarAlreadyClaimed'] = '🎅 Je hebt het cadeau van vandaag al opgehaald',
+            ['AdventCalendarNoReward'] = '🎅 Er is geen beloning voor vandaag',
+        }
+    }
 }

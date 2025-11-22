@@ -72,4 +72,27 @@ DreamLocales['at'] = {
             ['ChristmasPresentAlreadyClaimed'] = '🎁 Das Wiehnachtsgschänk is scho abgholt wordn'
         }
     },
+
+    ['AdventCalendar'] = {
+        ['Open'] = {
+            ['TargetLabel'] = 'Adventkalender öffnen',
+            ['ProgressBar'] = '🎅 Adventkalender wird geöffnet',
+            ['ActivityPopup'] = 'Kalender wird geöffnet...',
+        },
+        ['Status'] = {
+            ['Claimed'] = 'Abgeholt',
+            ['NotClaimed'] = 'Noch nicht abgeholt',
+        },
+        ['Success'] = {
+            ['AdventCalendarItem'] = '🎅 Du host %sx %s bekommen',
+            ['AdventCalendarWeapon'] = '🎅 Du host a %s mit %s Schuss bekommen',
+            ['AdventCalendarMoney'] = '🎅 Du host %s€ (%s) bekommen'
+        },
+        ['Error'] = {
+            ['AdventCalendarNotToday'] = '🎅 Du kannst nur das heutige Geschenk abholen',
+            ['AdventCalendarNotDecember'] = '🎅 Der Adventkalender is nur im Dezember verfügbar',
+            ['AdventCalendarAlreadyClaimed'] = '🎅 Du host das heutige Geschenk bereits abgeholt',
+            ['AdventCalendarNoReward'] = '🎅 Für heute gibt’s koa Belohnung',
+        }
+    }
 }

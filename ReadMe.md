@@ -13,6 +13,9 @@
 ### `❄️` **Dynamic Snow System**  
 Full snow weather, snowballs, outdoor snow overlay, and safety checks preventing indoor snowball pickups.
 
+### `🎅` **Advent Calendar (With spoiler protection)**  
+Celebrate the season with a daily advent calendar, complete with rewards and festive cheer!
+
 ### `☃️` **Prop System (Snowman & more)**  
 Spawn holiday props around the map, collect rewards, and interact with them seamlessly.
 
@@ -21,6 +24,9 @@ Decorate trees, get rewards, and enjoy smooth animations (player unarmed automat
 
 ### `🎁` **Present System**  
 Open gifts, receive rewards, track cooldowns (saved even after restart).
+
+### `💼` **Own Custom UIs**  
+Custom progress bars and popup UIs with multiple styles for an immersive experience.
 
 ---
 
@@ -39,6 +45,11 @@ This makes the festive season even more rewarding and fun for your community. �
 ![Picture1](https://i.imgur.com/DhPLtgV.png)
 ![Picture2](https://i.imgur.com/QqoCi59.gif)
 
+### 🎅 **Advent Calendar (With spoiler protection)**
+![Picture13](https://i.imgur.com/h162Lwe.png)
+![Picture14](https://i.imgur.com/brLAuv2.gif)
+![Picture15](https://i.imgur.com/qMH2UUy.gif)
+
 ### **☃️ Prop System (e.g. Snowman)**
 ![Picture3](https://i.imgur.com/eyWSXka.gif)
 ![Picture4](https://i.imgur.com/kjxVuej.gif)
@@ -54,6 +65,15 @@ This makes the festive season even more rewarding and fun for your community. �
 ![Picture10](https://i.imgur.com/ttkKvup.gif)
 ![Picture11](https://i.imgur.com/DyD6075.gif)
 ![Picture12](https://i.imgur.com/MZxq7ub.gif)
+
+### **💼 Own Progressbar**
+![Picture16](https://i.imgur.com/kb9Rzjf.gif)
+
+### **ℹ️ Own Popup UI (With different styles)**
+![Picture17](https://i.imgur.com/ONM5vRg.png)
+![Picture18](https://i.imgur.com/0bai0IE.png)
+![Picture19](https://i.imgur.com/qXDMTlg.png)
+![Picture20](https://i.imgur.com/PRMZo9t.gif)
 
 🗨️ Just some insights... test it for yourself 🎅
 
@@ -79,7 +99,7 @@ This makes the festive season even more rewarding and fun for your community. �
 - [x] Tuncion XP Integration
 - [x] Own Christmas Progressbar
 - [ ] Christmas Lootdrop
-- [ ] Christmas Adventcalendar
+- [x] Christmas Adventcalendar
 - [x] QBCore Bridge with qb-target compatibility
 - [x] Notify Trigger in config
 - [x] Snowballs Serverside
@@ -99,7 +119,7 @@ This makes the festive season even more rewarding and fun for your community. �
 - [x] Snow Overlay when outside 
 - [ ] Build Snowman
 - [x] Own timesync or something to fix the problem with multiple weather scripts
-- [ ] Update Readme and add new photos with the new features like popup ui, own progressbar etc.
+- [x] Update Readme and add new photos with the new features like popup ui, own progressbar etc.
 - [ ] Exports for other scripts
 
 ---

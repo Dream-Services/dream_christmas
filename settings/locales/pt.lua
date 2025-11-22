@@ -71,4 +71,27 @@ DreamLocales['pt'] = {
             ['ChristmasPresentAlreadyClaimed'] = '🎁 O presente de Natal já foi reclamado'
         }
     },
+
+    ['AdventCalendar'] = {
+        ['Open'] = {
+            ['TargetLabel'] = 'Abrir o calendário do advento',
+            ['ProgressBar'] = '🎅 Abrindo o calendário do advento',
+            ['ActivityPopup'] = 'Abrindo calendário...',
+        },
+        ['Status'] = {
+            ['Claimed'] = 'Reclamado',
+            ['NotClaimed'] = 'Não reclamado',
+        },
+        ['Success'] = {
+            ['AdventCalendarItem'] = '🎅 Recebeste %sx %s',
+            ['AdventCalendarWeapon'] = '🎅 Recebeste um %s com %s munição',
+            ['AdventCalendarMoney'] = '🎅 Recebeste %s€ (%s)'
+        },
+        ['Error'] = {
+            ['AdventCalendarNotToday'] = '🎅 Só podes reclamar o presente de hoje',
+            ['AdventCalendarNotDecember'] = '🎅 O calendário do advento só está disponível em dezembro',
+            ['AdventCalendarAlreadyClaimed'] = '🎅 Já reclamaste o presente de hoje',
+            ['AdventCalendarNoReward'] = '🎅 Não há recompensa para hoje',
+        }
+    }
 }

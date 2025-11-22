@@ -492,6 +492,109 @@ Citizen.CreateThread(function()
 	end
 end)
 
+-- Christmas Advent Calendar
+local ChristmasAdventCalendarData = {}
+if DreamCore.AdventCalendar.enable then
+	Citizen.CreateThread(function()
+		if DreamCore.AdventCalendar.peds.usePeds then
+			ChristmasAdventCalendarData.peds = {}
+			for k, v in pairs(DreamCore.AdventCalendar.peds.locations) do
+				-- Load Model
+				lib.requestModel(GetHashKey(v.model))
+
+				-- Create Object
+				local PedNPC = createPed(
+					v.model,
+					v.coords,
+					v.heading
+				)
+
+				-- Create Blip
+				local PedBlip = createBlip(
+					DreamCore.AdventCalendar.blip.name,
+					v.coords,
+					DreamCore.AdventCalendar.blip.scale,
+					DreamCore.AdventCalendar.blip.sprite,
+					DreamCore.AdventCalendar.blip.color
+				)
+
+				ChristmasAdventCalendarData.peds[k] = {
+					npc = PedNPC,
+					blip = PedBlip
+				}
+
+				-- Add Target
+				TargetSelect = function()
+					OpenAdventCalendar()
+				end
+
+				if DreamCore.Target() == 'ox' then
+					exports.ox_target:addLocalEntity(PedNPC, {
+						{
+							label = Locales['AdventCalendar']['Open']['TargetLabel'],
+							name = 'dream_christmas:adventcalendar',
+							icon = 'fa-solid fa-candy-cane',
+							onSelect = TargetSelect
+						}
+					})
+				elseif DreamCore.Target() == 'qb' then
+					exports['qb-target']:AddTargetEntity(PedNPC, {
+						options = {
+							{
+								label = Locales['AdventCalendar']['Open']['TargetLabel'],
+								icon = 'fa-solid fa-candy-cane',
+								action = TargetSelect
+							}
+						}
+					})
+				end
+			end
+		end
+	end)
+
+	if DreamCore.AdventCalendar.command then
+		RegisterCommand(DreamCore.AdventCalendar.command, function()
+			OpenAdventCalendar()
+		end, false)
+	end
+end
+
+RegisterNUICallback('claimAdventDoor', function(data)
+	local result = lib.callback.await('dream_christmas:server:claimAdventDoor', false, data.dayId)
+	if result.success then
+		TriggerEvent("dream_christmas:client:notify", result.message, "success", 5000)
+	else
+		TriggerEvent("dream_christmas:client:notify", result.message, "error", 5000)
+	end
+end)
+
+
+local IsInAdventCalendar = false
+function OpenAdventCalendar()
+	if not DreamCore.AdventCalendar.enable then
+		print("^6[Dream-Services] ^7Advent Calendar is disabled in the config!")
+		return
+	end
+
+	if IsInAdventCalendar then
+		print("^6[Dream-Services] ^7You are already in the Advent Calendar UI!")
+		return
+	end
+
+	local data = lib.callback.await('dream_christmas:server:getAdventCalendarData', false)
+	if data then
+		IsInAdventCalendar = true
+		StartScreenBlur()
+		SendNUIMessage({
+			type = 'advent_calendar:show',
+			data = data
+		})
+		SetNuiFocus(true, true)
+	else
+		print("^6[Dream-Services] ^7Failed to fetch Advent Calendar data from server!")
+	end
+end
+
 function ProgressBar(Data)
 	local Finished = false
 	local Canceled = false
@@ -568,6 +671,12 @@ function ProgressBar(Data)
 	return Finished
 end
 
+RegisterNUICallback('closeUI', function()
+	IsInAdventCalendar = false
+	StopScreenBlur()
+	SetNuiFocus(false, false)
+end)
+
 RegisterNetEvent("dream_christmas:client:notify")
 AddEventHandler("dream_christmas:client:notify", function(text, type, duration)
 	DreamCore.Notify(text, type, duration)
@@ -614,6 +723,17 @@ AddEventHandler('onResourceStop', function(resourceName)
 		end
 
 		if v.blip then RemoveBlip(v.blip) end
+	end
+
+	for _, v in pairs(ChristmasAdventCalendarData.peds or {}) do
+		if DoesEntityExist(v.npc) then removePed(v.npc) end
+		if v.blip then RemoveBlip(v.blip) end
+	end
+
+	if IsInAdventCalendar then
+		SetTimecycleModifierStrength(0.0)
+		SetTimecycleModifier('default')
+		SetNuiFocus(false, false)
 	end
 
 	FreezeEntityPosition(cache.ped, false)

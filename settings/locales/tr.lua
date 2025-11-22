@@ -71,4 +71,27 @@ DreamLocales['tr'] = {
             ['ChristmasPresentAlreadyClaimed'] = '🎁 Noel hediyesi zaten alındı'
         }
     },
+
+    ['AdventCalendar'] = {
+        ['Open'] = {
+            ['TargetLabel'] = 'Advent takvimini aç',
+            ['ProgressBar'] = '🎅 Advent takvimi açılıyor',
+            ['ActivityPopup'] = 'Takvim açılıyor...',
+        },
+        ['Status'] = {
+            ['Claimed'] = 'Alındı',
+            ['NotClaimed'] = 'Alınmadı',
+        },
+        ['Success'] = {
+            ['AdventCalendarItem'] = '🎅 %sx %s aldın',
+            ['AdventCalendarWeapon'] = '🎅 %s aldın (%s mermi)',
+            ['AdventCalendarMoney'] = '🎅 %s₺ (%s) aldın'
+        },
+        ['Error'] = {
+            ['AdventCalendarNotToday'] = '🎅 Sadece bugünün hediyesini alabilirsin',
+            ['AdventCalendarNotDecember'] = '🎅 Advent takvimi sadece Aralık ayında kullanılabilir',
+            ['AdventCalendarAlreadyClaimed'] = '🎅 Bugünün hediyesini zaten aldın',
+            ['AdventCalendarNoReward'] = '🎅 Bugün ödül yok',
+        }
+    }
 }

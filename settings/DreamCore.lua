@@ -93,7 +93,8 @@ DreamCore.TuncionXP = {
     -- 📝 Actions (XP)
     propReward = 5,
     christmasPresent = 2,
-    decorateChristmasTree = 5
+    decorateChristmasTree = 5,
+    adventCalendarReward = 5
 }
 
 -- Snow System (Snowballs &  Overlay)
@@ -334,6 +335,32 @@ DreamCore.ChristmasPresents = {
             scale = 0.6,
             name = ChristmasPresentBlip4
         }
+    }
+}
+
+-- Christmas Advent Calendar
+DreamCore.AdventCalendar = {
+    enable = true, -- Set to false if you don't want the advent calendar
+    command = 'adventcalendar', -- Set the command to open the advent calendar | Set to false to disable the command.
+    blip = {
+        sprite = 783,
+        color = 59,
+        scale = 0.8,
+        name = '🎅 Advent Calendar'
+    },
+    peds = {
+        usePeds = true, -- Set to false if you don't want a ped to open the advent calendar
+        locations = {
+            {
+                model = 'u_m_m_partytarget',
+                coords = vector3(80.6480, -967.4792, 28.3576),
+                heading = 160.4239
+            }
+        }
+    },
+    days = {
+        -- ⚠️ Please configure the days in the DreamCoreExt.lua (Serverside only config).
+        -- We don't want that the client (player) have direct access to all rewards and leak or destroy the surprise :(
     }
 }
 

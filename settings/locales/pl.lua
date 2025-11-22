@@ -71,4 +71,27 @@ DreamLocales['pl'] = {
             ['ChristmasPresentAlreadyClaimed'] = '🎁 Prezent został już odebrany'
         }
     },
+
+    ['AdventCalendar'] = {
+        ['Open'] = {
+            ['TargetLabel'] = 'Otwórz kalendarz adwentowy',
+            ['ProgressBar'] = '🎅 Otwieranie kalendarza adwentowego',
+            ['ActivityPopup'] = 'Otwieranie kalendarza...',
+        },
+        ['Status'] = {
+            ['Claimed'] = 'Odebrane',
+            ['NotClaimed'] = 'Nieodebrane',
+        },
+        ['Success'] = {
+            ['AdventCalendarItem'] = '🎅 Otrzymałeś %sx %s',
+            ['AdventCalendarWeapon'] = '🎅 Otrzymałeś %s z %s amunicji',
+            ['AdventCalendarMoney'] = '🎅 Otrzymałeś %s PLN (%s)'
+        },
+        ['Error'] = {
+            ['AdventCalendarNotToday'] = '🎅 Możesz odebrać tylko dzisiejszy prezent',
+            ['AdventCalendarNotDecember'] = '🎅 Kalendarz adwentowy dostępny jest tylko w grudniu',
+            ['AdventCalendarAlreadyClaimed'] = '🎅 Dzisiejszy prezent został już odebrany',
+            ['AdventCalendarNoReward'] = '🎅 Brak nagrody na dziś',
+        }
+    }
 }

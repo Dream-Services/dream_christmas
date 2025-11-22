@@ -71,4 +71,27 @@ DreamLocales['de'] = {
             ['ChristmasPresentAlreadyClaimed'] = '🎁 Das Weihnachtsgeschenk wurde bereits beansprucht'
         }
     },
+
+    ['AdventCalendar'] = {
+        ['Open'] = {
+            ['TargetLabel'] = 'Adventskalender öffnen',
+            ['ProgressBar'] = '🎅 Öffne den Adventskalender',
+            ['ActivityPopup'] = 'Kalender wird geöffnet...',
+        },
+        ['Status'] = {
+            ['Claimed'] = 'Eingelöst',
+            ['NotClaimed'] = 'Nicht eingelöst',
+        },
+        ['Success'] = {
+            ['AdventCalendarItem'] = '🎅 Du hast %sx %s erhalten',
+            ['AdventCalendarWeapon'] = '🎅 Du hast eine %s mit %s Schuss erhalten',
+            ['AdventCalendarMoney'] = '🎅 Du hast %s€ (%s) erhalten'
+        },
+        ['Error'] = {
+            ['AdventCalendarNotToday'] = '🎅 Du kannst nur das heutige Geschenk öffnen',
+            ['AdventCalendarNotDecember'] = '🎅 Der Adventskalender ist nur im Dezember verfügbar',
+            ['AdventCalendarAlreadyClaimed'] = '🎅 Du hast das heutige Geschenk bereits geöffnet',
+            ['AdventCalendarNoReward'] = '🎅 Für heute gibt es keine Belohnung',
+        }
+    }
 }

@@ -386,6 +386,146 @@ lib.callback.register('dream_christmas:server:claimChristmasPresent', function(s
     end
 end)
 
+lib.callback.register('dream_christmas:server:getAdventCalendarData', function(source)
+    local src = source
+    local TodayDay = tonumber(os.date('%d'))
+    local TodayMonth = tonumber(os.date('%m'))
+    local AdventCalendarData = {}
+
+    -- Get Claimed Days from Database
+    local PlayerIdentifier = DreamFramework.GetIdentifier(src)
+    local ClaimedDays = MySQL.Sync.fetchAll('SELECT day FROM christmas_advent_claimed WHERE identifier = @identifier', {
+        ['@identifier'] = PlayerIdentifier
+    })
+
+    for k, v in pairs(DreamCore.AdventCalendar.days) do
+        local IsToday = (
+            (TodayDay == tonumber(k))
+            and (TodayMonth == 12)
+        )
+        local IsClaimed = false
+
+        for k2, v2 in pairs(ClaimedDays) do
+            if tonumber(v2.day) == tonumber(k) then
+                IsClaimed = true
+                break
+            end
+        end
+
+        -- if
+        --     (TodayDay >= k)
+        --     and (TodayMonth == 12)
+        -- then
+        AdventCalendarData[k] = {
+            id = k,
+            label = v.label,
+            image = v.image,
+            rewards = v.rewards,
+            isToday = IsToday,
+            isClaimed = IsClaimed
+        }
+        -- else
+        --     -- This are the rewards in the future means not today and not in the past.
+        --     -- Because of some people will try to see the rewards before the day comes (e.g. look in the html code).
+        --     -- We don't give the real reward, we just give placeholders. It should be a surprise for the players, right?
+        --     -- The players just see https://i.imgur.com/fQj73Lv.png for the future days.
+        --     AdventCalendarData[k] = {
+        --         id = k,
+        --         label = 'Secret',
+        --         image = './assets/img/gift.png',
+        --         rewards = {},
+        --         isToday = IsToday,
+        --         isClaimed = IsClaimed
+        --     }
+        -- end
+    end
+
+    return AdventCalendarData
+end)
+
+lib.callback.register('dream_christmas:server:claimAdventDoor', function(source, DayId)
+    local src = source
+    local TodayDay = tonumber(os.date('%d'))
+    local TodayMonth = tonumber(os.date('%m'))
+
+    -- Check Day
+    if TodayDay ~= DayId then
+        return { success = false, message = Locales['AdventCalendar']['Error']['AdventCalendarNotToday'] }
+    end
+
+    -- Check Month
+    if TodayMonth ~= 12 then
+        return { success = false, message = Locales['AdventCalendar']['Error']['AdventCalendarNotDecember'] }
+    end
+
+    -- Check if already claimed
+    local PlayerIdentifier = DreamFramework.GetIdentifier(src)
+    local ClaimedDay = MySQL.Sync.fetchAll('SELECT day FROM christmas_advent_claimed WHERE identifier = @identifier AND day = @day', {
+        ['@identifier'] = PlayerIdentifier,
+        ['@day'] = DayId
+    })
+
+    if #ClaimedDay > 0 then
+        return { success = false, message = Locales['AdventCalendar']['Error']['AdventCalendarAlreadyClaimed'] }
+    end
+
+    -- Claim Door
+    MySQL.Sync.execute('INSERT INTO christmas_advent_claimed (identifier, day) VALUES (@identifier, @day)', {
+        ['@identifier'] = PlayerIdentifier,
+        ['@day'] = DayId
+    })
+
+    -- Give Reward
+    local DayRewards = DreamCore.AdventCalendar.days[DayId]?.reward
+    if not DayRewards then
+        return { success = false, message = Locales['AdventCalendar']['Error']['AdventCalendarNoReward'] }
+    end
+    local RewardData = GiveRandomRewardToPlayer(src, { DayRewards })
+
+    local NotifyMessage = 'Unknown Reward Type'
+    if RewardData.type == 'item' then
+        NotifyMessage = Locales['AdventCalendar']['Success']['AdventCalendarItem']:format(RewardData.amount, DreamFramework.InventoryManagement(src, { type = 'label', item = RewardData.item }))
+    elseif RewardData.type == 'weapon' then
+        NotifyMessage = Locales['AdventCalendar']['Success']['AdventCalendarWeapon']:format(Locales['Weapons'][RewardData.weapon] or Locales['Weapons']['unknown'], lib.math.groupdigits(RewardData.ammo))
+    elseif RewardData.type == 'money' then
+        NotifyMessage = Locales['AdventCalendar']['Success']['AdventCalendarMoney']:format(lib.math.groupdigits(RewardData.amount), Locales['MoneyAccount'][RewardData.account] or Locales['MoneyAccount']['unknown'])
+    end
+
+    if DreamCore.Webhooks.Enabled then
+        local WebhookReward = 'Unknown Reward'
+        if RewardData.type == 'item' then
+            WebhookReward = ('**📦 Item:** `%s` (`%s`)\n**🔢 Amount:** `%s`'):format(DreamFramework.InventoryManagement(src, { type = 'label', item = RewardData.item }), RewardData.item, RewardData.amount)
+        elseif RewardData.type == 'weapon' then
+            WebhookReward = ('**🔫 Weapon:** `%s` (`%s`)\n**🔢 Ammo:** `%s`'):format(Locales['Weapons'][RewardData.weapon] or Locales['Weapons']['unknown'], RewardData.weapon, lib.math.groupdigits(RewardData.ammo))
+        elseif RewardData.type == 'money' then
+            WebhookReward = ('**🪙 Wallet:** `%s` (`%s`)\n**💸 Amount:** `%s$`'):format(Locales['MoneyAccount'][RewardData.account] or Locales['MoneyAccount']['unknown'], RewardData.account, lib.math.groupdigits(RewardData.amount))
+        end
+
+        SendDiscordWebhook({
+            link = DreamCore.Webhooks.ChristmasAdventCalendar,
+            color = DreamCore.Webhooks.Color,
+            thumbnail = DreamCore.Webhooks.IconURL,
+            author = {
+                name = DreamCore.Webhooks.Author,
+                icon_url = DreamCore.Webhooks.IconURL
+            },
+            title = "🎅 Advent Calendar",
+            description = ("**🗓️ Day:** `%s`\n%s\n**⚙️ Player:** `%s` (`%s`)\n**🏷️ Name:** `%s`"):format(DayId, WebhookReward, GetPlayerName(source), source, DreamFramework.getPlayerName(source)),
+            footer = {
+                text     = "Made with ❤️ by Dream Development",
+                icon_url = DreamCore.Webhooks.IconURL
+            },
+        })
+    end
+
+    -- Tuncion XP
+    if DreamCore.TuncionXP.activate then
+        exports[DreamCore.TuncionXP.resourceName]:addXP(src, DreamCore.TuncionXP.adventCalendarReward, ('🎅 Advent Calendar #%s'):format(DayId))
+    end
+
+    return { success = true, message = NotifyMessage }
+end)
+
 function GiveRandomRewardToPlayer(src, RewardsPool)
     local RandomReward = lib.table.deepclone(RewardsPool[math.random(1, #RewardsPool)])
     if RandomReward.type == 'item' then

@@ -72,4 +72,27 @@ DreamLocales['de-b'] = {
             ['ChristmasPresentAlreadyClaimed'] = '🥨 Des Wiehnachtsgschänk is scho abgholt worn'
         }
     },
+
+    ['AdventCalendar'] = {
+        ['Open'] = {
+            ['TargetLabel'] = 'Mach den Adventskalender auf',
+            ['ProgressBar'] = '🎅 Adventskalender wird aufgmacht',
+            ['ActivityPopup'] = 'Kalender aufmachn...',
+        },
+        ['Status'] = {
+            ['Claimed'] = 'Abgholt',
+            ['NotClaimed'] = 'Ned abgholt',
+        },
+        ['Success'] = {
+            ['AdventCalendarItem'] = '🎅 Du host %sx %s griagt',
+            ['AdventCalendarWeapon'] = '🎅 Du host a %s mit %s Schuss griagt',
+            ['AdventCalendarMoney'] = '🎅 Du host %s$ (%s) griagt'
+        },
+        ['Error'] = {
+            ['AdventCalendarNotToday'] = '🎅 Du kannst nur des heitige Gschenk abholn',
+            ['AdventCalendarNotDecember'] = '🎅 Da Adventskalender gibt’s nur im Dezember',
+            ['AdventCalendarAlreadyClaimed'] = '🎅 Du host des heitige Gschenk scho abgholt',
+            ['AdventCalendarNoReward'] = '🎅 Heit gibt’s koa Belohnung',
+        }
+    }
 }
