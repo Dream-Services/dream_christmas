@@ -87,7 +87,7 @@ DreamCore.TuncionXP = {
     -- ❌ activate = false = ignore / no XP integration
     -- 🎯 adjust XP values below for specific actions
 
-    activate = true,
+    activate = false,
     resourceName = 'tuncion_xp',
 
     -- 📝 Actions (XP)
