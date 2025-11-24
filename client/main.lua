@@ -408,7 +408,6 @@ Citizen.CreateThread(function()
 		local SpawnedProp = CreateObject(GetHashKey(v.model), v.coords, false, true, true)
 		SetEntityHeading(SpawnedProp, v.heading)
 		FreezeEntityPosition(SpawnedProp, true)
-		FreezeEntityPosition(SpawnedProp, true)
 		SetEntityInvincible(SpawnedProp, true)
 		SetBlockingOfNonTemporaryEvents(SpawnedProp, true)
 
@@ -416,7 +415,7 @@ Citizen.CreateThread(function()
 		local TargetId = nil
 		TargetSelect = function()
 			if DreamCore.ChristmasPresentGoToProp then
-				local BeforeProp = GetOffsetFromEntityInWorldCoords(SpawnedProp, 0.0, -1.0, 0.0)
+				local BeforeProp = GetOffsetFromEntityInWorldCoords(SpawnedProp, 0.0, -0.5, 0.0)
 				local TargetX, TargetY, TargetZ = BeforeProp.x, BeforeProp.y, GetEntityCoords(cache.ped).z
 				TaskGoStraightToCoord(cache.ped, TargetX, TargetY, TargetZ, 1.0, -1, GetEntityHeading(SpawnedProp), 0.0)
 
@@ -443,8 +442,8 @@ Citizen.CreateThread(function()
 						car = true,
 					},
 					anim = {
-						dict = 'anim@gangops@facility@servers@bodysearch@',
-						clip = 'player_search'
+						dict = 'amb@medic@standing@kneel@idle_a',
+						clip = 'idle_c'
 					}
 				})
 			then
