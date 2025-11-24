@@ -122,6 +122,7 @@ This makes the festive season even more rewarding and fun for your community. ðŸ
 - [x] Own timesync or something to fix the problem with multiple weather scripts
 - [x] Update Readme and add new photos with the new features like popup ui, own progressbar etc.
 - [ ] Exports for other scripts
+- [ ] Present System etc. without target
 
 ---
 
