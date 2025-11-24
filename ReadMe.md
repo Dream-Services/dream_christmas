@@ -80,11 +80,12 @@ This makes the festive season even more rewarding and fun for your community. ðŸ
 ---
 
 ## âš¡ Installation  
-1. **Download & extract** the script into your `resources` folder.  
+1. **Download & extract** the script into your `resources` folder.
 2. Add `ensure dream_christmas` to your `server.cfg`.  
 3. Configure settings in `/settings` to fit your server.  
 4. Adjust the framework bridge in `/bridge/<framework>/*.lua` if needed.  
-5. Make sure dependencies like `ox_lib` are installed.  
+5. Execute the `/sql/<framework>.sql` in your database.
+6. Make sure dependencies like `ox_lib` are installed.  
 
 ---
 
