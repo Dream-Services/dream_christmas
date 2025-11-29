@@ -167,6 +167,10 @@ function DreamFramework.addPlayerWeapon(source, weaponName, ammo)
     end
 end
 
+function DreamFramework.registerUseableItem(item, cb)
+    QBCore.Functions.CreateUseableItem(item, cb)
+end
+
 -- Events
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function(player, xPlayer, isNew)
     OnPlayerLoaded(player)

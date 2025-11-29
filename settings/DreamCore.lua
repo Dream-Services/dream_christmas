@@ -338,6 +338,28 @@ DreamCore.ChristmasPresents = {
     }
 }
 
+-- Christmas Snowman System
+DreamCore.ChristmasSnowman = {
+    enable = true, -- Set to false if you don't want the snowman system
+    carrotItem = 'carrot', -- Set the item name for the carrot
+    buildAnim = {
+        dict = 'amb@prop_human_bum_bin@idle_b',
+        clip = 'idle_d',
+        flag = 50
+    },
+    buildDistance = 100.0, -- Set the distance to build the snowman
+    buildInstant = false, -- Set to true if you want to build the snowman instantly (no animation/progress bar)
+    snowmanModel = 'xm3_prop_xm3_snowman_01c', -- Set the snowman prop model
+    snowmanMaxCount = 1, -- Set the maximum amount of snowmen a player can build
+
+    -- Place Criteria
+    blacklistedZones = { -- Blacklisted zones where players can't build snowmen
+        { coords = vector3(198.8878, -932.6039, 30.9555), radius = 120.0 }, -- Pillbox Hill
+        { coords = vector3(453.4707, -985.8928, 43.6863), radius = 65.0 }, -- LSPD
+    },
+    distanceToNextRoad = 25.0, -- Distance to the next road
+}
+
 -- Christmas Advent Calendar
 DreamCore.AdventCalendar = {
     enable = true, -- Set to false if you don't want the advent calendar

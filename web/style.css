@@ -142,6 +142,68 @@ body::-webkit-scrollbar {
     text-shadow: 0.1vw 0.1vw 0.5vw rgb(0, 0, 0, 0.5);
 }
 
+/* Snowman Progress bar */
+.snowman-progress-bar {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.snowman-progress-bar-bar {
+    width: 20vw;
+    height: 1.5vh;
+    background-color: #2C2E33;
+    border-radius: 1vh;
+    margin-top: 87.5vh;
+}
+
+.snowman-progress-bar-bar-fill {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 20%;
+    height: 100%;
+    background-color: #2677D3;
+    border-top-left-radius: 1vh;
+    border-bottom-left-radius: 1vh;
+    border-bottom-right-radius: 1vh;
+    transition: width 0.5s linear;
+    box-shadow: #2677D3 0vh 0vh 1vh 0vh;
+}
+
+.snowman-progress-bar-bar-fill-img {
+    height: 5vh;
+    margin-right: -2vh;
+    animation: SnowmanProgressAnim 2s linear infinite;
+}
+
+@keyframes SnowmanProgressAnim {
+    0% {
+        transform: scale(1.0);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1.0);
+    }
+}
+
+.snowman-progress-bar-text {
+    position: absolute;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.2vw;
+    color: white;
+    text-align: center;
+    margin-top: 91.5vh;
+    text-shadow: 0.1vw 0.1vw 0.5vw rgb(0, 0, 0, 0.5);
+}
+
 /* Advent Calendar */
 .advent-calendar {
     position: absolute;

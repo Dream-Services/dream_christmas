@@ -526,6 +526,59 @@ lib.callback.register('dream_christmas:server:claimAdventDoor', function(source,
     return { success = true, message = NotifyMessage }
 end)
 
+-- Christmas Snowman System
+local ChristmasSnowmanData = {
+    snowmen = {},
+}
+if DreamCore.ChristmasSnowman.enable then
+    DreamFramework.registerUseableItem(DreamCore.ChristmasSnowman.carrotItem, function(playerId)
+        TriggerClientEvent('dream_christmas:client:useSnowmanCarrot', playerId)
+    end)
+
+    lib.callback.register('dream_christmas:server:placeSnowman', function(source, PropCoords)
+        local src = source
+        local PlayerIdentifier = DreamFramework.GetIdentifier(src)
+
+        if PlayerIdentifier then
+            local SnowmanCount = GetPlayerSnowmanCount(PlayerIdentifier)
+
+            if SnowmanCount >= DreamCore.ChristmasSnowman.snowmanMaxCount then
+                return { success = false, message = Locales['ChristmasSnowman']['Error']['MaxCountReached'] }
+            end
+
+            if DreamFramework.InventoryManagement(src, { type = 'count', item = DreamCore.ChristmasSnowman.carrotItem }) < 1 then
+                return { success = false, message = Locales['ChristmasSnowman']['Error']['NoCarrotItem'] }
+            end
+
+            DreamFramework.InventoryManagement(src, { type = 'remove', item = DreamCore.ChristmasSnowman.carrotItem, amount = 1 })
+            PlaceSnowmanProp(PlayerIdentifier, PropCoords)
+            return { success = true }
+        end
+    end)
+
+    function GetPlayerSnowmanCount(PlayerIdentifier)
+        local SnowmanCount = 0
+        for _, v in pairs(ChristmasSnowmanData.snowmen) do
+            if v.owner == PlayerIdentifier then
+                SnowmanCount = SnowmanCount + 1
+            end
+        end
+        return SnowmanCount
+    end
+
+    function PlaceSnowmanProp(PlayerIdentifier, PropCoords)
+        local Snowman = CreateObject(DreamCore.ChristmasSnowman.snowmanModel, PropCoords.x, PropCoords.y, PropCoords.z, true, true, false)
+        SetEntityHeading(Snowman, PropCoords.w)
+        FreezeEntityPosition(Snowman, true)
+
+        ChristmasSnowmanData.snowmen[#ChristmasSnowmanData.snowmen + 1] = {
+            owner = PlayerIdentifier,
+            entity = Snowman,
+            coords = PropCoords
+        }
+    end
+end
+
 function GiveRandomRewardToPlayer(src, RewardsPool)
     local RandomReward = lib.table.deepclone(RewardsPool[math.random(1, #RewardsPool)])
     if RandomReward.type == 'item' then
@@ -597,4 +650,12 @@ end
 AddEventHandler('onResourceStart', function(resourceName)
     Citizen.Wait(500)
     CheckOtherWeatherResources()
+end)
+
+AddEventHandler('onResourceStop', function(resourceName)
+    if (GetCurrentResourceName() ~= resourceName) then return end
+
+    for _, v in pairs(ChristmasSnowmanData.snowmen) do
+        if DoesEntityExist(v.entity) then DeleteEntity(v.entity) end
+    end
 end)

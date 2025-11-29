@@ -18,9 +18,16 @@ DreamLocales['it'] = {
         ['bank'] = 'Banca',
         ['dirty_money'] = 'Soldi sporchi'
     },
+
     ['Weapons'] = {
         ['unknown'] = 'Arma sconosciuta',
         ['weapon_pistol'] = 'Pistola',
+    },
+
+    ['PropPlacer'] = {
+        ['Rotate'] = 'Ruota +/-',
+        ['Cancel'] = 'Annulla',
+        ['Place'] = 'Posiziona'
     },
 
     ['PropSystem'] = {
@@ -69,6 +76,19 @@ DreamLocales['it'] = {
         ['Error'] = {
             ['ChristmasPresentInvalid'] = '🎁 Il regalo di Natale non è valido',
             ['ChristmasPresentAlreadyClaimed'] = '🎁 Il regalo di Natale è già stato reclamato'
+        }
+    },
+
+    ['ChristmasSnowman'] = {
+        ['Build'] = {
+            ['Start'] = '❄️ Costruisci ora il pupazzo di neve!',
+        },
+        ['Error'] = {
+            ['General'] = '❄️ Non puoi costruire un pupazzo di neve ora!',
+            ['AlreadyBuilding'] = '❄️ Stai già costruendo un pupazzo di neve!',
+            ['InPropPlacer'] = '❄️ Sei già nel prop placer!',
+            ['MaxCountReached'] = '❄️ Hai raggiunto il numero massimo di pupazzi di neve!',
+            ['NoCarrotItem'] = '❄️ Non hai una carota per costruire il pupazzo di neve!',
         }
     },
 

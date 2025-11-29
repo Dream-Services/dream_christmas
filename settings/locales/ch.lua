@@ -24,6 +24,12 @@ DreamLocales['ch'] = {
         ['weapon_pistol'] = 'Pistole',
     },
 
+    ['PropPlacer'] = {
+        ['Rotate'] = 'Drehe +/-',
+        ['Cancel'] = 'Abbräche',
+        ['Place'] = 'Setze'
+    },
+
     ['PropSystem'] = {
         ['TargetLabel'] = 'Such es Gschänkli',
         ['ProgressBar'] = '🎁 Suchet das Gschänkli',
@@ -70,6 +76,19 @@ DreamLocales['ch'] = {
         ['Error'] = {
             ['ChristmasPresentInvalid'] = '🎁 S Wiehnachtsgeschenk isch ungültig',
             ['ChristmasPresentAlreadyClaimed'] = '🎁 S Wiehnachtsgeschenk isch scho abgno'
+        }
+    },
+
+    ['ChristmasSnowman'] = {
+        ['Build'] = {
+            ['Start'] = '❄️ Bau jetzt dä Schneemann!',
+        },
+        ['Error'] = {
+            ['General'] = '❄️ Du chasch grad kei Schneemann baue!',
+            ['AlreadyBuilding'] = '❄️ Du bisch scho am Schneemann baue!',
+            ['InPropPlacer'] = '❄️ Du bisch scho im Prop-Placer drin!',
+            ['MaxCountReached'] = '❄️ Du häsch s Maximum a Schneemänner erreichtet!',
+            ['NoCarrotItem'] = '❄️ Du häsch kei Rüebli zum Schneemann baue!',
         }
     },
 

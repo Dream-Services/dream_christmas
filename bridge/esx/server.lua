@@ -158,6 +158,11 @@ function DreamFramework.addPlayerWeapon(source, weaponName, ammo)
     end
 end
 
+function DreamFramework.registerUseableItem(item, cb)
+    ESX.RegisterUsableItem(item, cb)
+end
+
+-- Events
 RegisterNetEvent('esx:playerLoaded', function(player, xPlayer, isNew)
     OnPlayerLoaded(player)
 end)

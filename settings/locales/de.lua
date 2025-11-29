@@ -18,9 +18,16 @@ DreamLocales['de'] = {
         ['bank'] = 'Bank',
         ['dirty_money'] = 'Schmutziges Geld'
     },
+
     ['Weapons'] = {
         ['unknown'] = 'Unbekannte Waffe',
         ['weapon_pistol'] = 'Pistole',
+    },
+
+    ['PropPlacer'] = {
+        ['Rotate'] = 'Drehen +/-',
+        ['Cancel'] = 'Abbrechen',
+        ['Place'] = 'Platzieren'
     },
 
     ['PropSystem'] = {
@@ -69,6 +76,19 @@ DreamLocales['de'] = {
         ['Error'] = {
             ['ChristmasPresentInvalid'] = '🎁 Das Weihnachtsgeschenk ist ungültig',
             ['ChristmasPresentAlreadyClaimed'] = '🎁 Das Weihnachtsgeschenk wurde bereits beansprucht'
+        }
+    },
+
+    ['ChristmasSnowman'] = {
+        ['Build'] = {
+            ['Start'] = '❄️ Baue jetzt den Schneemann!',
+        },
+        ['Error'] = {
+            ['General'] = '❄️ Du kannst gerade keinen Schneemann bauen!',
+            ['AlreadyBuilding'] = '❄️ Du baust bereits einen Schneemann!',
+            ['InPropPlacer'] = '❄️ Du bist bereits im Prop-Placer!',
+            ['MaxCountReached'] = '❄️ Du hast die maximale Anzahl an Schneemännern erreicht!',
+            ['NoCarrotItem'] = '❄️ Du hast keine Karotte zum Schneemannbau!',
         }
     },
 

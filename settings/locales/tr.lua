@@ -18,9 +18,16 @@ DreamLocales['tr'] = {
         ['bank'] = 'Banka',
         ['dirty_money'] = 'Kirli Para'
     },
+
     ['Weapons'] = {
         ['unknown'] = 'Bilinmeyen Silah',
         ['weapon_pistol'] = 'Tabanca',
+    },
+
+    ['PropPlacer'] = {
+        ['Rotate'] = 'Döndür +/-',
+        ['Cancel'] = 'İptal',
+        ['Place'] = 'Yerleştir'
     },
 
     ['PropSystem'] = {
@@ -69,6 +76,19 @@ DreamLocales['tr'] = {
         ['Error'] = {
             ['ChristmasPresentInvalid'] = '🎁 Noel hediyesi geçersiz',
             ['ChristmasPresentAlreadyClaimed'] = '🎁 Noel hediyesi zaten alındı'
+        }
+    },
+
+    ['ChristmasSnowman'] = {
+        ['Build'] = {
+            ['Start'] = '❄️ Şimdi kardan adamı yap!',
+        },
+        ['Error'] = {
+            ['General'] = '❄️ Şu anda kardan adam yapamazsın!',
+            ['AlreadyBuilding'] = '❄️ Zaten bir kardan adam yapıyorsun!',
+            ['InPropPlacer'] = '❄️ Zaten prop yerleştiricide bulunuyorsun!',
+            ['MaxCountReached'] = '❄️ Yapabileceğin maksimum kardan adam sayısına ulaştın!',
+            ['NoCarrotItem'] = '❄️ Kardan adam yapmak için havucun yok!',
         }
     },
 

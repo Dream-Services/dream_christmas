@@ -18,9 +18,16 @@ DreamLocales['pl'] = {
         ['bank'] = 'Bank',
         ['dirty_money'] = 'Brudne pieniądze'
     },
+
     ['Weapons'] = {
         ['unknown'] = 'Nieznana broń',
         ['weapon_pistol'] = 'Pistolecik',
+    },
+
+    ['PropPlacer'] = {
+        ['Rotate'] = 'Obróć +/-',
+        ['Cancel'] = 'Anuluj',
+        ['Place'] = 'Umieść'
     },
 
     ['PropSystem'] = {
@@ -69,6 +76,19 @@ DreamLocales['pl'] = {
         ['Error'] = {
             ['ChristmasPresentInvalid'] = '🎁 Prezent jest nieprawidłowy',
             ['ChristmasPresentAlreadyClaimed'] = '🎁 Prezent został już odebrany'
+        }
+    },
+
+    ['ChristmasSnowman'] = {
+        ['Build'] = {
+            ['Start'] = '❄️ Zbuduj teraz bałwana!',
+        },
+        ['Error'] = {
+            ['General'] = '❄️ Nie możesz teraz zbudować bałwana!',
+            ['AlreadyBuilding'] = '❄️ Już budujesz bałwana!',
+            ['InPropPlacer'] = '❄️ Już jesteś w narzędziu do stawiania obiektów!',
+            ['MaxCountReached'] = '❄️ Osiągnąłeś maksymalną liczbę bałwanów!',
+            ['NoCarrotItem'] = '❄️ Nie masz marchewki do zbudowania bałwana!',
         }
     },
 

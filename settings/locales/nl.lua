@@ -18,9 +18,16 @@ DreamLocales['nl'] = {
         ['bank'] = 'Bank',
         ['dirty_money'] = 'Vuil geld'
     },
+
     ['Weapons'] = {
         ['unknown'] = 'Onbekend wapen',
         ['weapon_pistol'] = 'Pistool',
+    },
+
+    ['PropPlacer'] = {
+        ['Rotate'] = 'Draaien +/-',
+        ['Cancel'] = 'Annuleren',
+        ['Place'] = 'Plaatsen'
     },
 
     ['PropSystem'] = {
@@ -69,6 +76,19 @@ DreamLocales['nl'] = {
         ['Error'] = {
             ['ChristmasPresentInvalid'] = '🎁 Het kerstcadeau is ongeldig',
             ['ChristmasPresentAlreadyClaimed'] = '🎁 Het kerstcadeau is al opgeëist'
+        }
+    },
+
+    ['ChristmasSnowman'] = {
+        ['Build'] = {
+            ['Start'] = '❄️ Bouw nu de sneeuwman!',
+        },
+        ['Error'] = {
+            ['General'] = '❄️ Je kunt nu geen sneeuwman bouwen!',
+            ['AlreadyBuilding'] = '❄️ Je bent al een sneeuwman aan het bouwen!',
+            ['InPropPlacer'] = '❄️ Je bent al in de prop placer!',
+            ['MaxCountReached'] = '❄️ Je hebt het maximum aantal sneeuwmannen bereikt!',
+            ['NoCarrotItem'] = '❄️ Je hebt geen wortel om een sneeuwman te bouwen!',
         }
     },
 

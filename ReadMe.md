@@ -25,6 +25,9 @@ Decorate trees, get rewards, and enjoy smooth animations (player unarmed automat
 ### `🎁` **Present System**  
 Open gifts, receive rewards, track cooldowns (saved even after restart).
 
+### `⛄` **Snowman System**  
+Build snowmen with a specific item.
+
 ### `💼` **Own Custom UIs**  
 Custom progress bars and popup UIs with multiple styles for an immersive experience.
 
@@ -118,7 +121,8 @@ This makes the festive season even more rewarding and fun for your community. �
 - [ ] Christmas Present remove when cooldown (open)
 - [x] Smoother Teleport to the prop
 - [x] Snow Overlay when outside 
-- [ ] Build Snowman
+- [x] Build Snowman
+- [ ] More features for snowmens (own name, hidding etc.)
 - [x] Own timesync or something to fix the problem with multiple weather scripts
 - [x] Update Readme and add new photos with the new features like popup ui, own progressbar etc.
 - [ ] Exports for other scripts

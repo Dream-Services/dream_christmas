@@ -19,9 +19,16 @@ DreamLocales['at'] = {
         ['bank'] = 'Bank',
         ['dirty_money'] = 'Schmutzigs Geld'
     },
+
     ['Weapons'] = {
         ['unknown'] = 'Unbekannti Waffe',
         ['weapon_pistol'] = 'Pistole',
+    },
+
+    ['PropPlacer'] = {
+        ['Rotate'] = 'Drehn +/-',
+        ['Cancel'] = 'Obbrechen',
+        ['Place'] = 'Hinstölln'
     },
 
     ['PropSystem'] = {
@@ -70,6 +77,19 @@ DreamLocales['at'] = {
         ['Error'] = {
             ['ChristmasPresentInvalid'] = '🎁 Das Wiehnachtsgschänk is ungültig',
             ['ChristmasPresentAlreadyClaimed'] = '🎁 Das Wiehnachtsgschänk is scho abgholt wordn'
+        }
+    },
+
+    ['ChristmasSnowman'] = {
+        ['Build'] = {
+            ['Start'] = '❄️ Gemma, bau ma an Schneemann!',
+        },
+        ['Error'] = {
+            ['General'] = '❄️ Du kannst grad kan Schneemann baun!',
+            ['AlreadyBuilding'] = '❄️ Du baust eh scho an Schneemann!',
+            ['InPropPlacer'] = '❄️ Du bist eh no im Prop-Placer drin!',
+            ['MaxCountReached'] = '❄️ Mehr Schneemänner san nimma drin!',
+            ['NoCarrotItem'] = '❄️ Da fehlt da a Karottn fürn Schneemann!',
         }
     },
 

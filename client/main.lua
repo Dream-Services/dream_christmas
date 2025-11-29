@@ -13,6 +13,7 @@ if string.find(GetCurrentResourceName(), 'dream') then
 end
 
 -- Global Variables
+local IsInPropPlacer = false
 
 -- Ready UI
 RegisterNUICallback("readyUI", function(data, cb)
@@ -86,6 +87,7 @@ if DreamCore.XmasSnow then
 						or IsPedRunning(cache.ped)
 						or IsPedRagdoll(cache.ped)
 						or GetInteriorFromEntity(cache.ped) ~= 0 -- Check if player is in interior
+						or IsInPropPlacer -- Not in prop placer
 					then
 						return
 					end
@@ -567,7 +569,6 @@ RegisterNUICallback('claimAdventDoor', function(data)
 	end
 end)
 
-
 local IsInAdventCalendar = false
 function OpenAdventCalendar()
 	if not DreamCore.AdventCalendar.enable then
@@ -592,6 +593,255 @@ function OpenAdventCalendar()
 	else
 		print("^6[Dream-Services] ^7Failed to fetch Advent Calendar data from server!")
 	end
+end
+
+-- Christmas Snowman System
+local IsBuildingSnowman = false
+if DreamCore.ChristmasSnowman.enable then
+	RegisterNetEvent("dream_christmas:client:useSnowmanCarrot")
+	AddEventHandler("dream_christmas:client:useSnowmanCarrot", function()
+		if IsBuildingSnowman then
+			DreamCore.Notify(Locales['ChristmasSnowman']['Error']['AlreadyBuilding'], "error", 5000)
+			return
+		end
+
+		if IsInPropPlacer then
+			DreamCore.Notify(Locales['ChristmasSnowman']['Error']['InPropPlacer'], "error", 5000)
+			return
+		end
+
+		IsBuildingSnowman = true
+
+		if not DreamCore.ChristmasSnowman.buildInstant then
+			DreamCore.Notify(Locales['ChristmasSnowman']['Build']['Start'], "success", 5000)
+
+			-- Start Anim
+			RequestAnimDict(DreamCore.ChristmasSnowman.buildAnim.dict)
+			while not HasAnimDictLoaded(DreamCore.ChristmasSnowman.buildAnim.dict) do Wait(10) end
+			TaskPlayAnim(cache.ped, DreamCore.ChristmasSnowman.buildAnim.dict, DreamCore.ChristmasSnowman.buildAnim.clip, 3.0, 3.0, -1, DreamCore.ChristmasSnowman.buildAnim.flag, 0, false, false, false)
+
+			SendNUIMessage({ type = 'snowman_progress_bar:start' })
+			local TraveledDistance = 0.0
+			local LastCoords = GetEntityCoords(cache.ped)
+			while TraveledDistance < DreamCore.ChristmasSnowman.buildDistance do
+				local CurrentCoords = GetEntityCoords(cache.ped)
+				local CurrentDistance = #(LastCoords - CurrentCoords)
+				TraveledDistance = TraveledDistance + CurrentDistance
+				LastCoords = CurrentCoords
+				SendNUIMessage({ type = 'snowman_progress_bar:progress', progress = math.min((TraveledDistance / DreamCore.ChristmasSnowman.buildDistance) * 100, 100) })
+				Citizen.Wait(50)
+			end
+			SendNUIMessage({ type = 'snowman_progress_bar:stop' })
+			ClearPedTasks(cache.ped)
+		end
+
+		-- Start Prop Placer
+		local PropCoords = StartPropPlacer(DreamCore.ChristmasSnowman.snowmanModel, 'snowman')
+
+		if PropCoords then
+			IsBuildingSnowman = false
+
+			local result = lib.callback.await('dream_christmas:server:placeSnowman', false, PropCoords)
+			if result.success then
+				PlaceSnowmanProp(PropCoords)
+			else
+				DreamCore.Notify(result.message, "error", 5000)
+			end
+		else
+			IsBuildingSnowman = false
+			DreamCore.Notify(Locales['ChristmasSnowman']['Error']['General'], "error", 5000)
+		end
+	end)
+end
+
+-- Prop Placer
+local PreviewEntity = nil
+function StartPropPlacer(prop, previewEntityType)
+	IsInPropPlacer = true
+	local IsInPlacerLocal = true
+	local FinalPropCoords = nil
+
+	-- Load Model
+	lib.requestModel(prop)
+
+	-- Place Prop
+	local SpawnCoords = GetOffsetFromEntityInWorldCoords(cache.ped, 0.0, 3.0, 0.0)
+	local PreviewEntityCoords = vector4(SpawnCoords.x, SpawnCoords.y, SpawnCoords.z - 1.0, GetEntityHeading(cache.ped) + 90.0)
+	PreviewEntity = CreateObject(prop, PreviewEntityCoords.x, PreviewEntityCoords.y, PreviewEntityCoords.z, false, true, false)
+	SetEntityHeading(PreviewEntity, PreviewEntityCoords.w)
+	SetEntityCollision(PreviewEntity, false, true)
+	SetEntityAlpha(PreviewEntity, 200, false)
+	PlaceObjectOnGroundProperly(PreviewEntity)
+	FreezeEntityPosition(PreviewEntity, true)
+
+	-- Draw Outline
+	if CheckPreviewPropCoords(PreviewEntityCoords, previewEntityType) then
+		SetEntityDrawOutlineColor(127, 255, 0, 200) -- Green
+	else
+		SetEntityDrawOutlineColor(220, 20, 60, 200) -- Red
+	end
+	SetEntityDrawOutlineShader(1)
+	SetEntityDrawOutline(PreviewEntity, true)
+
+	-- Scaleform
+	-- Thanks to sadboilogan for the Scaleform Example
+	-- https://forum.cfx.re/t/instructional-buttons/53283
+	local PreviewScaleform = RequestScaleformMovie("instructional_buttons")
+	while not HasScaleformMovieLoaded(PreviewScaleform) do
+		Citizen.Wait(0)
+	end
+
+	DrawScaleformMovieFullscreen(PreviewScaleform, 255, 255, 255, 0, 0)
+
+	PushScaleformMovieFunction(PreviewScaleform, "CLEAR_ALL")
+	PopScaleformMovieFunctionVoid()
+
+	PushScaleformMovieFunction(PreviewScaleform, "SET_CLEAR_SPACE")
+	PushScaleformMovieFunctionParameterInt(200)
+	PopScaleformMovieFunctionVoid()
+
+	PushScaleformMovieFunction(PreviewScaleform, "SET_DATA_SLOT")
+	PushScaleformMovieFunctionParameterInt(0)
+	ScaleformButton(GetControlInstructionalButton(2, 38, true))
+	ScaleformButton(GetControlInstructionalButton(2, 44, true))
+	ScaleformButtonMessage(Locales['PropPlacer']['Rotate'])
+	PopScaleformMovieFunctionVoid()
+
+	PushScaleformMovieFunction(PreviewScaleform, "SET_DATA_SLOT")
+	PushScaleformMovieFunctionParameterInt(1)
+	ScaleformButton(GetControlInstructionalButton(2, 177, true))
+	ScaleformButtonMessage(Locales['PropPlacer']['Cancel'])
+	PopScaleformMovieFunctionVoid()
+
+	PushScaleformMovieFunction(PreviewScaleform, "SET_DATA_SLOT")
+	PushScaleformMovieFunctionParameterInt(2)
+	ScaleformButton(GetControlInstructionalButton(2, 18, true))
+	ScaleformButtonMessage(Locales['PropPlacer']['Place'])
+	PopScaleformMovieFunctionVoid()
+
+	PushScaleformMovieFunction(PreviewScaleform, "DRAW_INSTRUCTIONAL_BUTTONS")
+	PopScaleformMovieFunctionVoid()
+
+	PushScaleformMovieFunction(PreviewScaleform, "SET_BACKGROUND_COLOUR")
+	PushScaleformMovieFunctionParameterInt(0)
+	PushScaleformMovieFunctionParameterInt(0)
+	PushScaleformMovieFunctionParameterInt(0)
+	PushScaleformMovieFunctionParameterInt(80)
+	PopScaleformMovieFunctionVoid()
+
+	-- Prevent the Player from using Cover
+	SetPlayerCanUseCover(cache.playerId, false) -- Disable Cover
+
+	-- Raycast Coords
+	local EndCoords = vector3(PreviewEntityCoords.x, PreviewEntityCoords.y, PreviewEntityCoords.z)
+	Citizen.CreateThread(function()
+		while IsInPlacerLocal do
+			local _, _, RaycastCoords, _ = lib.raycast.fromCamera(511, 4, 50.0)
+			EndCoords = RaycastCoords
+			Citizen.Wait(10)
+		end
+	end)
+
+	while true do
+		local EntityPositionChanged = false
+
+		DrawScaleformMovieFullscreen(PreviewScaleform, 255, 255, 255, 255, 0)
+
+		-- Disable Keys
+		DisableControlAction(0, 21, true) -- Disable Running
+		DisableControlAction(0, 22, true) -- Disable Jumping
+		DisableControlAction(0, 23, true) -- Disable Entering Vehicle
+		DisableControlAction(0, 24, true) -- Disable Attacking
+		DisableControlAction(0, 25, true) -- Disable Aim
+
+		-- Place
+		if IsControlJustPressed(0, 18) or IsControlPressed(0, 18) then
+			if CheckPreviewPropCoords(PreviewEntityCoords, previewEntityType) then
+				FinalPropCoords = PreviewEntityCoords
+			end
+			break
+		end
+
+		-- Cancel
+		if IsControlJustPressed(0, 177) or IsControlPressed(0, 177) then
+			break
+		end
+
+		-- Change Entity Position
+		if PreviewEntityCoords.xyz ~= vector3(EndCoords.x, EndCoords.y, EndCoords.z) then
+			PreviewEntityCoords = vector4(EndCoords.x, EndCoords.y, EndCoords.z, PreviewEntityCoords.w)
+			EntityPositionChanged = true
+		end
+
+		-- Q
+		if IsControlJustPressed(0, 44) or IsControlPressed(0, 44) then
+			PreviewEntityCoords = vector4(PreviewEntityCoords.x, PreviewEntityCoords.y, PreviewEntityCoords.z, PreviewEntityCoords.w + 0.5)
+			EntityPositionChanged = true
+		end
+
+		-- E
+		if IsControlJustPressed(0, 38) or IsControlPressed(0, 38) then
+			PreviewEntityCoords = vector4(PreviewEntityCoords.x, PreviewEntityCoords.y, PreviewEntityCoords.z, PreviewEntityCoords.w - 0.5)
+			EntityPositionChanged = true
+		end
+
+		-- Move Preview Entity
+		if EntityPositionChanged then
+			SetEntityCoordsNoOffset(PreviewEntity, PreviewEntityCoords.xyz)
+			SetEntityHeading(PreviewEntity, PreviewEntityCoords.w)
+			PlaceObjectOnGroundProperly(PreviewEntity)
+			FreezeEntityPosition(PreviewEntity, true)
+
+			if CheckPreviewPropCoords(PreviewEntityCoords, previewEntityType) then
+				SetEntityDrawOutlineColor(127, 255, 0, 200)
+			else
+				SetEntityDrawOutlineColor(220, 20, 60, 200)
+			end
+		end
+
+		Citizen.Wait(0)
+	end
+	SetEntityDrawOutline(PreviewEntity, false) -- Disable Outline
+	SetPlayerCanUseCover(cache.playerId, true) -- Enable Cover
+	DeleteEntity(PreviewEntity)
+
+	IsInPlacerLocal = false
+	IsInPropPlacer = false
+	if FinalPropCoords then
+		return FinalPropCoords
+	else
+		return false
+	end
+end
+
+function CheckPreviewPropCoords(PreviewEntityCoords, PreviewEntityType)
+	-- Validate Entity Position
+	local IsValid = true
+
+	if PreviewEntityType == 'snowman' then
+		-- Blacklisted Zones
+		for k, v in pairs(DreamCore.ChristmasSnowman.blacklistedZones) do
+			if #(PreviewEntityCoords.xyz - v.coords) < v.radius then IsValid = false end
+		end
+
+		-- On Road
+		local _, ClosestRoadCoords, anotPos = GetClosestRoad(PreviewEntityCoords.x, PreviewEntityCoords.y, PreviewEntityCoords.z, 10, 1, false)
+		if #(ClosestRoadCoords - PreviewEntityCoords.xyz) < DreamCore.ChristmasSnowman.distanceToNextRoad then IsValid = false end
+
+		-- TODO: Add check distance to other snowman?
+	end
+
+	return IsValid
+end
+
+function ScaleformButtonMessage(text)
+	BeginTextCommandScaleformString("STRING")
+	AddTextComponentScaleform(text)
+	EndTextCommandScaleformString()
+end
+
+function ScaleformButton(ControlButton)
+	N_0xe83a3e3557a56640(ControlButton)
 end
 
 function ProgressBar(Data)
@@ -733,6 +983,10 @@ AddEventHandler('onResourceStop', function(resourceName)
 		SetTimecycleModifierStrength(0.0)
 		SetTimecycleModifier('default')
 		SetNuiFocus(false, false)
+	end
+
+	if IsBuildingSnowman then
+		ClearPedTasks(cache.ped)
 	end
 
 	FreezeEntityPosition(cache.ped, false)

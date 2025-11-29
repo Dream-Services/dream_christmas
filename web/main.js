@@ -114,6 +114,22 @@ window.addEventListener('message', async (event) => {
         };
     };
 
+    // Snowman Progress bar
+    if (item.type === 'snowman_progress_bar:start') {
+        $('.snowman-progress-bar-text-value').text('0');
+        $('.snowman-progress-bar-bar-fill').css({ width: '0%' });
+        $('.snowman-progress-bar').fadeIn(350);
+    };
+
+    if (item.type === 'snowman_progress_bar:progress') {
+        $('.snowman-progress-bar-text-value').text(item.progress.toFixed(0));
+        $('.snowman-progress-bar-bar-fill').css({ width: `${item.progress}%` });
+    };
+
+    if (item.type === 'snowman_progress_bar:stop') {
+        $('.snowman-progress-bar').fadeOut(300);
+    };
+
     // Advent Calendar
     if (item.type === 'advent_calendar:show') {
         const data = item.data;

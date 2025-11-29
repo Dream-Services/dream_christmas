@@ -18,9 +18,16 @@ DreamLocales['pt'] = {
         ['bank'] = 'Banco',
         ['dirty_money'] = 'Dinheiro sujo'
     },
+
     ['Weapons'] = {
         ['unknown'] = 'Arma desconhecida',
         ['weapon_pistol'] = 'Pistola',
+    },
+
+    ['PropPlacer'] = {
+        ['Rotate'] = 'Girar +/-',
+        ['Cancel'] = 'Cancelar',
+        ['Place'] = 'Colocar'
     },
 
     ['PropSystem'] = {
@@ -69,6 +76,19 @@ DreamLocales['pt'] = {
         ['Error'] = {
             ['ChristmasPresentInvalid'] = '🎁 O presente de Natal é inválido',
             ['ChristmasPresentAlreadyClaimed'] = '🎁 O presente de Natal já foi reclamado'
+        }
+    },
+
+    ['ChristmasSnowman'] = {
+        ['Build'] = {
+            ['Start'] = '❄️ Constrói agora o boneco de neve!',
+        },
+        ['Error'] = {
+            ['General'] = '❄️ Não podes construir um boneco de neve agora!',
+            ['AlreadyBuilding'] = '❄️ Já estás a construir um boneco de neve!',
+            ['InPropPlacer'] = '❄️ Já estás no colocador de props!',
+            ['MaxCountReached'] = '❄️ Atingiste o número máximo de bonecos de neve!',
+            ['NoCarrotItem'] = '❄️ Não tens uma cenoura para construir o boneco de neve!',
         }
     },
 

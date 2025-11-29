@@ -23,6 +23,12 @@ DreamLocales['en'] = {
         ['weapon_pistol'] = 'Pistol',
     },
 
+    ['PropPlacer'] = {
+        ['Rotate'] = 'Rotate +/-',
+        ['Cancel'] = 'Cancel',
+        ['Place'] = 'Place'
+    },
+
     ['PropSystem'] = {
         ['TargetLabel'] = 'Search for a gift',
         ['ProgressBar'] = '🎁 Searching for a gift',
@@ -69,6 +75,19 @@ DreamLocales['en'] = {
         ['Error'] = {
             ['ChristmasPresentInvalid'] = '🎁 The Christmas present is invalid',
             ['ChristmasPresentAlreadyClaimed'] = '🎁 This Christmas present has already been claimed'
+        }
+    },
+
+    ['ChristmasSnowman'] = {
+        ['Build'] = {
+            ['Start'] = '❄️ Build now the snowman!',
+        },
+        ['Error'] = {
+            ['General'] = '❄️ You cannot build a snowman right now!',
+            ['AlreadyBuilding'] = '❄️ You are already building a snowman!',
+            ['InPropPlacer'] = '❄️ You are already something in the prop placer!',
+            ['MaxCountReached'] = '❄️ You have reached the maximum number of snowmen you can build!',
+            ['NoCarrotItem'] = '❄️ You do not have a snowman carrot to build a snowman!',
         }
     },
 

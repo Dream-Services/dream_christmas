@@ -18,9 +18,16 @@ DreamLocales['fr'] = {
         ['bank'] = 'Banque',
         ['dirty_money'] = 'Argent sale'
     },
+
     ['Weapons'] = {
         ['unknown'] = 'Arme inconnue',
         ['weapon_pistol'] = 'Pistolet',
+    },
+
+    ['PropPlacer'] = {
+        ['Rotate'] = 'Tourner +/-',
+        ['Cancel'] = 'Annuler',
+        ['Place'] = 'Placer'
     },
 
     ['PropSystem'] = {
@@ -69,6 +76,19 @@ DreamLocales['fr'] = {
         ['Error'] = {
             ['ChristmasPresentInvalid'] = '🎁 Le cadeau de Noël est invalide',
             ['ChristmasPresentAlreadyClaimed'] = '🎁 Le cadeau de Noël a déjà été récupéré'
+        }
+    },
+
+    ['ChristmasSnowman'] = {
+        ['Build'] = {
+            ['Start'] = '❄️ Construis le bonhomme de neige maintenant !',
+        },
+        ['Error'] = {
+            ['General'] = '❄️ Tu ne peux pas construire de bonhomme de neige maintenant.',
+            ['AlreadyBuilding'] = '❄️ Tu construis déjà un bonhomme de neige.',
+            ['InPropPlacer'] = '❄️ Tu es déjà dans le prop placer.',
+            ['MaxCountReached'] = '❄️ Tu as atteint le nombre maximum de bonshommes de neige.',
+            ['NoCarrotItem'] = '❄️ Tu n’as pas de carotte pour le bonhomme de neige.',
         }
     },
 
