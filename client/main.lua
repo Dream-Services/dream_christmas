@@ -259,7 +259,10 @@ AddEventHandler("dream_christmas:client:createPropSystem", function(AllObjects)
 				})
 			end
 
-			local SpawnedPropBlip = createBlip(v.prop.blip.name, v.coords, v.prop.blip.scale, v.prop.blip.sprite, v.prop.blip.color)
+			local SpawnedPropBlip = nil
+			if v.prop.blip.enable then
+				SpawnedPropBlip = createBlip(v.prop.blip.name, v.coords, v.prop.blip.scale, v.prop.blip.sprite, v.prop.blip.color)
+			end
 
 			PropSystemData[v.id] = {
 				id = v.id,
@@ -392,7 +395,11 @@ Citizen.CreateThread(function()
 				}
 			})
 		end
-		local SpawnedPropBlip = createBlip(v.blip.name, v.coords, v.blip.scale, v.blip.sprite, v.blip.color)
+
+		local SpawnedPropBlip = nil
+		if v.blip.enable then
+			SpawnedPropBlip = createBlip(v.blip.name, v.coords, v.blip.scale, v.blip.sprite, v.blip.color)
+		end
 
 		ChristmasTreeData[k] = {
 			entity = SpawnedProp,
@@ -483,7 +490,11 @@ Citizen.CreateThread(function()
 				}
 			})
 		end
-		local SpawnedPropBlip = createBlip(v.blip.name, v.coords, v.blip.scale, v.blip.sprite, v.blip.color)
+
+		local SpawnedPropBlip = nil
+		if v.blip.enable then
+			SpawnedPropBlip = createBlip(v.blip.name, v.coords, v.blip.scale, v.blip.sprite, v.blip.color)
+		end
 
 		ChristmasPresentData[k] = {
 			entity = SpawnedProp,
@@ -511,13 +522,16 @@ if DreamCore.AdventCalendar.enable then
 				)
 
 				-- Create Blip
-				local PedBlip = createBlip(
-					DreamCore.AdventCalendar.blip.name,
-					v.coords,
-					DreamCore.AdventCalendar.blip.scale,
-					DreamCore.AdventCalendar.blip.sprite,
-					DreamCore.AdventCalendar.blip.color
-				)
+				local PedBlip = nil
+				if DreamCore.AdventCalendar.blip.enable then
+					PedBlip = createBlip(
+						DreamCore.AdventCalendar.blip.name,
+						v.coords,
+						DreamCore.AdventCalendar.blip.scale,
+						DreamCore.AdventCalendar.blip.sprite,
+						DreamCore.AdventCalendar.blip.color
+					)
+				end
 
 				ChristmasAdventCalendarData.peds[k] = {
 					npc = PedNPC,
