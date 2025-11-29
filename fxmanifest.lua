@@ -41,5 +41,6 @@ exports {
 }
 
 dependencies {
+    '/gameBuild:2802', -- FiveM Build 2802+ for the xmas props
     'ox_lib'
 }
